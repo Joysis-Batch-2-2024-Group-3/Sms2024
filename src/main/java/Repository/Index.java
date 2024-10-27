@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package View;
+package Repository;
 
 /**
  *
  * @author mark
  */
- public class Index {
-    public static void SayHello()
-    {
-        System.out.println("hello");
-    }
+public class Index {
+    
 }
