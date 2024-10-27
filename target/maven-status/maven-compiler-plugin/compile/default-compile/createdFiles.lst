@@ -1,5 +1,9 @@
 com/mycompany/studentmanagementsystem2024/StudentManagementSystem2024.class
+Utils/PasswordHashing.class
 Repository/Index.class
+Model/AdminModel.class
+Utils/ClearConsole.class
+View/MainMenu.class
 Db/Db.class
 Controller/Index.class
 Model/Index.class

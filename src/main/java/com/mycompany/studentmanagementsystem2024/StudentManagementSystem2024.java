@@ -3,7 +3,7 @@
  */
 
 package com.mycompany.studentmanagementsystem2024;
-import View.Index;
+import View.MainMenu;
 
 /**
  *
@@ -12,7 +12,6 @@ import View.Index;
 public class StudentManagementSystem2024 {
 
     public static void main(String[] args) {
-        Index.SayHello();
-        
+        MainMenu.DisplayMainMenu();
     }
 }
