@@ -15,9 +15,9 @@ public class StudentController extends Db implements StudentRepository {
             state = con.createStatement();
             // Query to select only archived students
             result = state.executeQuery(DISPLAY_STUDENTS +" WHERE archived = true");
-            System.out.println("|-----------------|");
-            System.out.println("|Archived Students|");
-            System.out.println("------------------\n");
+            System.out.println("|===================|");
+            System.out.println("| Archived Students |");
+            System.out.println("|===================|\n");
             // Print the header only once
             System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-20s | %-10s\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section");
@@ -59,9 +59,9 @@ public class StudentController extends Db implements StudentRepository {
             connect();
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_STUDENTS);
-            System.out.println("|--------------------|");
-            System.out.println("|Display All Students|");
-            System.out.println("----------------------\n");
+            System.out.println("|======================|");
+            System.out.println("| Display All Students |");
+            System.out.println("|======================|\n");
             System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-20s | %-10s | %-8s\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
