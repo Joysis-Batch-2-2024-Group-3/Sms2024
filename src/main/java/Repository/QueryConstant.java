@@ -13,6 +13,8 @@ public interface QueryConstant {
             "INNER JOIN course_tbl ON student_tbl.course_id = course_tbl.course_id " +
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id";
 
+    String ADD_STUDENT = "INSERT INTO student_tbl(student_id, student_number, course_id, section_id) VALUES (?, ?, ?, ?)";
+
     // SEARCH_STUDENT query using LIKE
     String SEARCH_STUDENT = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
             "FROM student_tbl " +
@@ -34,5 +36,10 @@ public interface QueryConstant {
             "INNER JOIN course_tbl ON student_tbl.course_id = course_tbl.course_id " +
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id " +
             "WHERE course_tbl.course_name LIKE ?";
+    //DELETE_STUDENT query
+    String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_number = ?";
+
+    //ADMIN_LOGIN query
+    String ADMIN_LOGIN = "SELECT * FROM admins WHERE username = ? AND password = ?";
 
 }

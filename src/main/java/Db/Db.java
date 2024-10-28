@@ -13,7 +13,6 @@ import java.sql.*;
 import Repository.QueryConstant;
 
 public class Db implements QueryConstant {
-
     public Connection con;
     public Statement state;
     public ResultSet result;

@@ -1,14 +1,14 @@
 package Model;
 
 import java.sql.Date;
-import java.util.Calendar;
 
 public class StudentModel {
-    private int student_id;
+    private int studentId;
     private String student_firstname;
     private String student_lastname;
     private Date student_dob;
     private char student_sex;
+    private String studentNumber;
     private int student_yearlvl;
     private int student_course;
     private String student_section;
@@ -17,11 +17,11 @@ public class StudentModel {
     // Getters and Setters
 
     public int getStudentId() {
-        return student_id;
+        return studentId;
     }
 
     public void setStudentId(int student_id) {
-        this.student_id = student_id;
+        this.studentId = student_id;
     }
 
     public String getStudentFirstname() {
@@ -52,8 +52,17 @@ public class StudentModel {
         return student_sex;
     }
 
+
     public void setStudentSex(char student_sex) {
         this.student_sex = student_sex;
+    }
+
+    public String getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
     public int getStudentYearlvl() {
