@@ -2,12 +2,17 @@ package View;
 
 import Controller.StudentController;
 import Model.StudentModel;
+import Model.CourseModel;
+import Model.SectionModel;
 public class Temp_View {
     StudentController sc = new StudentController();
 
     public  void studentMenu() {
         StudentModel student = new StudentModel();
-        sc.displayStudents(student);
+        CourseModel cm = new CourseModel();
+        SectionModel sm = new SectionModel();
+        sc.displayArchivedStudents(student, cm, sm);
+        sc.displayStudents(student, cm, sm);
 
     }
     public static void main(String[] args) {
