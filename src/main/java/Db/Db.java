@@ -4,29 +4,29 @@
  */
 package Db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
  * @author mark
  */
-public class Db {
-        private static final String URL = "jdbc:mysql://localhost:3306/db_sms";
-    
-        public static Connection connect() {
-            try {
-                Connection connection = DriverManager.getConnection(URL);
-                System.out.println("Connected to the database.");
-                return connection;
-            } catch (SQLException e) {
-                System.err.println("Connection failed: " + e.getMessage());
-                return null;
-            }
-        }
-    
-        public static void main(String[] args) {
-            connect();
+import Repository.QueryConstant;
+
+public class Db implements QueryConstant {
+
+    public Connection con;
+    public Statement state;
+    public ResultSet result;
+    public PreparedStatement prep;
+
+    public void connect(){
+        try {
+            // call the driver
+            Class.forName(DRIVER);
+            // creating a connection
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
+}
