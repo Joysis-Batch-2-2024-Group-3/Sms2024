@@ -97,6 +97,7 @@ public class StudentController extends Db implements StudentRepository {
         }
     }
 
+
     @Override
     public void filterStudent(String key, String value, StudentModel student, CourseModel course, SectionModel section) {
 
@@ -156,6 +157,34 @@ public class StudentController extends Db implements StudentRepository {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
         }
+    }
+
+    public void displayStudentbySection(String Value, StudentModel sm, CourseModel cm, SectionModel secm){
+        filterStudent("section_name",Value,sm,cm,secm);
+    }
+
+    @Override
+    public void displayStudentbyCourse(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
+        filterStudent("course_name",Value,sm,cm,secm);
+
+    }
+
+    @Override
+    public void displayStudentbyFName(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
+        filterStudent("first_name",Value,sm,cm,secm);
+
+    }
+
+    @Override
+    public void displayStudentbyLname(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
+        filterStudent("last_name",Value,sm,cm,secm);
+
+    }
+
+    @Override
+    public void displayStudentbyStudent_ID(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
+        filterStudent("student_id",Value,sm,cm,secm);
+
     }
 
     // Helper method to validate the column name
