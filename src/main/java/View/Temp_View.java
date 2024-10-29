@@ -4,12 +4,14 @@ import Controller.StudentController;
 import Model.StudentModel;
 import Model.CourseModel;
 import Model.SectionModel;
+import Model.SubjectModel;
 import java.util.Scanner;
 import Controller.SectionController;
 import Controller.CourseController;
-
+import Controller.SubjectController;
 public class Temp_View {
     StudentController sc = new StudentController();
+    SubjectController sub = new SubjectController();
     SectionController sec = new SectionController();
     CourseController cc = new CourseController();
     Scanner scan = new Scanner(System.in);
@@ -21,7 +23,8 @@ public class Temp_View {
             System.out.println("1. Student Menu");
             System.out.println("2. Course Menu");
             System.out.println("3. Section Menu");
-            System.out.println("4. Exit");
+            System.out.println("4. Subject Menu");
+            System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scan.nextInt();
@@ -38,6 +41,9 @@ public class Temp_View {
                     sectionMenu();
                     break;
                 case 4:
+                    subjectMenu();
+                    break;
+                case 5:
                     running = false; // Exit the loop
                     System.out.println("Exiting...");
                     break;
@@ -164,6 +170,37 @@ public class Temp_View {
                     System.out.println("Invalid option. Please try again.");
             }
         }
+    }
+    public void subjectMenu(){
+        SubjectModel sm = new SubjectModel();
+        CourseModel cm = new CourseModel();
+        boolean running = true;
+        while (running) {
+            System.out.println("\n=== Subject Menu ===");
+            System.out.println("1. Display All Subjects");
+            System.out.println("2. Search Subjects by Course");
+            System.out.println("3. Back to Main Menu");
+            System.out.print("Choose an option: ");
+            int choice = scan.nextInt();
+            scan.nextLine();
+
+            switch (choice) {
+                case 1:
+                    sub.displayAllSubject(sm, cm);
+                    break;
+                case 2:
+                    System.out.print("Enter the course name or substring: ");
+                    String searchValue = scan.nextLine();
+                    sub.displaySubjectByCourse(searchValue, sm, cm);
+                    break;
+                case 3:
+                    running = false; // Exit the loop and go back to the main menu
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+            }
+
     }
 
 

@@ -40,12 +40,26 @@ public interface QueryConstant {
     // DISPLAY COURSES
     String DISPLAY_COURSE = "SELECT course_tbl.course_id, course_tbl.course_name, course_tbl.department_name FROM course_tbl";
 
+    //Queries for Section
     //SEARCH SECTION
     String SEARCH_SECTION = "SELECT section_tbl.section_id, section_tbl.section_name, course_tbl.course_name FROM section_tbl" +
             " INNER JOIN course_tbl ON section_tbl.course_id = course_tbl.course_id" +
             " WHERE section_tbl.section_name LIKE ?";
+
+    //Queries for Course
     // SEARCH COURSE
     String SEARCH_COURSE = "SELECT course_tbl.course_id, course_tbl.course_name, course_tbl.department_name FROM course_tbl" +
             " WHERE %s LIKE ?";
+
+    //Queries for Subject
+// DISPLAY SUBJECT
+    String DISPLAY_SUBJECT = "SELECT subject_tbl.subject_id, subject_tbl.subject_name, course_tbl.course_name " +
+            "FROM subject_tbl " +
+            "INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id";
+
+    // DISPLAY SUBJECT BY COURSE
+    String DISPLAY_SUBJECT_COURSE = "SELECT subject_tbl.subject_id, subject_tbl.subject_name, course_tbl.course_name FROM subject_tbl INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id WHERE course_tbl.course_name  Like ?";
+
+
 
 }
