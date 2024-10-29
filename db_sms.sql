@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2024 at 08:37 AM
+-- Generation Time: Oct 29, 2024 at 07:15 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -50,8 +50,8 @@ CREATE TABLE `course_tbl` (
 --
 
 INSERT INTO `course_tbl` (`course_id`, `course_name`, `department_name`) VALUES
-(5, 'Computer Science', 'ICTE'),
-(6, 'Information Technology', 'ICTE');
+(1, 'Computer Science', 'ICTE'),
+(2, 'Information Technology', 'ICTE');
 
 -- --------------------------------------------------------
 
@@ -61,17 +61,22 @@ INSERT INTO `course_tbl` (`course_id`, `course_name`, `department_name`) VALUES
 
 CREATE TABLE `schedule_tbl` (
   `schedule_id` int(11) NOT NULL,
-  `day_&_time` varchar(50) NOT NULL,
+  `day` varchar(50) NOT NULL,
   `section_id` int(11) NOT NULL,
-  `subject_id` int(11) DEFAULT NULL
+  `subject_id` int(11) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `schedule_tbl`
 --
 
-INSERT INTO `schedule_tbl` (`schedule_id`, `day_&_time`, `section_id`, `subject_id`) VALUES
-(1, 'Thursday 8am', 1, 3);
+INSERT INTO `schedule_tbl` (`schedule_id`, `day`, `section_id`, `subject_id`, `start_time`, `end_time`) VALUES
+(1, 'Thursday', 1, 3, '13:00:00', '16:30:00'),
+(2, 'Thursday', 2, 1, '13:00:00', '16:30:00'),
+(3, 'Friday', 1, 1, '13:00:00', '16:30:00'),
+(4, 'Friday', 2, 3, '13:00:00', '16:30:00');
 
 -- --------------------------------------------------------
 
@@ -90,7 +95,8 @@ CREATE TABLE `section_tbl` (
 --
 
 INSERT INTO `section_tbl` (`section_id`, `section_name`, `course_id`) VALUES
-(1, 'CS101', 5);
+(1, 'CS101', 1),
+(2, 'CS102', 1);
 
 -- --------------------------------------------------------
 
@@ -102,7 +108,7 @@ CREATE TABLE `student_subject_tbl` (
   `student_subject_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
-  `archived` tinyint(1) DEFAULT NULL
+  `archived` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -127,7 +133,7 @@ CREATE TABLE `student_tbl` (
   `year_level` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
-  `archived` tinyint(1) DEFAULT NULL
+  `archived` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -135,7 +141,8 @@ CREATE TABLE `student_tbl` (
 --
 
 INSERT INTO `student_tbl` (`student_id`, `first_name`, `last_name`, `birth_date`, `sex`, `year_level`, `course_id`, `section_id`, `archived`) VALUES
-(1, 'Paul Marius', 'Simms', '2003-07-18', 'M', 4, 5, 1, NULL);
+(1, 'Paul Marius', 'Simms', '2003-07-18', 'M', 4, 1, 1, 0),
+(2, 'Crystal Kate', 'Aquino', '2002-08-06', 'F', 4, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -154,8 +161,9 @@ CREATE TABLE `subject_tbl` (
 --
 
 INSERT INTO `subject_tbl` (`subject_id`, `subject_name`, `course_id`) VALUES
-(1, 'Network Technology', 5),
-(3, 'Data Privacy ', 5);
+(1, 'Network Technology', 1),
+(2, 'Software Quality Assurance', 1),
+(3, 'Data Privacy ', 2);
 
 --
 -- Indexes for dumped tables
@@ -231,13 +239,13 @@ ALTER TABLE `course_tbl`
 -- AUTO_INCREMENT for table `schedule_tbl`
 --
 ALTER TABLE `schedule_tbl`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `section_tbl`
 --
 ALTER TABLE `section_tbl`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student_subject_tbl`
@@ -249,7 +257,7 @@ ALTER TABLE `student_subject_tbl`
 -- AUTO_INCREMENT for table `student_tbl`
 --
 ALTER TABLE `student_tbl`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `subject_tbl`

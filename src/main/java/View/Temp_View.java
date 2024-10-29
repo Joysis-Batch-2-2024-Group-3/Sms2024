@@ -1,19 +1,23 @@
 package View;
 
-import Controller.StudentController;
+import Controller.*;
 import Model.StudentModel;
 import Model.CourseModel;
+import Model.ScheduleModel;
+import Model.Student_SubjectModel;
+
 import Model.SectionModel;
 import Model.SubjectModel;
 import java.util.Scanner;
-import Controller.SectionController;
-import Controller.CourseController;
-import Controller.SubjectController;
+
 public class Temp_View {
     StudentController sc = new StudentController();
     SubjectController sub = new SubjectController();
     SectionController sec = new SectionController();
     CourseController cc = new CourseController();
+    ScheduleController sched = new ScheduleController();
+    Student_SubjectModel stSub = new Student_SubjectModel();
+
     Scanner scan = new Scanner(System.in);
 
     public void mainMenu() {
@@ -24,7 +28,8 @@ public class Temp_View {
             System.out.println("2. Course Menu");
             System.out.println("3. Section Menu");
             System.out.println("4. Subject Menu");
-            System.out.println("5. Exit");
+            System.out.println("5. Schedule Menu");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scan.nextInt();
@@ -44,6 +49,8 @@ public class Temp_View {
                     subjectMenu();
                     break;
                 case 5:
+                    scheduleMenu();
+                case 6:
                     running = false; // Exit the loop
                     System.out.println("Exiting...");
                     break;
@@ -178,7 +185,7 @@ public class Temp_View {
         while (running) {
             System.out.println("\n=== Subject Menu ===");
             System.out.println("1. Display All Subjects");
-            System.out.println("2. Search Subjects by Course");
+            System.out.println("2. Filter Subject by Course");
             System.out.println("3. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
@@ -203,6 +210,48 @@ public class Temp_View {
 
     }
 
+    public void scheduleMenu(){
+    ScheduleModel sm = new ScheduleModel();
+    SubjectModel sub = new SubjectModel();
+    SectionModel secm = new SectionModel();
+
+    boolean running = true;
+    while (running) {
+        System.out.println("\n=== Schedule Menu ===");
+        System.out.println("1. Display All Schedule");
+        System.out.println("2. Search Schedule by Section");
+        System.out.println("3. Search Schedule by day");
+        System.out.println("4. Back to Main Menu");
+        System.out.print("Choose an option: ");
+        int choice = scan.nextInt();
+        scan.nextLine();
+
+        switch (choice) {
+            case 1:
+                sched.displayAllSchedule(sm, sub, secm);
+                break;
+            case 2:
+                System.out.print("Enter the section name or substring: ");
+                String searchValue = scan.nextLine();
+                sched.displayScheduleBySection(searchValue, sm, sub,secm) ;
+                break;
+
+            case 3:
+                System.out.print("Enter the day (Monday, Tuesday, Wednesday, etc..): ");
+                String day = scan.nextLine();
+                sched.displayScheduleByDay(day, sm, sub, secm);
+                break;
+
+
+            case 4:
+                running = false; // Exit the loop and go back to the main menu
+                break;
+            default:
+                System.out.println("Invalid option. Please try again.");
+        }
+
+    }
+    }
 
     public static void main(String[] args) {
         Temp_View view = new Temp_View();

@@ -8,6 +8,7 @@ import Repository.StudentRepository;
 import java.sql.PreparedStatement;
 
 public class StudentController extends Db implements StudentRepository {
+    String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
 
 
     @Override
@@ -98,9 +99,14 @@ public class StudentController extends Db implements StudentRepository {
 
     @Override
     public void filterStudent(String key, String value, StudentModel student, CourseModel course, SectionModel section) {
+        System.out.println("Select from this valid column keys:");
+        for (String column : validColumns) {
+            System.out.print(column + " ");
+        }
+        System.out.println();
         // Validate the key to ensure it corresponds to a valid column name
         key = key.toLowerCase();
-        if (!isValidColumn(key) && !key.equals("section_name") && !key.equals("course_name")) {
+        if (!isValidColumn(key)) {
             System.out.println("Invalid column: " + key);
             return;
         }
@@ -108,16 +114,8 @@ public class StudentController extends Db implements StudentRepository {
         try {
             connect();
             //Determine the appropriate search query
-            String searchQuery;
-            if(key.equals("section_name")){
-                searchQuery = SEARCH_STUDENT_SECTION;
-            }
-            else if(key.equals("course_name")){
-                searchQuery = SEARCH_STUDENT_COURSE;
-            }
-            else{
-                searchQuery = String.format(SEARCH_STUDENT, key);
-            }
+
+                String searchQuery = String.format(SEARCH_STUDENT, key);
 
             // Prepare the statement
             PreparedStatement preparedStatement = con.prepareStatement(searchQuery);
@@ -166,7 +164,6 @@ public class StudentController extends Db implements StudentRepository {
     // Helper method to validate the column name
     private boolean isValidColumn(String key) {
         // List of valid column names
-        String[] validColumns = {"student_id", "first_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
 
         for (String column : validColumns) {
             if (column.equals(key)) {
