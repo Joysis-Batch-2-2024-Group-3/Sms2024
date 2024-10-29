@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 04:26 PM
+-- Generation Time: Oct 29, 2024 at 04:41 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -96,7 +96,7 @@ CREATE TABLE `section_tbl` (
 
 INSERT INTO `section_tbl` (`section_id`, `section_name`, `course_id`) VALUES
 (1, 'CS101', 1),
-(2, 'CS102', 1);
+(2, 'IT101', 2);
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,12 @@ CREATE TABLE `student_subject_tbl` (
 --
 
 INSERT INTO `student_subject_tbl` (`student_subject_id`, `student_id`, `subject_id`, `archived`, `section_id`) VALUES
-(1, 1, 1, 0, 2);
+(1, 1, 1, 0, 1),
+(2, 2, 1, 0, 2),
+(3, 1, 3, 0, 1),
+(4, 2, 3, 0, 2),
+(5, 1, 2, 0, 1),
+(6, 2, 2, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -143,7 +148,7 @@ CREATE TABLE `student_tbl` (
 
 INSERT INTO `student_tbl` (`student_id`, `first_name`, `last_name`, `birth_date`, `sex`, `year_level`, `course_id`, `section_id`, `archived`) VALUES
 (1, 'Paul Marius', 'Simms', '2003-07-18', 'M', 4, 1, 1, 0),
-(2, 'Crystal Kate', 'Aquino', '2002-08-06', 'F', 4, 2, 1, 1);
+(2, 'Crystal Kate', 'Aquino', '2002-08-06', 'F', 4, 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +258,7 @@ ALTER TABLE `section_tbl`
 -- AUTO_INCREMENT for table `student_subject_tbl`
 --
 ALTER TABLE `student_subject_tbl`
-  MODIFY `student_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `student_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student_tbl`
