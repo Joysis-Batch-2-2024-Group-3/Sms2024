@@ -88,6 +88,7 @@ public class Temp_View {
     }
 
     public void courseMenu() {
+        Scanner sc = new Scanner(System.in);
         CourseModel cm = new CourseModel(); // Moved here to ensure a fresh instance
         boolean running = true;
         while (running) {
@@ -104,7 +105,25 @@ public class Temp_View {
                     cc.displayAllCourse(cm);
                     break;
                 case 2:
-                    // Implement search functionality for courses here
+                    System.out.println("======= Filter Course =======");
+                    System.out.println("1. Course Name");
+                    System.out.println("2. Department Name");
+                    System.out.print("Choose a column to filter by: ");
+                    int option = sc.nextInt();
+                    switch (option) {
+                        case 1:
+                            System.out.print("Enter the course name (case-insensitive): ");
+                            String searchValue = scan.nextLine().toLowerCase();
+                            cc.filterCourse("course_name", searchValue, cm);
+                            break;
+                        case 2:
+                            System.out.print("Enter the department name (case-insensitive): ");
+                            String departmentName = scan.nextLine().toLowerCase();
+                            cc.filterCourse("department_name", departmentName, cm);
+                            break;
+                        default:
+                            System.out.println("Invalid option. Please try again.");
+                    }
                     break;
                 case 3:
                     running = false; // Exit the loop and go back to the main menu
@@ -126,13 +145,16 @@ public class Temp_View {
             System.out.println("3. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
-            scan.nextLine(); // Consume the newline character
+            scan.nextLine();
 
             switch (choice) {
                 case 1:
                     sec.displayAllSection(sm, cm);
                     break;
                 case 2:
+                    System.out.print("Enter the section name or substring: ");
+                    String searchValue = scan.nextLine();
+                    sec.filterSection(searchValue, sm, cm);
                     // Implement search functionality for sections here
                     break;
                 case 3:
@@ -143,6 +165,7 @@ public class Temp_View {
             }
         }
     }
+
 
     public static void main(String[] args) {
         Temp_View view = new Temp_View();

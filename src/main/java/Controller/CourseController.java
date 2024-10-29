@@ -13,12 +13,12 @@ public class CourseController extends Db implements CourseRepository {
         try {
             connect();
             state = con.createStatement();
-            result = state.executeQuery(SEARCH_COURSE);
+            result = state.executeQuery(DISPLAY_COURSE);
 
             System.out.println("|===================|");
             System.out.println("| Display All Course|");
             System.out.println("|===================|");
-            System.out.printf("| %-10s | %-20s | %-10s |\n", "ID", "Name", "Department");
+            System.out.printf("| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
 
             while (result.next()) {
                 // Create a new CourseModel instance for each row
@@ -27,12 +27,11 @@ public class CourseController extends Db implements CourseRepository {
                 course.setDepartment_name(result.getString("department_name"));
 
                 // Print the course details using the CourseModel instance
-                System.out.printf("| %-10d | %-20s | %-10s |\n",
+                System.out.printf("| %-10d | %-30s | %-10s |\n",
                         course.getCourse_id(),
                         course.getCourse_name(),
                         course.getDepartment_name());
             }
-            System.out.println("|===================|");
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         } catch (Exception e) {
@@ -46,6 +45,33 @@ public class CourseController extends Db implements CourseRepository {
             } catch (SQLException e) {
                 System.out.println("Error closing resources: " + e.getMessage());
             }
+        }
+    }
+    public void filterCourse(String key, String value, CourseModel course){
+
+        try{
+            connect();
+            String searchQuery = String.format(SEARCH_COURSE, key);
+            prep = con.prepareStatement(searchQuery);
+            prep.setString(1, "%" + value + "%");
+            result = prep.executeQuery();
+
+            System.out.println("|=================|");
+            System.out.println("| Filtered Course |");
+            System.out.println("|=================|");
+            System.out.printf("| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
+
+            while (result.next()) {
+                // Create a new CourseModel instance for each row
+                course.setCourse_id(result.getInt("course_id"));
+                course.setCourse_name(result.getString("course_name"));
+                course.setDepartment_name(result.getString("department_name"));
+
+                // Print the course details using the CourseModel instance
+                System.out.printf("| %-10d | %-30s | %-10s |\n", course.getCourse_id(), course.getCourse_name(), course.getDepartment_name());
+        }
+    } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
