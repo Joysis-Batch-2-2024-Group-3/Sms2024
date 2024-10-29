@@ -8,7 +8,7 @@ import Repository.StudentRepository;
 import java.sql.PreparedStatement;
 
 public class StudentController extends Db implements StudentRepository {
-    String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
+    public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
 
 
     @Override
@@ -99,10 +99,7 @@ public class StudentController extends Db implements StudentRepository {
 
     @Override
     public void filterStudent(String key, String value, StudentModel student, CourseModel course, SectionModel section) {
-        System.out.println("Select from this valid column keys:");
-        for (String column : validColumns) {
-            System.out.print(column + " ");
-        }
+
         System.out.println();
         // Validate the key to ensure it corresponds to a valid column name
         key = key.toLowerCase();

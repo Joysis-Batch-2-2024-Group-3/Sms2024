@@ -62,6 +62,7 @@ public class Temp_View {
 
     public void studentMenu() {
         StudentModel sm = new StudentModel();
+        String [] columns = StudentController.validColumns;
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
 
@@ -82,7 +83,11 @@ public class Temp_View {
                     sc.displayStudents(sm, cm, secm);
                     break;
                 case 2:
-                    System.out.print("Enter the column key (first_name, last_name, student_id, etc.): ");
+                    System.out.print("Valid column keys: [ ");
+                    for (String column : columns) {
+                        System.out.print(" | " +column + " | ");
+                    }
+                    System.out.print(" ] \nEnter a valid column:");
                     String searchKey = scan.nextLine();
                     System.out.print("Enter the filter value: ");
                     String searchValue = scan.nextLine();
