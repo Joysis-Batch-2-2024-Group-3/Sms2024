@@ -25,9 +25,9 @@ public class SubjectController extends Db implements SubjectRepository {
 
                 subject.setSubject_id(result.getInt("subject_id"));
                 subject.setSubject_name(result.getString("subject_name"));
-                course.setCourse_name(result.getString("course_name"));
+                course.setCourseName(result.getString("course_name"));
 
-                System.out.printf("| %-10d | %-30s | %-30s |\n", subject.getSubject_id(), subject.getSubject_name(), course.getCourse_name());
+                System.out.printf("| %-10d | %-30s | %-30s |\n", subject.getSubject_id(), subject.getSubject_name(), course.getCourseName());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -60,9 +60,9 @@ public class SubjectController extends Db implements SubjectRepository {
 
                 subject.setSubject_id(result.getInt("subject_id"));
                 subject.setSubject_name(result.getString("subject_name"));
-                course.setCourse_name(result.getString("course_name"));
+                course.setCourseName(result.getString("course_name"));
 
-                System.out.printf("| %-10d | %-40s | %-30s |\n", subject.getSubject_id(), subject.getSubject_name(), course.getCourse_name());
+                System.out.printf("| %-10d | %-40s | %-30s |\n", subject.getSubject_id(), subject.getSubject_name(), course.getCourseName());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

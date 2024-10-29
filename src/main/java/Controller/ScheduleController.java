@@ -24,14 +24,14 @@ public class ScheduleController extends Db implements ScheduleRepository {
 
             while (result.next()) {
                 schedule.setSchedule_id(result.getInt("schedule_id"));
-                section.setSection_name(result.getString("section_name"));
+                section.setSectionName(result.getString("section_name"));
                 subject.setSubject_name(result.getString("subject_name"));
                 schedule.setDay(result.getString("day"));
                 schedule.setStart_time(Time.valueOf(result.getString("start_time")));
                 schedule.setEnd_time(Time.valueOf(result.getString("end_time")));
 
                 System.out.printf("| %-10d | %-20s | %-20s | %-20s | %-20s | %-20s |\n",
-                        schedule.getSchedule_id(), section.getSection_name(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
+                        schedule.getSchedule_id(), section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
 
             }
         } catch (SQLException e) {
@@ -65,14 +65,14 @@ public class ScheduleController extends Db implements ScheduleRepository {
 
             while (result.next()) {
                 schedule.setSchedule_id(result.getInt("schedule_id"));
-                section.setSection_name(result.getString("section_name"));
+                section.setSectionName(result.getString("section_name"));
                 subject.setSubject_name(result.getString("subject_name"));
                 schedule.setDay(result.getString("day"));
                 schedule.setStart_time(Time.valueOf(result.getString("start_time")));
                 schedule.setEnd_time(Time.valueOf(result.getString("end_time")));
 
                 System.out.printf("| %-10d | %-20s | %-20s | %-20s | %-20s | %-20s |\n",
-                        schedule.getSchedule_id(), section.getSection_name(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
+                        schedule.getSchedule_id(), section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
 
             }
         } catch (SQLException e) {

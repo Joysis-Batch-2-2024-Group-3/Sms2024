@@ -23,14 +23,14 @@ public class CourseController extends Db implements CourseRepository {
             while (result.next()) {
                 // Create a new CourseModel instance for each row
                 course.setCourse_id(result.getInt("course_id"));
-                course.setCourse_name(result.getString("course_name"));
-                course.setDepartment_name(result.getString("department_name"));
+                course.setCourseName(result.getString("course_name"));
+                course.setDepartmentName(result.getString("department_name"));
 
                 // Print the course details using the CourseModel instance
                 System.out.printf("| %-10d | %-30s | %-10s |\n",
-                        course.getCourse_id(),
-                        course.getCourse_name(),
-                        course.getDepartment_name());
+                        course.getCourseID(),
+                        course.getCourseName(),
+                        course.getDepartmentName());
             }
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
@@ -64,11 +64,11 @@ public class CourseController extends Db implements CourseRepository {
             while (result.next()) {
                 // Create a new CourseModel instance for each row
                 course.setCourse_id(result.getInt("course_id"));
-                course.setCourse_name(result.getString("course_name"));
-                course.setDepartment_name(result.getString("department_name"));
+                course.setCourseName(result.getString("course_name"));
+                course.setDepartmentName(result.getString("department_name"));
 
                 // Print the course details using the CourseModel instance
-                System.out.printf("| %-10d | %-30s | %-10s |\n", course.getCourse_id(), course.getCourse_name(), course.getDepartment_name());
+                System.out.printf("| %-10d | %-30s | %-10s |\n", course.getCourseID(), course.getCourseName(), course.getDepartmentName());
         }
     } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -21,15 +21,15 @@ public class SectionController extends Db implements SectionRepository {
 
             while (result.next()) {
                 // Set properties for SectionModel
-                section.setSection_id(result.getInt("section_id"));
-                section.setSection_name(result.getString("section_name"));
+                section.setSectionId(result.getInt("section_id"));
+                section.setSectionName(result.getString("section_name"));
 
                 // Set properties for CourseModel
-                course.setCourse_name(result.getString("course_name"));
+                course.setCourseName(result.getString("course_name"));
 
                 // Print the section details using the model instances
                 System.out.printf("%-10d | %-25s | %-25s \n",
-                        section.getSection_id(), section.getSection_name(), course.getCourse_name());
+                        section.getSectionId(), section.getSectionName(), course.getCourseName());
             }
             System.out.println("|======================|");
         } catch (SQLException e) {
@@ -60,14 +60,14 @@ public class SectionController extends Db implements SectionRepository {
 
             while(result.next()){
                 // Set properties for SectionModel
-                section.setSection_id(result.getInt("section_id"));
-                section.setSection_name(result.getString("section_name"));
+                section.setSectionId(result.getInt("section_id"));
+                section.setSectionName(result.getString("section_name"));
 
                 // Set properties for CourseModel
-                course.setCourse_name(result.getString("course_name"));
+                course.setCourseName(result.getString("course_name"));
 
                 // Print the section details using the model instances
-                System.out.printf(" %-10d | %-25s | %-25s | \n", section.getSection_id(), section.getSection_name(), course.getCourse_name());
+                System.out.printf(" %-10d | %-25s | %-25s | \n", section.getSectionId(), section.getSectionName(), course.getCourseName());
 
             }
     } catch (SQLException e) {
