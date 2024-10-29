@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 04:01 PM
+-- Generation Time: Oct 29, 2024 at 04:26 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -117,7 +117,7 @@ CREATE TABLE `student_subject_tbl` (
 --
 
 INSERT INTO `student_subject_tbl` (`student_subject_id`, `student_id`, `subject_id`, `archived`, `section_id`) VALUES
-(1, 1, 1, 0, 0);
+(1, 1, 1, 0, 2);
 
 -- --------------------------------------------------------
 

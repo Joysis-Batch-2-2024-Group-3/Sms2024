@@ -21,22 +21,17 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             System.out.println("|================|");
             System.out.println("| Search Results |");
             System.out.println("|================|\n");
-            System.out.printf("%-5s | %-5s | %-20s | %-5s | %-20s | %-5s | %-20s |\n",
-                    "ID", "Student ID","Student Name","Subject ID","Subject Name" ,"Section ID","Section" );
+            System.out.printf("%-5s | %-20s | %-20s | %-20s |\n",
+                    "ID", "Student Name","Subject Name" ,"Section" );
             while(result.next()){
                 ssm.setStudent_subject_id(result.getInt("student_subject_id"));
-                ssm.setStudent_id(result.getInt("student_id"));
                 sm.setStudentFirstname(result.getString("first_name"));
                 sm.setStudentLastname(result.getString("last_name"));
-                ssm.setArchived(result.getBoolean("archived"));
-                ssm.setSubject_id(result.getInt("subject_id"));
                 subm.setSubject_name(result.getString("subject_name"));
-                sec.setSectionId(result.getInt("section_id"));
                 sec.setSectionName(result.getString("section_name"));
                 String student_name = (sm.getStudentFirstname() + " " + sm.getStudentLastname());
-                System.out.printf("%-5d | %-5d | %-20s | %-5d | %-20s | %-5d | %-20s |\n",
-                        ssm.getStudent_subject_id(), ssm.getStudent_id(), student_name,
-                        subm.getSubject_id(), subm.getSubject_name(), sec.getSectionId(), sec.getSectionName());
+                System.out.printf("%-5d | %-20s | %-20s  | %-20s |\n",
+                        ssm.getStudent_subject_id(), student_name, subm.getSubject_name(), sec.getSectionName());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -53,7 +48,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
     }
     @Override
     public void displayStudentsSubjectByStudent(String Value,Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel secm) {
-        filterStudentSubject("CONCAT(s.first_name, ' ', s.last_name)", Value, ssm, sm, subm, secm);
+        filterStudentSubject(" CONCAT(student_tbl.first_name, ' ', student_tbl.last_name)", Value, ssm, sm, subm, secm);
     }
 
     @Override

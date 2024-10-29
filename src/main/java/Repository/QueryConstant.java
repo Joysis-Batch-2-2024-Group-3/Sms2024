@@ -70,22 +70,11 @@ String DISPLAY_SCHEDULE_FILTERED = "SELECT schedule_tbl.schedule_id, schedule_tb
     //ADMIN_LOGIN query
     String ADMIN_LOGIN = "SELECT * FROM admins WHERE username = ? AND password = ?";
 
-    String SEARCH_STUDENT_SUBJECT = "SELECT \n" +
-            "    ss.student_subject_id, \n" +
-            "    ss.student_id, \n" +
-            "    CONCAT(s.first_name, ' ', s.last_name) AS student_name, \n" +
-            "    ss.subject_id, \n" +
-            "    sub.subject_name AS subject_name, \n" +
-            "    sec.section_name AS section_name, \n" + // Added section_name
-            "    ss.archived \n" +
-            "FROM \n" +
-            "    student_subject_tbl AS ss\n" +
-            "INNER JOIN \n" +
-            "    student_tbl AS s ON ss.student_id = s.student_id\n" +
-            "INNER JOIN \n" +
-            "    subject_tbl AS sub ON ss.subject_id = sub.subject_id\n" +
-            "INNER JOIN \n" +
-            "    section_tbl AS sec ON ss.section_id = sec.section_id\n" + // Added join for section
-            "WHERE %s LIKE ?"; // Ensure to include section_name in your WHERE condition as needed
+    String SEARCH_STUDENT_SUBJECT = "SELECT student_subject_tbl.student_subject_id, student_tbl.first_name, student_tbl.last_name, subject_tbl.subject_name, section_tbl.section_name" +
+            " From student_subject_tbl" +
+            " INNER JOIN student_tbl ON student_subject_tbl.student_id = student_tbl.student_id" +
+            " INNER JOIN subject_tbl ON student_subject_tbl.subject_id = subject_tbl.subject_id" +
+            " INNER JOIN section_tbl ON student_subject_tbl.section_id = section_tbl.section_id" +
+            " WHERE %s LIKE ?";  // Ensure to include section_name in your WHERE condition as needed
 
 }
