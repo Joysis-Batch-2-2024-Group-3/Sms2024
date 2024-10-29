@@ -34,5 +34,9 @@ public interface QueryConstant {
             "INNER JOIN course_tbl ON student_tbl.course_id = course_tbl.course_id " +
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id " +
             "WHERE course_tbl.course_name LIKE ?";
+    // SEARCH SECTIONS
+    String SEARCH_SECTIONS = "SELECT section_tbl.section_id, section_tbl.section_name, course_tbl.course_name"
+            + " FROM section_tbl INNER JOIN course_tbl ON section_tbl.course_id = course_tbl.course_id";
 
+    String SEARCH_COURSE = "SELECT course_tbl.course_id, course_tbl.course_name, course_tbl.department_name FROM course_tbl";
 }
