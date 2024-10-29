@@ -75,7 +75,6 @@ public class StudentController extends Db implements StudentRepository {
                 student.setStudentLastname(result.getString("last_name"));
                 student.setStudentDob(result.getDate("birth_date"));
                 student.setStudentSex(result.getString("sex").charAt(0));
-                student.setStudentNumber(result.getString("student_number"));
                 student.setStudentYearlvl(result.getInt("year_level"));
                 course.setCourseName(result.getString("course_name"));
                 section.setSectionName(result.getString("section_name"));
@@ -83,7 +82,7 @@ public class StudentController extends Db implements StudentRepository {
 
                 System.out.printf("%-5d | %-15s | %-15s | %-10s | %-5c | %-10d | %-25s | %-10s | %-8s\n",
                         student.getStudentId(), student.getStudentFirstname(), student.getStudentLastname(),
-                        student.getStudentDob(), student.getStudentSex(), student.getStudentYearlvl(), student.getStudentNumber(),
+                        student.getStudentDob(), student.getStudentSex(), student.getStudentYearlvl(),
                         course.getCourseName(), section.getSectionName(), student.isStudentArchive() ? "Yes" : "No");
             }
         } catch (Exception e) {
@@ -104,11 +103,10 @@ public class StudentController extends Db implements StudentRepository {
             connect();
             prep = con.prepareStatement(ADD_STUDENT);
             prep.setInt(1,  student.getStudentId());
-            prep.setString(2, student.getStudentNumber());
             prep.setInt(3, course.getCourseID());
             prep.setInt(4, section.getSectionId());
             prep.executeUpdate();
-            System.out.println("Student " +  student.getStudentNumber() + " added successfully!");
+            System.out.println("Student " +  student.getStudentId() + " added successfully!");
         }catch (Exception e){
             System.out.println("Error adding student: " + e.getMessage());
         }
@@ -142,8 +140,8 @@ public class StudentController extends Db implements StudentRepository {
             System.out.println("|================|");
             System.out.println("| Search Results |");
             System.out.println("|================|\n");
-            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s | %-10s | %-8s |\n",
-                    "ID", "First Name", "Last Name", "DOB", "Sex", "Student Number", "Year Level", "Course", "Section", "Archived");
+            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-25s | %-10s | %-10s | %-8s |\n",
+                    "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
             // Loop through the result set and display each student
             while (result.next()) {
@@ -152,7 +150,6 @@ public class StudentController extends Db implements StudentRepository {
                 student.setStudentLastname(result.getString("last_name"));
                 student.setStudentDob(result.getDate("birth_date"));
                 student.setStudentSex(result.getString("sex").charAt(0));
-                student.setStudentNumber(result.getString("student_number"));
                 student.setStudentYearlvl(result.getInt("year_level"));
                 course.setCourseName(result.getString("course_name"));
                 section.setSectionName(result.getString("section_name"));
@@ -160,7 +157,7 @@ public class StudentController extends Db implements StudentRepository {
 
                 System.out.printf("%-5d | %-15s | %-15s | %-10s | %-5c | %-10d | %-25s | %-10s | %-8s |\n",
                         student.getStudentId(), student.getStudentFirstname(), student.getStudentLastname(),
-                        student.getStudentDob(), student.getStudentSex(), student.getStudentNumber(), student.getStudentYearlvl(),
+                        student.getStudentDob(), student.getStudentSex(), student.getStudentYearlvl(),
                         course.getCourseName(), section.getSectionName(), student.isStudentArchive() ? "Yes" : "No");
             }
         } catch (Exception e) {
@@ -223,9 +220,8 @@ public class StudentController extends Db implements StudentRepository {
             connect();
             prep =  con.prepareStatement(DELETE_STUDENT);
             prep.setInt(1, student.getStudentId());
-            prep.setString(2, student.getStudentNumber());
             prep.executeUpdate();
-            System.out.println("Student " + student.getStudentNumber() + " successfully deleted");
+            System.out.println("Student " + student.getStudentId() + " successfully deleted");
             con.close();
         }catch(Exception e){
             System.out.println("Error message " + e.getMessage());

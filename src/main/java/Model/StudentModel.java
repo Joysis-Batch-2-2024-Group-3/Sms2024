@@ -8,7 +8,6 @@ public class StudentModel {
     private String student_lastname;
     private Date student_dob;
     private char student_sex;
-    private String studentNumber;
     private int student_yearlvl;
     private int student_course;
     private String student_section;
@@ -55,14 +54,6 @@ public class StudentModel {
 
     public void setStudentSex(char student_sex) {
         this.student_sex = student_sex;
-    }
-
-    public String getStudentNumber() {
-        return studentNumber;
-    }
-
-    public void setStudentNumber(String studentNumber) {
-        this.studentNumber = studentNumber;
     }
 
     public int getStudentYearlvl() {

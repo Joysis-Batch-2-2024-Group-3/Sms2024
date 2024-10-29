@@ -225,7 +225,7 @@ public class Temp_View {
             }
         }
     }
-
+1
     public void scheduleMenu() {
         ScheduleModel sm = new ScheduleModel();
         SubjectModel sub = new SubjectModel();
