@@ -68,7 +68,7 @@ String DISPLAY_SCHEDULE_FILTERED = "SELECT schedule_tbl.schedule_id, schedule_tb
     String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_id = ?";
 
     //ADMIN_LOGIN query
-    String ADMIN_LOGIN = "SELECT * FROM admins WHERE username = ? AND password = ?";
+    String ADMIN_LOGIN = "SELECT * FROM admin_tbl WHERE username = ? AND password = ?";
 
     String SEARCH_STUDENT_SUBJECT = "SELECT student_subject_tbl.student_subject_id, student_tbl.first_name, student_tbl.last_name, subject_tbl.subject_name, section_tbl.section_name" +
             " From student_subject_tbl" +

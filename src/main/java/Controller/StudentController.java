@@ -1,9 +1,6 @@
 package Controller;
 import Db.Db;
-import Model.AdminModel;
-import Model.CourseModel;
-import Model.SectionModel;
-import Model.StudentModel;
+import Model.*;
 import Repository.StudentRepository;
 
 import java.sql.PreparedStatement;
@@ -99,6 +96,7 @@ public class StudentController extends Db implements StudentRepository {
     }
     @Override
     public void addStudent(StudentModel student, CourseModel  course, SectionModel section){
+        ScheduleController sched = new ScheduleController();
         try{
             connect();
             prep = con.prepareStatement(ADD_STUDENT);
@@ -107,7 +105,9 @@ public class StudentController extends Db implements StudentRepository {
             prep.setInt(4, section.getSectionId());
             prep.executeUpdate();
             System.out.println("Student " +  student.getStudentId() + " added successfully!");
-        }catch (Exception e){
+            displayStudents(new StudentModel(), new CourseModel(), new SectionModel());
+
+        }catch (Exception e) {
             System.out.println("Error adding student: " + e.getMessage());
         }
     }
