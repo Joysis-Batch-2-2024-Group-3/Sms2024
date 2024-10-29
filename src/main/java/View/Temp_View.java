@@ -10,6 +10,7 @@ public class Temp_View {
     private final SectionController sec = new SectionController();
     private final CourseController cc = new CourseController();
     private final ScheduleController sched = new ScheduleController();
+    private final Student_SubjectController ssc = new Student_SubjectController();
     private final Scanner scan = new Scanner(System.in);
 
     public void mainMenu() {
@@ -153,7 +154,7 @@ public class Temp_View {
     }
 
     public void subjectMenu() {
-        SubjectModel sm = new SubjectModel();
+        SubjectModel subm = new SubjectModel();
         CourseModel cm = new CourseModel();
         boolean running = true;
 
@@ -161,19 +162,65 @@ public class Temp_View {
             System.out.println("\n=== Subject Menu ===");
             System.out.println("1. Display All Subjects");
             System.out.println("2. Filter Subject by Course");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("3. Display Student Subject");
+            System.out.println("4. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine();
 
             switch (choice) {
-                case 1 -> sub.displayAllSubject(sm, cm);
+                case 1 -> sub.displayAllSubject(subm, cm);
                 case 2 -> {
                     System.out.print("Enter the course name or substring: ");
                     String searchValue = scan.nextLine();
-                    sub.displaySubjectByCourse(searchValue, sm, cm);
+                    sub.displaySubjectByCourse(searchValue, subm, cm);
                 }
-                case 3 -> running = false;
+                case 3 -> {
+                    studentSubjectMenu();
+                }
+                case 4 -> running = false;
+                default -> System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+    public void studentSubjectMenu() {
+        StudentModel sm = new StudentModel();
+        SubjectModel sub = new SubjectModel();
+        SectionModel secm = new SectionModel();
+        Student_SubjectModel ssm = new Student_SubjectModel();
+
+        boolean running = true;
+
+        while (running) {
+            System.out.println("=== Student Subject Menu ===");
+            System.out.println("1. Display Student Subjects based on Student's name");
+            System.out.println("2. Display Student Subjects based on Subject's name");
+            System.out.println("3. Display Student Subjects based on Section name");
+            System.out.println("4. Back to Main Menu");
+            System.out.print("Choose an option: ");
+            int choice = scan.nextInt();
+            scan.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Enter the student's name or substring: ");
+                    String searchValue = scan.nextLine();
+                    ssc.displayStudentsSubjectByStudent(searchValue, ssm, sm, sub, secm);
+                }
+                case 2 -> {
+                    System.out.print("Enter the subject's name or substring: ");
+                    String searchValue = scan.nextLine();
+                    ssc.displayStudentsSubjectBySubject(searchValue, ssm, sm, sub, secm);
+                }
+                case 3 -> {
+                    System.out.print("Enter the section name or substring: ");
+                    String searchValue = scan.nextLine();
+                    ssc.displayStudentsSubjectBySection(searchValue, ssm, sm, sub, secm);
+                }
+                case 4 -> {
+                    running = false;
+                    System.out.println("Returning to Main Menu...");
+                }
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }

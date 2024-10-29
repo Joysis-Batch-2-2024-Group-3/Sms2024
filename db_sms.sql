@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 07:15 AM
+-- Generation Time: Oct 29, 2024 at 04:01 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -108,15 +108,16 @@ CREATE TABLE `student_subject_tbl` (
   `student_subject_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
-  `archived` tinyint(1) DEFAULT 0
+  `archived` tinyint(1) DEFAULT 0,
+  `section_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student_subject_tbl`
 --
 
-INSERT INTO `student_subject_tbl` (`student_subject_id`, `student_id`, `subject_id`, `archived`) VALUES
-(1, 1, 1, 0);
+INSERT INTO `student_subject_tbl` (`student_subject_id`, `student_id`, `subject_id`, `archived`, `section_id`) VALUES
+(1, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,8 @@ ALTER TABLE `section_tbl`
 ALTER TABLE `student_subject_tbl`
   ADD PRIMARY KEY (`student_subject_id`),
   ADD KEY `student_id` (`student_id`),
-  ADD KEY `subject_id` (`subject_id`);
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `section_id` (`section_id`);
 
 --
 -- Indexes for table `student_tbl`
@@ -239,7 +241,7 @@ ALTER TABLE `course_tbl`
 -- AUTO_INCREMENT for table `schedule_tbl`
 --
 ALTER TABLE `schedule_tbl`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `section_tbl`
@@ -286,6 +288,7 @@ ALTER TABLE `section_tbl`
 -- Constraints for table `student_subject_tbl`
 --
 ALTER TABLE `student_subject_tbl`
+  ADD CONSTRAINT `fk_section` FOREIGN KEY (`section_id`) REFERENCES `section_tbl` (`section_id`),
   ADD CONSTRAINT `student_subject_tbl_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_tbl` (`student_id`),
   ADD CONSTRAINT `student_subject_tbl_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject_tbl` (`subject_id`);
 

@@ -142,7 +142,7 @@ public class StudentController extends Db implements StudentRepository {
             System.out.println("|================|");
             System.out.println("| Search Results |");
             System.out.println("|================|\n");
-            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s | %-8s\n",
+            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s | %-10s | %-8s |\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Student Number", "Year Level", "Course", "Section", "Archived");
 
             // Loop through the result set and display each student
@@ -158,7 +158,7 @@ public class StudentController extends Db implements StudentRepository {
                 section.setSectionName(result.getString("section_name"));
                 student.setStudentArchive(result.getBoolean("archived"));
 
-                System.out.printf("%-5d | %-15s | %-15s | %-10s | %-5c | %-10d | %-25s | %-10s | %-8s\n",
+                System.out.printf("%-5d | %-15s | %-15s | %-10s | %-5c | %-10d | %-25s | %-10s | %-8s |\n",
                         student.getStudentId(), student.getStudentFirstname(), student.getStudentLastname(),
                         student.getStudentDob(), student.getStudentSex(), student.getStudentNumber(), student.getStudentYearlvl(),
                         course.getCourseName(), section.getSectionName(), student.isStudentArchive() ? "Yes" : "No");
