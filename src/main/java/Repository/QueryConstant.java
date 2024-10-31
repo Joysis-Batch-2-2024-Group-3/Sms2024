@@ -13,6 +13,8 @@ public interface QueryConstant {
     // VALUE CONFLICT CHECKER
     String CONFLICT_CHECKER_QUERY_SCHEDULE = "SELECT COUNT(1) FROM `schedule_tbl` WHERE %s = ? AND %s = ? AND (%s = ? OR %s = ?);";
 
+    //UPDATE QUERY(GENERIC);
+    String UPDATE_QUERY = "UPDATE %s SET %s =? WHERE %s =?";
     // QUERIES FOR Students API
     String DISPLAY_STUDENTS = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
             "FROM student_tbl " +
