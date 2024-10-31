@@ -268,7 +268,6 @@ public class Temp_View {
                         if (sec.isValidSectionValue("section_id", sectionId)) {
                             int courseId = cc.getCourseID("section_tbl","section_id",sectionId);
                             sm.setSection_id(sectionId);
-                            System.out.println("Section's Existing Schedule");
                             sched.displayScheduleBySection("section_tbl.section_id",sectionId, sm, subm, secm);
                             sub.displaySubjectByCourse("course_tbl.course_id",courseId,subm, cm);
 
