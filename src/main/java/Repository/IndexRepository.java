@@ -8,6 +8,7 @@ package Repository;
  *
  * @author mark
  */
-public class Index {
-    
+public interface IndexRepository {
+    public boolean isValidTableValue (String table, String column, Object value);
+    public Object getValuebyValue(String column1, String table, String column2, Object value);
 }

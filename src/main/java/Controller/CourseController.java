@@ -82,4 +82,15 @@ public class CourseController extends Db implements CourseRepository {
             }
         }
     }
+    public int getCourseID(String key,String column, Object value ){
+        int courseID = 0;
+        try {
+            IndexController ic = new IndexController();
+            courseID = (int)ic.getValuebyValue("course_id", key, column, value);
+            return courseID;
+        }catch (Exception e) {
+            System.out.println("Error getting course ID: " + e.getMessage());
+        };
+        return 0;
+    }
 }

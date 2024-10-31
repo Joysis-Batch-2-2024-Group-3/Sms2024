@@ -4,10 +4,12 @@ import Db.Db;
 import Model.CourseModel;
 import Model.SubjectModel;
 import Repository.SubjectRepository;
-
 import java.sql.SQLException;
-
 public class SubjectController extends Db implements SubjectRepository {
+    private IndexController ic = new IndexController();
+    public boolean isValidSubjectValue(String key, Object value) throws SQLException {
+    return ic.isValidTableValue("subject_tbl", key, value);
+    }
     @Override
     public void displayAllSubject(SubjectModel subject, CourseModel course) {
         try {
@@ -46,10 +48,11 @@ public class SubjectController extends Db implements SubjectRepository {
     }
 
     @Override
-    public void displaySubjectByCourse(String value, SubjectModel subject, CourseModel course) {
+    public void displaySubjectByCourse(String key, Object value, SubjectModel subject, CourseModel course) {
         try {
             connect();
-            prep = con.prepareStatement(DISPLAY_SUBJECT_COURSE);
+            String stringQuery = String.format(DISPLAY_SUBJECT_COURSE,key);
+            prep = con.prepareStatement(stringQuery);
             prep.setString(1, "%"+ value +"%");
             result = prep.executeQuery();
 

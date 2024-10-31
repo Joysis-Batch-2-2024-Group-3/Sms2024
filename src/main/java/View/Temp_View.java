@@ -3,8 +3,10 @@ package View;
 import Controller.*;
 import Model.*;
 
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Temp_View {
@@ -176,7 +178,7 @@ public class Temp_View {
                 case 2 -> {
                     System.out.print("Enter the course name or substring: ");
                     String searchValue = scan.nextLine();
-                    sub.displaySubjectByCourse(searchValue, subm, cm);
+                    sub.displaySubjectByCourse("course_tbl.course_name",searchValue, subm, cm);
                 }
                 case 3 -> {
                     studentSubjectMenu();
@@ -238,28 +240,56 @@ public class Temp_View {
 
         while (running) {
             System.out.println("\n=== Schedule Menu ===");
-            System.out.println("1. Display All Schedule");
-            System.out.println("2. Search Schedule by Section");
-            System.out.println("3. Search Schedule by Day");
-            System.out.println("4. Add Schedule");
-            System.out.println("5. Back to Main Menu");
+            System.out.println("1. Search Schedule by Section");
+            System.out.println("2. Search Schedule by Day");
+            System.out.println("3. Add Schedule");
+            System.out.println("4. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine();
 
             switch (choice) {
-                case 1 -> sched.displayAllSchedule(sm, subm, secm);
-                case 2 -> {
+                case 1 -> {
                     System.out.print("Enter the section name or substring: ");
                     String searchValue = scan.nextLine();
-                    sched.displayScheduleBySection(searchValue, sm, subm, secm);
+                    sched.displayScheduleBySection("section_tbl.section_name",searchValue, sm, subm, secm);
                 }
-                case 3 -> {
+                case 2 -> {
                     System.out.print("Enter the day: ");
                     String day = scan.nextLine();
                     sched.displayScheduleByDay(day, sm, subm, secm);
                 }
-                case 4 -> {
+                case 3 -> {
+
+                    try {
+                        sec.displayAllSection(secm, cm);
+                        System.out.print("Enter Section ID: ");
+                        int sectionId = scan.nextInt();
+                        if (sec.isValidSectionValue("section_id", sectionId)) {
+                            int courseId = cc.getCourseID("section_tbl","section_id",sectionId);
+                            sm.setSection_id(sectionId);
+                            System.out.println("Section's Existing Schedule");
+                            sched.displayScheduleBySection("section_tbl.section_id",sectionId, sm, subm, secm);
+                            sub.displaySubjectByCourse("course_tbl.course_id",courseId,subm, cm);
+
+                        } else {
+                            System.out.println("Invalid Section ID, Please try again");
+                        }
+                        System.out.print("Enter Subject ID: ");
+                        int subjectId = scan.nextInt();
+                        if (sub.isValidSubjectValue("subject_id", subjectId))
+                            sm.setSubject_id(subjectId);
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL Error: " + e.getMessage());
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println("Enter a valid ID");
+                    }
+                    catch (Exception e){
+                        System.out.println("Error: " + e.getMessage());
+                    }
+
                     String day = null;
                     boolean validDay = false;
                     while (!validDay) {
@@ -271,6 +301,7 @@ public class Temp_View {
                             System.out.println("Invalid day. Please enter a valid day of the week.");
                         }
                     }
+                    sm.setDay(day);
 
                     Time startTime = null;
                     while (startTime == null) {
@@ -291,24 +322,12 @@ public class Temp_View {
                             System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
                         }
                     }
-                    sub.displayAllSubject(subm, cm);
-                    System.out.print("Enter Subject ID: ");
-                    int subjectId = scan.nextInt();
-
-                    sec.displayAllSection(secm, cm);
-                    System.out.print("Enter Section ID: ");
-                    int sectionId = scan.nextInt();
-                    scan.nextLine(); // Consume the newline character
-
-                    sm.setDay(day);
                     sm.setStart_time(startTime);
                     sm.setEnd_time(endTime);
-                    sm.setSubject_id(subjectId);
-                    sm.setSection_id(sectionId);
 
                     sched.addSchedule(sm, subm, secm);
                 }
-                case 5 -> running = false;
+                case 4 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }

@@ -8,6 +8,10 @@ import Repository.SectionRepository;
 import java.sql.SQLException;
 
 public class SectionController extends Db implements SectionRepository {
+    private IndexController ic = new IndexController();
+    public boolean isValidSectionValue (String key, Object value){
+        return ic.isValidTableValue("section_tbl",key,value);
+    }
     @Override
     public void displayAllSection(SectionModel section, CourseModel course) {
         try {

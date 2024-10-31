@@ -6,7 +6,10 @@ public interface QueryConstant {
     String USERNAME = "root";
     String PASSWORD = "";
     String DRIVER = "com.mysql.cj.jdbc.Driver";
-
+    // VALUE VALIDATION
+    String VALIDATION_QUERY = "SELECT COUNT(*) FROM %s WHERE %s =?";
+    //VALUE FINDER
+    String FINDER_QUERY = "SELECT %s FROM %s WHERE %s =?";
     // QUERIES FOR Students API
     String DISPLAY_STUDENTS = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
             "FROM student_tbl " +
@@ -49,16 +52,11 @@ public interface QueryConstant {
             "INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id";
 
     // DISPLAY SUBJECT BY COURSE
-    String DISPLAY_SUBJECT_COURSE = "SELECT subject_tbl.subject_id, subject_tbl.subject_name, course_tbl.course_name FROM subject_tbl INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id WHERE course_tbl.course_name  Like ?";
+    String DISPLAY_SUBJECT_COURSE = "SELECT subject_tbl.subject_id, subject_tbl.subject_name, course_tbl.course_name FROM subject_tbl INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id WHERE %s  Like ?";
 
 
     //QUERIES FOR SCHEDULE
     //DISPLAY SCHEDULE
-    String DISPLAY_SCHEDULE = "SELECT schedule_tbl.schedule_id, schedule_tbl.day, schedule_tbl.start_time, schedule_tbl.end_time, section_tbl.section_name, subject_tbl.subject_name " +
-            "FROM schedule_tbl " +
-            "INNER JOIN section_tbl ON schedule_tbl.section_id = section_tbl.section_id " +
-            "INNER JOIN subject_tbl ON schedule_tbl.subject_id = subject_tbl.subject_id";
-
     String DISPLAY_SCHEDULE_FILTERED = "SELECT schedule_tbl.schedule_id, schedule_tbl.day, schedule_tbl.start_time, schedule_tbl.end_time, section_tbl.section_name, subject_tbl.subject_name FROM schedule_tbl INNER JOIN section_tbl ON schedule_tbl.section_id = section_tbl.section_id INNER JOIN subject_tbl ON schedule_tbl.subject_id = subject_tbl.subject_id WHERE %s LIKE ?";
     // SEARCH_STUDENT_COURSE query using LIKE
     String SEARCH_STUDENT_COURSE = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
