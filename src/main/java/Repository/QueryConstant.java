@@ -12,8 +12,10 @@ public interface QueryConstant {
             "FROM student_tbl " +
             "INNER JOIN course_tbl ON student_tbl.course_id = course_tbl.course_id " +
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id";
+    //DELETE_STUDENT query
+    String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_id = ?";
 
-    String ADD_STUDENT = "INSERT INTO student_tbl(student_id, first_name, last_name, birthdate, year_level, course_id, section_id) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+    String ADD_STUDENT = "INSERT INTO student_tbl(student_id, first_name, last_name, birth_date, year_level, course_id, section_id) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 
     // SEARCH_STUDENT query using LIKE
     String SEARCH_STUDENT = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
@@ -57,15 +59,15 @@ public interface QueryConstant {
             "INNER JOIN section_tbl ON schedule_tbl.section_id = section_tbl.section_id " +
             "INNER JOIN subject_tbl ON schedule_tbl.subject_id = subject_tbl.subject_id";
 
-String DISPLAY_SCHEDULE_FILTERED = "SELECT schedule_tbl.schedule_id, schedule_tbl.day, schedule_tbl.start_time, schedule_tbl.end_time, section_tbl.section_name, subject_tbl.subject_name FROM schedule_tbl INNER JOIN section_tbl ON schedule_tbl.section_id = section_tbl.section_id INNER JOIN subject_tbl ON schedule_tbl.subject_id = subject_tbl.subject_id WHERE %s LIKE ?";
+    String DISPLAY_SCHEDULE_FILTERED = "SELECT schedule_tbl.schedule_id, schedule_tbl.day, schedule_tbl.start_time, schedule_tbl.end_time, section_tbl.section_name, subject_tbl.subject_name FROM schedule_tbl INNER JOIN section_tbl ON schedule_tbl.section_id = section_tbl.section_id INNER JOIN subject_tbl ON schedule_tbl.subject_id = subject_tbl.subject_id WHERE %s LIKE ?";
     // SEARCH_STUDENT_COURSE query using LIKE
     String SEARCH_STUDENT_COURSE = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
             "FROM student_tbl " +
             "INNER JOIN course_tbl ON student_tbl.course_id = course_tbl.course_id " +
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id " +
             "WHERE course_tbl.course_name LIKE ?";
-    //DELETE_STUDENT query
-    String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_id = ?";
+    //ADD SCHEDULE
+    String ADD_SCHEDULE = "INSERT INTO `schedule_tbl`(`day`, `section_id`, `subject_id`, `start_time`, `end_time`) VALUES (?, ?, ?, ?, ?)";
 
     //ADMIN_LOGIN query
     String ADMIN_LOGIN = "SELECT * FROM admin_tbl WHERE username = ? AND password = ?";

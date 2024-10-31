@@ -4,6 +4,7 @@ import Model.*;
 import Repository.StudentRepository;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class StudentController extends Db implements StudentRepository {
     public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
@@ -160,9 +161,14 @@ public class StudentController extends Db implements StudentRepository {
                         student.getStudentDob(), student.getStudentSex(), student.getStudentYearlvl(),
                         course.getCourseName(), section.getSectionName(), student.isStudentArchive() ? "Yes" : "No");
             }
-        } catch (Exception e) {
+
+        } catch (SQLException e){
+            System.out.println("SQL Error searching for student: " + e.getMessage());
+        }
+        catch (Exception e) {
             System.out.println("Error searching for student: " + e.getMessage());
-        } finally {
+        }
+        finally {
             // Close resources to prevent memory leaks
             try {
                 if (result != null) result.close();

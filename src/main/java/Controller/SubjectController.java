@@ -30,14 +30,17 @@ public class SubjectController extends Db implements SubjectRepository {
                 System.out.printf("| %-10d | %-30s | %-30s |\n", subject.getSubject_id(), subject.getSubject_name(), course.getCourseName());
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
+            System.out.println("SQL Error in displaying subject " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error in displaying subject " + e.getMessage());
+        }
+        finally {
             try {
                 if (result != null) result.close();
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                System.out.println("Error in closing resources in subject");
             }
         }
     }
@@ -65,14 +68,16 @@ public class SubjectController extends Db implements SubjectRepository {
                 System.out.printf("| %-10d | %-40s | %-30s |\n", subject.getSubject_id(), subject.getSubject_name(), course.getCourseName());
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
+            System.out.println("SQL Error in displaying subject by : "+ value +"\n"+ e.getMessage());
+            } catch (Exception e) {
+            System.out.println("Error in displaying subject by : "+ value +"\n"+ e.getMessage());
+        }finally {
             try {
                 if (result != null) result.close();
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                System.out.println("Error in closing resources in subject");
             }
         }
     }

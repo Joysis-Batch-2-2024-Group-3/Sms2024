@@ -2,6 +2,9 @@ package View;
 
 import Controller.*;
 import Model.*;
+
+import java.sql.Time;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Temp_View {
@@ -228,8 +231,9 @@ public class Temp_View {
 
     public void scheduleMenu() {
         ScheduleModel sm = new ScheduleModel();
-        SubjectModel sub = new SubjectModel();
+        SubjectModel subm = new SubjectModel();
         SectionModel secm = new SectionModel();
+        CourseModel cm = new CourseModel();
         boolean running = true;
 
         while (running) {
@@ -237,24 +241,74 @@ public class Temp_View {
             System.out.println("1. Display All Schedule");
             System.out.println("2. Search Schedule by Section");
             System.out.println("3. Search Schedule by Day");
-            System.out.println("4. Back to Main Menu");
+            System.out.println("4. Add Schedule");
+            System.out.println("5. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine();
 
             switch (choice) {
-                case 1 -> sched.displayAllSchedule(sm, sub, secm);
+                case 1 -> sched.displayAllSchedule(sm, subm, secm);
                 case 2 -> {
                     System.out.print("Enter the section name or substring: ");
                     String searchValue = scan.nextLine();
-                    sched.displayScheduleBySection(searchValue, sm, sub, secm);
+                    sched.displayScheduleBySection(searchValue, sm, subm, secm);
                 }
                 case 3 -> {
                     System.out.print("Enter the day: ");
                     String day = scan.nextLine();
-                    sched.displayScheduleByDay(day, sm, sub, secm);
+                    sched.displayScheduleByDay(day, sm, subm, secm);
                 }
-                case 4 -> running = false;
+                case 4 -> {
+                    String day = null;
+                    boolean validDay = false;
+                    while (!validDay) {
+                        System.out.print("Enter Day (Monday, Tuesday, Wednesday, etc.): ");
+                        day = scan.nextLine();
+                        if (day.matches("(?i)Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday")) {
+                            validDay = true; // Exit loop if valid
+                        } else {
+                            System.out.println("Invalid day. Please enter a valid day of the week.");
+                        }
+                    }
+
+                    Time startTime = null;
+                    while (startTime == null) {
+                        System.out.print("Enter Start Time (HH:MM:SS Military): ");
+                        try {
+                            startTime = Time.valueOf(scan.nextLine());
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
+                        }
+                    }
+
+                    Time endTime = null;
+                    while (endTime == null) {
+                        System.out.print("Enter End Time (HH:MM:SS Military): ");
+                        try {
+                            endTime = Time.valueOf(scan.nextLine());
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
+                        }
+                    }
+                    sub.displayAllSubject(subm, cm);
+                    System.out.print("Enter Subject ID: ");
+                    int subjectId = scan.nextInt();
+
+                    sec.displayAllSection(secm, cm);
+                    System.out.print("Enter Section ID: ");
+                    int sectionId = scan.nextInt();
+                    scan.nextLine(); // Consume the newline character
+
+                    sm.setDay(day);
+                    sm.setStart_time(startTime);
+                    sm.setEnd_time(endTime);
+                    sm.setSubject_id(subjectId);
+                    sm.setSection_id(sectionId);
+
+                    sched.addSchedule(sm, subm, secm);
+                }
+                case 5 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
@@ -296,12 +350,29 @@ public class Temp_View {
                 for (String column : StudentController.validColumns) {
                     System.out.print("| " + column + " | ");
                 }
-                System.out.print("\nEnter Column Name: ");
-                String columnName = scan.nextLine();
+                System.out.println("Choose from this specific column: ");
+                for (String column : StudentController.validColumns) {
+                    System.out.print("| " + column + " | ");
+                }
+
+                String columnName = null;
+                boolean validColumn = false;
+                while (!validColumn) {
+                    System.out.print("\nEnter Column Name: ");
+                    columnName = scan.nextLine();
+                    // Check if the input columnName is valid
+                    if (Arrays.asList(StudentController.validColumns).contains(columnName)) {
+                        validColumn = true; // Exit loop if valid
+                    } else {
+                        System.out.println("Invalid column name. Please choose from the valid columns.");
+                    }
+                }
+
                 System.out.print("Enter Value: ");
                 String columnValue = scan.nextLine();
                 System.out.println("Searching for " + columnValue + " in " + columnName);
                 sc.filterStudent(columnName, columnValue, sm, cm, secm);
+
             }
             case 7 -> System.out.println("Returning to Student Menu...");
             default -> System.out.println("Invalid option. Please try again.");

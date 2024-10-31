@@ -8,6 +8,7 @@ public class ScheduleModel {
     private String day;
     private Time start_time;
     private Time end_time;
+    private int section_id;
     public int getSchedule_id() {
         return schedule_id;
     }
@@ -37,5 +38,11 @@ public class ScheduleModel {
     }
     public void setSubject_id(int subject_id) {
         this.subject_id = subject_id;
+    }
+    public int getSection_id() {
+        return section_id;
+    }
+    public void setSection_id(int section_id) {
+        this.section_id = section_id;
     }
 }
