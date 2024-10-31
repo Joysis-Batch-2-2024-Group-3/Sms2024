@@ -14,7 +14,10 @@ public class AdminModel {
     private int admin_id;
     private String username;
     private String password;
-    
+
+    public AdminModel(String username, String password) {
+    }
+
     public int getAdminId()
     {
         return admin_id;

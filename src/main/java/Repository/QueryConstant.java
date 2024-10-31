@@ -21,7 +21,7 @@ public interface QueryConstant {
     //DELETE_STUDENT query
     String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_id = ?";
 
-    String ADD_STUDENT = "INSERT INTO student_tbl(student_id, first_name, last_name, birth_date, year_level, course_id, section_id) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+    String ADD_STUDENT = "INSERT INTO student_tbl(student_id, first_name, last_name, birth_date, year_level, course_id, section_id, archived) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // SEARCH_STUDENT query using LIKE
     String SEARCH_STUDENT = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
