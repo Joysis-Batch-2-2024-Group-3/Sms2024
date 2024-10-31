@@ -13,7 +13,27 @@ public class Temp_View {
     private final Student_SubjectController ssc = new Student_SubjectController();
     private final Scanner scan = new Scanner(System.in);
 
+    public void loginAdmin(){
+        System.out.println("\n=== Login Admin ===");
+        if (loginInputAdmin()){
+            mainMenu();
+        }else {
+            System.out.println("Access denied!");
+        }
+    }
+
+    private boolean loginInputAdmin(){
+        System.out.println("Enter the username: ");
+        String username = scan.nextLine();
+        System.out.println("Enter the password: ");
+        String password = scan.nextLine();
+
+        AdminModel adminModel = new AdminModel(username,password);
+        return sc.authenticateAdmin(adminModel);
+    }
+
     public void mainMenu() {
+        loginAdmin();
         boolean running = true;
         while (running) {
             System.out.println("\n=== Main Menu ===");

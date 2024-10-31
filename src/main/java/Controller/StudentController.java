@@ -96,7 +96,6 @@ public class StudentController extends Db implements StudentRepository {
     }
     @Override
     public void addStudent(StudentModel student, CourseModel  course, SectionModel section){
-        ScheduleController sched = new ScheduleController();
         try{
             connect();
             prep = con.prepareStatement(ADD_STUDENT);
@@ -106,7 +105,6 @@ public class StudentController extends Db implements StudentRepository {
             prep.executeUpdate();
             System.out.println("Student " +  student.getStudentId() + " added successfully!");
             displayStudents(new StudentModel(), new CourseModel(), new SectionModel());
-
         }catch (Exception e) {
             System.out.println("Error adding student: " + e.getMessage());
         }
@@ -230,9 +228,13 @@ public class StudentController extends Db implements StudentRepository {
 
     @Override
     public boolean authenticateAdmin(AdminModel admin){
+        if (con == null) {
+            System.out.println("Connection not established.");
+            return false;
+        }
         try{
             connect();
-            state = con.prepareStatement(ADMIN_LOGIN);
+            prep = con.prepareStatement(ADMIN_LOGIN);
             prep.setString(1, admin.getAdminUsername());
             prep.setString(2, admin.getAdminPassword());
             result = prep.executeQuery();
@@ -241,6 +243,7 @@ public class StudentController extends Db implements StudentRepository {
             }else{
                 System.out.println("Logged in failed");
             }
+            return result.next();
         }catch(Exception e){
             System.out.println("Error authenticate admin: " + e.getMessage());
         }
