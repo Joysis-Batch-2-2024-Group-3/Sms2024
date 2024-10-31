@@ -5,9 +5,7 @@ import Model.*;
 
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Temp_View {
     private final StudentController sc = new StudentController();
@@ -260,35 +258,54 @@ public class Temp_View {
                     sched.displayScheduleByDay(day, sm, subm, secm);
                 }
                 case 3 -> {
+                    LinkedHashMap<String, Object> values = new LinkedHashMap<>();
+                    boolean run = true;
+                    while (run) {
+                        try {
+                            // Loop for Section ID
+                            boolean validSection = false;
+                            while (!validSection) {
+                                sec.displayAllSection(secm, cm);
+                                System.out.print("Enter Section ID: ");
+                                int sectionId = scan.nextInt();
 
-                    try {
-                        sec.displayAllSection(secm, cm);
-                        System.out.print("Enter Section ID: ");
-                        int sectionId = scan.nextInt();
-                        if (sec.isValidSectionValue("section_id", sectionId)) {
-                            int courseId = cc.getCourseID("section_tbl","section_id",sectionId);
-                            sm.setSection_id(sectionId);
-                            sched.displayScheduleBySection("section_tbl.section_id",sectionId, sm, subm, secm);
-                            sub.displaySubjectByCourse("course_tbl.course_id",courseId,subm, cm);
+                                if (sec.isValidSectionValue("section_id", sectionId)) {
+                                    int courseId = cc.getCourseID("section_tbl", "section_id", sectionId);
+                                    sm.setSection_id(sectionId);
+                                    values.put("section_id", sectionId);
+                                    sched.displayScheduleBySection("section_tbl.section_id", sectionId, sm, subm, secm);
+                                    sub.displaySubjectByCourse("course_tbl.course_id", courseId, subm, cm);
+                                    validSection = true; // Valid section, exit loop
+                                } else {
+                                    System.out.println("Invalid Section ID, Please try again.");
+                                }
+                            }
 
-                        } else {
-                            System.out.println("Invalid Section ID, Please try again");
+                            // Loop for Subject ID
+                            boolean validSubject = false;
+                            while (!validSubject) {
+                                System.out.print("Enter Subject ID: ");
+                                int subjectId = scan.nextInt();
+
+                                if (sub.isValidSubjectValue("subject_id", subjectId)) {
+                                    sm.setSubject_id(subjectId);
+                                    validSubject = true; // Valid subject, exit loop
+                                } else {
+                                    System.out.println("Invalid Subject ID, Please try again.");
+                                }
+                            }
+                            run = false; // Exit outer loop if both IDs are valid
+
+                        } catch (SQLException e) {
+                            System.out.println("SQLException: " + e.getMessage());
+                        } catch (InputMismatchException e) {
+                            System.out.println("InputMismatchException: Please enter valid numeric IDs.");
+                            scan.next(); // Clear the invalid input
+                        } catch (Exception e) {
+                            System.out.println("Exception: " + e.getMessage());
                         }
-                        System.out.print("Enter Subject ID: ");
-                        int subjectId = scan.nextInt();
-                        if (sub.isValidSubjectValue("subject_id", subjectId))
-                            sm.setSubject_id(subjectId);
                     }
-                    catch (SQLException e){
-                        System.out.println("SQL Error: " + e.getMessage());
-                    }
-                    catch(InputMismatchException e){
-                        System.out.println("Enter a valid ID");
-                    }
-                    catch (Exception e){
-                        System.out.println("Error: " + e.getMessage());
-                    }
-
+                    scan.nextLine(); // Clear the invalid
                     String day = null;
                     boolean validDay = false;
                     while (!validDay) {
@@ -296,17 +313,21 @@ public class Temp_View {
                         day = scan.nextLine();
                         if (day.matches("(?i)Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday")) {
                             validDay = true; // Exit loop if valid
+                            sm.setDay(day);
+                            values.put("`day`", day);
                         } else {
                             System.out.println("Invalid day. Please enter a valid day of the week.");
                         }
                     }
-                    sm.setDay(day);
+
 
                     Time startTime = null;
                     while (startTime == null) {
                         System.out.print("Enter Start Time (HH:MM:SS Military): ");
                         try {
                             startTime = Time.valueOf(scan.nextLine());
+                            values.put("`start_time`", startTime);
+
                         } catch (IllegalArgumentException e) {
                             System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
                         }
@@ -317,14 +338,20 @@ public class Temp_View {
                         System.out.print("Enter End Time (HH:MM:SS Military): ");
                         try {
                             endTime = Time.valueOf(scan.nextLine());
+                            sm.setEnd_time(endTime);
+                            values.put("`end_time`", endTime);
                         } catch (IllegalArgumentException e) {
                             System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
                         }
                     }
                     sm.setStart_time(startTime);
-                    sm.setEnd_time(endTime);
 
-                    sched.addSchedule(sm, subm, secm);
+                    if (!sched.checkScheduleConflict(values)) {
+                        System.out.println("Schedule added test lang to ");
+                        //sched.addSchedule(sm, subm, secm);
+                    } else {
+                        System.out.println("Schedule conflict detected, please try again6");
+                    }
                 }
                 case 4 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");

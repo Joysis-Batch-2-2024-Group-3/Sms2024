@@ -7,16 +7,18 @@ package Controller;
 import Db.Db;
 import Repository.IndexRepository;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  *
  * @author mark
  */
 public class IndexController extends Db implements IndexRepository {
-    public boolean isValidTableValue (String table, String column, Object value){
+    public boolean isValidTableValue(String table, String column, Object value) {
         connect();
-        try{
+        try {
             String validQuery = String.format(VALIDATION_QUERY, table, column);
             prep = con.prepareStatement(validQuery);
             if (value instanceof String) {
@@ -56,6 +58,12 @@ public class IndexController extends Db implements IndexRepository {
             System.out.println("SQL error: " + e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public boolean checkConflict(HashMap<String, Object> values) {
+        connect();
+        return true;
     }
 }
 

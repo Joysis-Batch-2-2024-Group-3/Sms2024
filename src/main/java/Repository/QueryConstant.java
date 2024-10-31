@@ -10,6 +10,9 @@ public interface QueryConstant {
     String VALIDATION_QUERY = "SELECT COUNT(*) FROM %s WHERE %s =?";
     //VALUE FINDER
     String FINDER_QUERY = "SELECT %s FROM %s WHERE %s =?";
+    // VALUE CONFLICT CHECKER
+    String CONFLICT_CHECKER_QUERY_SCHEDULE = "SELECT COUNT(1) FROM `schedule_tbl` WHERE %s = ? AND %s = ? AND (%s = ? OR %s = ?);";
+
     // QUERIES FOR Students API
     String DISPLAY_STUDENTS = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
             "FROM student_tbl " +
@@ -65,6 +68,7 @@ public interface QueryConstant {
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id " +
             "WHERE course_tbl.course_name LIKE ?";
     //ADD SCHEDULE
+
     String ADD_SCHEDULE = "INSERT INTO `schedule_tbl`(`day`, `section_id`, `subject_id`, `start_time`, `end_time`) VALUES (?, ?, ?, ?, ?)";
 
     //ADMIN_LOGIN query
