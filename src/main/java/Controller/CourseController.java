@@ -93,4 +93,20 @@ public class CourseController extends Db implements CourseRepository {
         };
         return 0;
     }
+
+    public void updateCourse(CourseModel course){
+        try {
+            connect();
+            prep = con.prepareStatement(UPDATE_QUERY);
+            prep.setInt( 1 ,course.getCourseID());
+            prep.setString(2, course.getCourseName());
+            prep.setString(3, course.getDepartmentName());
+            prep.executeQuery();
+            System.out.println("Course " + course.getCourseID() + " successfully updated.");
+            displayAllCourse(new CourseModel());
+            con.close();
+        }catch (Exception e){
+            System.out.println("Error update course; " + e.getMessage());
+        }
+    }
 }

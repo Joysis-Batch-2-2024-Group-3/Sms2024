@@ -178,6 +178,27 @@ public class StudentController extends Db implements StudentRepository {
         }
     }
 
+    @Override
+    public void updateStudent(StudentModel student) {
+        try{
+            connect();
+            prep = con.prepareStatement(UPDATE_QUERY);
+            prep.setInt(1, student.getStudentId());
+            prep.setString(2, student.getStudentFirstname());
+            prep.setString(3, student.getStudentLastname());
+            prep.setString(4, String.valueOf(student.getStudentDob()));
+            prep.setString(5, String.valueOf(student.getStudentSex()));
+            prep.setInt(6, student.getStudentYearlvl());
+            prep.setInt(4,  student.getStudentCourse());
+            prep.setString(7, student.getStudentSection());
+            prep.executeUpdate();
+            System.out.println("Student " + student.getStudentId() + " successfully update.");
+            displayStudents(new StudentModel(), new CourseModel(), new SectionModel());
+        }catch(Exception e){
+            System.out.println("Error update student: " + e.getMessage());
+        }
+    }
+
     public void displayStudentbySection(String Value, StudentModel sm, CourseModel cm, SectionModel secm){
         filterStudent("section_name",Value,sm,cm,secm);
     }

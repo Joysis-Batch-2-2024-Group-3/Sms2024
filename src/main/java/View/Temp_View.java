@@ -3,6 +3,7 @@ package View;
 import Controller.*;
 import Model.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.*;
@@ -76,8 +77,9 @@ public class Temp_View {
             System.out.println("\n=== Student Menu ===");
             System.out.println("1. Display All Students");
             System.out.println("2. Search for Student/s");
-            System.out.println("3. Display Archived Students");
-            System.out.println("4. Back to Main Menu");
+            System.out.println("3. Update Students");
+            System.out.println("4. Display Archived Students");
+            System.out.println("5. Back to Main Menu");
             System.out.print("Choose an option: ");
 
             int choice = scan.nextInt();
@@ -99,9 +101,78 @@ public class Temp_View {
                     scan.nextLine();
                     studentSubMenu(i);
                 }
-                case 3 -> sc.displayArchivedStudents(sm, cm, secm);
-                case 4 -> running = false;
+                case 3 -> {
+                    System.out.println("Enter the Student ID to Update: ");
+                    int studentId = scan.nextInt();
+                    scan.nextLine();
+                    sm.setStudentId(studentId);
+                    sc.updateStudent(sm);
+                    updateStudentField(sm, cm, secm);
+                }
+                case 4 -> sc.displayArchivedStudents(sm, cm, secm);
+                case 5 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    public void updateStudentField(StudentModel student, CourseModel course, SectionModel section){
+        boolean updatingStudent = true;
+        while (updatingStudent){
+            System.out.println("\nSelect Student field to update");
+            System.out.println("1. Firstname: ");
+            System.out.println("2. Lastname: ");
+            System.out.println("3. Date of Birth (yyyy-mm-dd): ");
+            System.out.println("4. Sex(M/F): ");
+            System.out.println("5. Year Level: ");
+            System.out.println("6. Course ID: ");
+            System.out.println("7. Section ID: ");
+            System.out.println("8. Finish update: ");
+
+            System.out.println("Choose an option: ");
+            int choice = scan.nextInt();
+
+            switch (choice) {
+                case 1 -> {
+                    System.out.println("Enter new firstname: ");
+                    student.setStudentFirstname(scan.nextLine());
+                }
+                case 2 -> {
+                    System.out.println("Enter new lastname: ");
+                    student.setStudentLastname(scan.nextLine());
+                }
+                case 3 -> {
+                    try {
+                        System.out.println("Enter new date of birthdate(yyyy-MM-dd): ");
+                        student.setStudentDob(Date.valueOf(scan.nextLine()));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid date format. Please use yyyy-MM-dd");
+                    }
+                }
+                case 4 -> {
+                    System.out.println("Enter new sex(M/F): ");
+                    student.setStudentYearlvl(scan.nextLine().charAt(0));
+                }
+                case 5 -> {
+
+                System.out.println("Enter new year level: ");
+                student.setStudentYearlvl(scan.nextInt());
+
+               }
+                case 6 -> {
+                    System.out.println("Enter new course ID: ");
+                    course.setCourse_id(scan.nextInt());
+                }
+                case 7 -> {
+                    System.out.println("Enter new section ID: ");
+                    section.setSectionId(scan.nextInt());
+                }
+                case 8 -> {
+                    sc.updateStudent(student);
+                    updatingStudent = false;
+                    System.out.println("Student information successfully updated.");
+                }
+                default -> System.out.println("Invalid Option please try again.");
             }
         }
     }
@@ -114,7 +185,8 @@ public class Temp_View {
             System.out.println("\n=== Course Menu ===");
             System.out.println("1. Display All Courses");
             System.out.println("2. Search for Course/s");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("3. Update for Courses");
+            System.out.println("4. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine();
@@ -143,10 +215,49 @@ public class Temp_View {
                         default -> System.out.println("Invalid option. Please try again.");
                     }
                 }
-                case 3 -> running = false;
+                case 3 -> {
+                    System.out.println("Enter the course ID: ");
+                    int courseId = scan.nextInt();
+                    cm.setCourse_id(courseId);
+                    cc.updateCourse(cm);
+                    updateCourseField(cm);
+
+                }
+                case 4 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
+    }
+
+    public void updateCourseField(CourseModel cm){
+        boolean updatingCourse = true;
+        while (updatingCourse){
+            System.out.println("\nSelect Course Field to update");
+            System.out.println("1. Course Name: ");
+            System.out.println("2. Course Department Name: ");
+            System.out.println("3. Finish Update");
+
+            System.out.println("Choose an option: ");
+            int choose = scan.nextInt();
+
+            switch (choose){
+                case 1 -> {
+                    System.out.println("Enter the new course name: ");
+                    cm.setCourseName(scan.nextLine());
+                }
+                case 2 ->{
+                    System.out.println("Enter the new course department name: ");
+                    cm.setDepartmentName(scan.nextLine());
+                }
+                case 3->{
+                    updatingCourse = false;
+                    System.out.println("Course information update completed.");
+                }
+                default -> System.out.println("Invalid option. Please try again.");
+
+            }
+        }
+
     }
 
     public void sectionMenu() {

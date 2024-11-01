@@ -147,4 +147,19 @@ public class ScheduleController extends Db implements ScheduleRepository {
             }
         }
     }
+
+    public void updateSchedule(ScheduleModel schedule){
+        try{
+            connect();
+            prep = con.prepareStatement(UPDATE_QUERY);
+            prep.setInt(1, schedule.getSchedule_id());
+            prep.setString(2, schedule.getDay());
+            prep.setString(3, String.valueOf(schedule.getStart_time()));
+            prep.setString(4, String.valueOf(schedule.getEnd_time()));
+            prep.executeUpdate();
+            System.out.println("Schedule " + schedule.getSchedule_id() + " successfully updated.");
+        }catch (Exception e){
+            System.out.println("Error update schedule " + e.getMessage());
+        }
+    }
 }
