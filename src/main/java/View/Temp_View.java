@@ -339,21 +339,29 @@ public class Temp_View {
                     }
                     case "4" -> {
                         // Deleting a section by name
+                        boolean isValidSectionName = false;
+                        while(!isValidSectionName){
                         System.out.print("Enter the Section Name to delete: ");
                         String sectionName = scan.nextLine();
-
-                        sec.deleteSection(sectionName); 
-
-                        sec.displayAllSection(sm, cm); 
+                        if(sec.isValidSectionValue("section_name",sectionName)){
+                            sec.deleteSection(sectionName);
+                            sec.displayAllSection(sm, cm);
+                            isValidSectionName = true;
+                        }
+                        else {
+                            System.out.println("Invalid section name. Please enter a valid section name.");
+                        }
+                    }
                     }
                     case "5" -> {
                         LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Editing a section
-                        System.out.print("Enter the current Section Name to edit: ");
-                        String oldSectionName = scan.nextLine();
+                        sec.displayAllSection(sm, cm);
                        boolean isSectionValid = false;
                        while (!isSectionValid) {
-                       if (!sec.isValidSectionValue("`section_tbl.section_name`", oldSectionName)) {
+                           System.out.print("Enter the current Section Name to edit: ");
+                           String oldSectionName = scan.nextLine();
+                       if (sec.isValidSectionValue("section_name", oldSectionName)) {
                         isSectionValid = true;
                         values.put("old", oldSectionName);
                        }
@@ -362,15 +370,23 @@ public class Temp_View {
                         }
                        }
 
-                        System.out.print("Enter the new Section Name: ");
+                       System.out.print("Enter the new Section Name: ");
                         String newSectionName = scan.nextLine();
                         values.put("`section_name`", newSectionName);
 
-                        System.out.print("Enter the new Course ID: ");
-                        int newCourseId = scan.nextInt();
-                        values.put("`course_id`", newCourseId);
-                        scan.nextLine();
-
+                        cc.displayAllCourse(cm);
+                        boolean isValidCourseId = false;
+                        while (!isValidCourseId) {
+                            System.out.print("Enter the new Course ID: ");
+                            int newCourseId = scan.nextInt();
+                            if(cc.isValidCourse("course_id",newCourseId)) {
+                                isValidCourseId = true;
+                                values.put("`course_id`", newCourseId);
+                            }
+                            else {
+                                System.out.println("Invalid Course ID. Please try again.");
+                            }
+                        }
                         sec.editSection(values);
                         sec.displayAllSection(sm, cm); 
                     }

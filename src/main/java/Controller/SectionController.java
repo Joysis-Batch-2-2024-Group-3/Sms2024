@@ -144,10 +144,10 @@ public class SectionController extends Db implements SectionRepository {
     public void editSection(LinkedHashMap<String, Object>values) {
         try {
             connect();
-            String stringQuery = String.format(EDIT_QUERY, "'section_tbl'", values.keySet().toArray()[1], values.keySet().toArray()[2],values.keySet().toArray()[1] ); // You'll need to define this query
+            String stringQuery = String.format(EDIT_QUERY, "`section_tbl`", values.keySet().toArray()[1], values.keySet().toArray()[2],values.keySet().toArray()[1] ); // You'll need to define this query
             prep = con.prepareStatement(stringQuery);
             prep.setString(1, values.get("`section_name`").toString());
-            prep.setInt(2, (int)values.get("`course_id"));
+            prep.setInt(2, (int)values.get("`course_id`"));
             prep.setString(3, values.get("old").toString());
             int rowsAffected = prep.executeUpdate();
             if (rowsAffected > 0) {
