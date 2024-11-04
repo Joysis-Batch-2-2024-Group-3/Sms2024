@@ -1,10 +1,31 @@
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Controller/Index.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Db/Db.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Model/AdminModel.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Model/Index.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/Index.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Utils/ClearConsole.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/Utils/PasswordHashing.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/View/Index.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/View/MainMenu.java
-/home/mark/NetBeansProjects/Sms2024/src/main/java/com/mycompany/studentmanagementsystem2024/StudentManagementSystem2024.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\com\mycompany\studentmanagementsystem2024\StudentManagementSystem2024.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\CourseController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\IndexController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\ScheduleController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\SectionController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\Student_SubjectController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\StudentController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Controller\SubjectController.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Db\Db.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\AdminModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\CourseModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\Index.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\ScheduleModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\SectionModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\Student_SubjectModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\StudentModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Model\SubjectModel.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\CourseRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\IndexRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\QueryConstant.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\ScheduleRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\SectionRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\Student_SubjectRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\StudentRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Repository\SubjectRepository.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Utils\ClearConsole.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\Utils\PasswordHashing.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\View\Admin.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\View\Index.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\View\MainMenu.java
+C:\Users\mkris\OneDrive\Documents\PERSONAL DOCS\TESDA JAVA Programming\Sms2024\src\main\java\View\Temp_View.java

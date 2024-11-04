@@ -41,6 +41,15 @@ public interface QueryConstant {
     String SEARCH_SECTION = "SELECT section_tbl.section_id, section_tbl.section_name, course_tbl.course_name FROM section_tbl" +
             " INNER JOIN course_tbl ON section_tbl.course_id = course_tbl.course_id" +
             " WHERE section_tbl.section_name LIKE ?";
+    
+    //ADD SECTION
+    String ADD_SECTION_QUERY = "INSERT INTO section_tbl (section_name, course_id) VALUES (?, ?)";
+
+    // DELETE SECTION
+    String DELETE_SECTION_BY_NAME_QUERY = "DELETE FROM section_tbl WHERE section_name = ?";
+
+    // EDIT SECTION
+    String EDIT_SECTION_QUERY = "UPDATE section_tbl SET section_name = ?, course_id = ? WHERE section_name = ?";
 
     //Queries for Course
     // SEARCH COURSE
@@ -51,7 +60,7 @@ public interface QueryConstant {
 
 
     //Queries for Subject
-// DISPLAY SUBJECT
+    // DISPLAY SUBJECT
     String DISPLAY_SUBJECT = "SELECT subject_tbl.subject_id, subject_tbl.subject_name, course_tbl.course_name " +
             "FROM subject_tbl " +
             "INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id";
@@ -59,7 +68,15 @@ public interface QueryConstant {
     // DISPLAY SUBJECT BY COURSE
     String DISPLAY_SUBJECT_COURSE = "SELECT subject_tbl.subject_id, subject_tbl.subject_name, course_tbl.course_name FROM subject_tbl INNER JOIN course_tbl ON subject_tbl.course_id = course_tbl.course_id WHERE %s  Like ?";
 
+    // ADD SUBJECT
+    String ADD_SUBJECT_QUERY = "INSERT INTO subject_tbl (subject_name, course_id) VALUES (?, ?)";
 
+    // DELETE SUBJECT
+    String DELETE_SUBJECT_BY_NAME_QUERY = "DELETE FROM subject_tbl WHERE subject_name = ?";
+    
+    //EDIT SUBJECT
+    String EDIT_SUBJECT_QUERY = "UPDATE subject_tbl SET subject_name = ?, course_id = ? WHERE subject_name = ?";
+    
     //QUERIES FOR SCHEDULE
     //DISPLAY SCHEDULE
     String DISPLAY_SCHEDULE_FILTERED = "SELECT schedule_tbl.schedule_id, schedule_tbl.day, schedule_tbl.start_time, schedule_tbl.end_time, section_tbl.section_name, subject_tbl.subject_name FROM schedule_tbl INNER JOIN section_tbl ON schedule_tbl.section_id = section_tbl.section_id INNER JOIN subject_tbl ON schedule_tbl.subject_id = subject_tbl.subject_id WHERE %s LIKE ?";

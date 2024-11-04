@@ -79,4 +79,82 @@ public class SectionController extends Db implements SectionRepository {
             }
         }
     }
+    
+    @Override
+    public void addSection(SectionModel section) {
+        try {
+            connect();
+            prep = con.prepareStatement(ADD_SECTION_QUERY); // You'll need to define this query
+            prep.setString(1, section.getSectionName());
+            prep.setInt(2, section.getCourse_id());
+            int rowsAffected = prep.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Section added successfully.");
+            } else {
+                System.out.println("Failed to add the section.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error in adding section: " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error in closing resources in section");
+            }
+        }
+    }
+
+    @Override
+    public void deleteSection(String sectionName) {
+        try {
+            connect();
+            prep = con.prepareStatement(DELETE_SECTION_BY_NAME_QUERY);
+            prep.setString(1, sectionName);
+            int rowsAffected = prep.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Section deleted successfully.");
+            } else {
+                System.out.println("Section not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error in deleting section: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error in deleting section: " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error in closing resources in section: " + e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void editSection(String oldSectionName, String newSectionName, int courseId) {
+        try {
+            connect();
+            prep = con.prepareStatement(EDIT_SECTION_QUERY); // You'll need to define this query
+            prep.setString(1, newSectionName);
+            prep.setInt(2, courseId);
+            prep.setString(3, oldSectionName);
+            int rowsAffected = prep.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Section updated successfully.");
+            } else {
+                System.out.println("Section not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error in editing section: " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error in closing resources in section");
+            }
+        }
+    }
 }

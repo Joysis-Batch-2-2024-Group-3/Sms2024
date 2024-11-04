@@ -269,25 +269,75 @@ public class Temp_View {
             System.out.println("\n=== Section Menu ===");
             System.out.println("1. Display All Sections");
             System.out.println("2. Search for Section/s");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("3. Add Section");
+            System.out.println("4. Delete Section by Name");
+            System.out.println("5. Edit Section");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Choose an option: ");
-            int choice = scan.nextInt();
-            scan.nextLine();
 
-            switch (choice) {
-                case 1 -> sec.displayAllSection(sm, cm);
-                case 2 -> {
-                    System.out.print("Enter the section name or substring: ");
-                    String searchValue = scan.nextLine();
-                    sec.filterSection(searchValue, sm, cm);
+            try {
+                String choice = scan.nextLine();
+
+                switch (choice) {
+                    case "1" -> sec.displayAllSection(sm, cm);
+                    case "2" -> {
+                        System.out.print("Enter the section name or substring: ");
+                        String searchValue = scan.nextLine();
+                        sec.filterSection(searchValue, sm, cm);
+                    }
+                    case "3" -> {
+                        // Adding new section
+                        System.out.print("Enter Section Name: ");
+                        String sectionName = scan.nextLine();
+                        System.out.print("Enter Course ID: ");
+                        int courseId = scan.nextInt();
+                        scan.nextLine();
+
+                        sm.setSectionName(sectionName);
+                        sm.setCourse_id(courseId); 
+
+                        
+                        sec.addSection(sm);
+   
+                        sec.displayAllSection(sm, cm);
+                    }
+                    case "4" -> {
+                        // Deleting a section by name
+                        System.out.print("Enter the Section Name to delete: ");
+                        String sectionName = scan.nextLine();
+
+                        sec.deleteSection(sectionName); 
+
+                        sec.displayAllSection(sm, cm); 
+                    }
+                    case "5" -> {
+                        // Editing a section
+                        System.out.print("Enter the current Section Name to edit: ");
+                        String oldSectionName = scan.nextLine();
+
+                        System.out.print("Enter the new Section Name: ");
+                        String newSectionName = scan.nextLine();
+
+                        System.out.print("Enter the new Course ID: ");
+                        int newCourseId = scan.nextInt();
+                        scan.nextLine();
+
+                        sec.editSection(oldSectionName, newSectionName, newCourseId);
+                        sec.displayAllSection(sm, cm); 
+                    }
+                    case "6" -> running = false;
+                    default -> System.out.println("Invalid option. Please try again.");
                 }
-                case 3 -> running = false;
-                default -> System.out.println("Invalid option. Please try again.");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid option.");
+                scan.nextLine();
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
             }
         }
     }
 
-    public void subjectMenu() {
+    private void subjectMenu() {
         SubjectModel subm = new SubjectModel();
         CourseModel cm = new CourseModel();
         boolean running = true;
@@ -295,28 +345,76 @@ public class Temp_View {
         while (running) {
             System.out.println("\n=== Subject Menu ===");
             System.out.println("1. Display All Subjects");
-            System.out.println("2. Filter Subject by Course");
-            System.out.println("3. Display Student Subject");
-            System.out.println("4. Back to Main Menu");
+            System.out.println("2. Search Subject by Course");
+            System.out.println("3. Add Subject");
+            System.out.println("4. Delete Subject by Name");
+            System.out.println("5. Edit Subject");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Choose an option: ");
-            int choice = scan.nextInt();
-            scan.nextLine();
 
-            switch (choice) {
-                case 1 -> sub.displayAllSubject(subm, cm);
-                case 2 -> {
-                    System.out.print("Enter the course name or substring: ");
-                    String searchValue = scan.nextLine();
-                    sub.displaySubjectByCourse("course_tbl.course_name",searchValue, subm, cm);
+            try {
+                int choice = scan.nextInt();
+                scan.nextLine(); // Consume newline
+
+                switch (choice) {
+                    case 1 -> sub.displayAllSubject(subm, cm);
+                    case 2 -> {
+                        System.out.print("Enter the course name or substring: ");
+                        String searchValue = scan.nextLine();
+                        sub.displaySubjectByCourse("course_tbl.course_name", searchValue, subm, cm);
+                    }
+                    case 3 -> {
+                        // Adding new subject
+                        System.out.print("Enter Subject Name: ");
+                        String subjectName = scan.nextLine();
+                        System.out.print("Enter Course ID: ");
+                        int courseId = scan.nextInt();
+                        scan.nextLine();
+    
+                        subm.setSubject_name(subjectName);
+                        subm.setCourse_id(courseId);
+
+                        sub.addSubject(subm);
+
+                        sub.displayAllSubject(subm, cm);
+                    }
+                    case 4 -> {
+                        // Option to delete a subject by name
+                        System.out.print("Enter the Subject Name to delete: ");
+                        String subjectName = scan.nextLine();
+
+                        sub.deleteSubject(subjectName);
+
+                        sub.displayAllSubject(subm, cm);
+                    }
+                    case 5 -> {
+                        // edit a subject
+                        System.out.print("Enter the current Subject Name to edit: ");
+                        String oldSubjectName = scan.nextLine();
+
+                        System.out.print("Enter the new Subject Name: ");
+                        String newSubjectName = scan.nextLine();
+
+                        System.out.print("Enter the new Course ID: ");
+                        int newCourseId = scan.nextInt();
+                        scan.nextLine();
+
+                        sub.editSubject(oldSubjectName, newSubjectName, newCourseId);
+
+                        sub.displayAllSubject(subm, cm);
+                    }
+                    case 6 -> running = false;
+                    default -> System.out.println("Invalid option. Please try again.");
                 }
-                case 3 -> {
-                    studentSubjectMenu();
-                }
-                case 4 -> running = false;
-                default -> System.out.println("Invalid option. Please try again.");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scan.nextLine();
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
             }
         }
     }
+   
     public void studentSubjectMenu() {
         StudentModel sm = new StudentModel();
         SubjectModel sub = new SubjectModel();
