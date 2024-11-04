@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 public class ScheduleController extends Db implements ScheduleRepository {
 
-    private IndexController ic = new IndexController();
 
     public void filterSchedule(String key, Object value, ScheduleModel schedule, SubjectModel subject, SectionModel section) {
         try {
@@ -80,7 +79,8 @@ public class ScheduleController extends Db implements ScheduleRepository {
             connect();
 
             // Prepare the dynamic query based on the keys in values
-            String conflictQuery = String.format(CONFLICT_CHECKER_QUERY_SCHEDULE,
+            String conflictQuery = String.format(CONFLICT_CHECKER_QUERY,
+                    "schedule_tbl",
                     values.keySet().toArray()[0],
                     values.keySet().toArray()[1],
                     values.keySet().toArray()[2],

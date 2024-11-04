@@ -5,9 +5,11 @@ import Model.CourseModel;
 import Repository.CourseRepository;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 public class CourseController extends Db implements CourseRepository {
 
+    IndexController ic = new IndexController();
     @Override
     public void displayAllCourse(CourseModel course) {
         try {
@@ -113,5 +115,28 @@ public class CourseController extends Db implements CourseRepository {
         IndexController ic = new IndexController();
         return ic.isValidTableValue("course_tbl",column,value);
 
+    }
+    public void addCourse(String CourseNmae, String Department){
+        connect();
+        try {
+            prep = con.prepareStatement(ADD_COURSE);
+            prep.setString(1, CourseNmae);
+            prep.setString(2, Department);
+            prep.executeUpdate();
+            System.out.println("Course: " + CourseNmae+" added successfully");
+            displayAllCourse(new CourseModel());
+            con.close();
+
+        }catch (SQLException e){
+            System.out.println("SQL error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean courseConflictChecker(LinkedHashMap<String, Object>values) {
+
+        return ic.checkConflict("`course_tbl`", values);
     }
 }

@@ -11,13 +11,15 @@ public interface QueryConstant {
     //VALUE FINDER
     String FINDER_QUERY = "SELECT %s FROM %s WHERE %s =?";
     // VALUE CONFLICT CHECKER
-    String CONFLICT_CHECKER_QUERY_SCHEDULE = "SELECT COUNT(1) FROM `schedule_tbl` WHERE %s = ? AND %s = ? AND (%s = ? OR %s = ?);";
+    String CONFLICT_CHECKER_QUERY = "SELECT COUNT(1) FROM %s WHERE %s = ? AND %s = ? AND (%s = ? OR %s = ?);";
+    String CONFLICT_CHECKER_QUERY_SMALL = "SELECT COUNT(1) FROM %s WHERE %s = ? AND  %s = ?;";
+
 
     //UPDATE QUERY(GENERIC);
     String UPDATE_QUERY = "UPDATE %s SET %s =? WHERE %s =?";
 
     //DROP QUERY(GENERIC);
-    String DELETE_QUERY = "DELETE %s WHERE %s = ? AND WHERE %s = ?;";
+    String DELETE_QUERY = "DELETE %s WHERE %s = ? AND %s = ?;";
 
     // QUERIES FOR Students API
     String DISPLAY_STUDENTS = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
@@ -66,7 +68,8 @@ public interface QueryConstant {
             " WHERE %s LIKE ?";
     // DISPLAY COURSES
     String DISPLAY_COURSE = "SELECT course_tbl.course_id, course_tbl.course_name, course_tbl.department_name FROM course_tbl";
-
+    //ADD COURSE
+    String ADD_COURSE = "INSERT INTO `course_tbl`(`course_name`, `department_name`) VALUES (?, ?)";
 
     //Queries for Subject
     // DISPLAY SUBJECT

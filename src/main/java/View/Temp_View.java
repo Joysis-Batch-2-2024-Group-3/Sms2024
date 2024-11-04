@@ -189,7 +189,8 @@ public class Temp_View {
             System.out.println("1. Display All Courses");
             System.out.println("2. Search for Course/s");
             System.out.println("3. Update for Courses");
-            System.out.println("4. Back to Main Menu");
+            System.out.println("4. Add Course");
+            System.out.println("5. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine();
@@ -226,7 +227,24 @@ public class Temp_View {
                     updateCourseField(cm);
 
                 }
-                case 4 -> running = false;
+                case 4 -> {
+                    LinkedHashMap<String, Object> values = new LinkedHashMap<>();
+
+                    System.out.println("Add a new course");
+                    System.out.print("Enter course name: ");
+                    String courseName = scan.nextLine();
+                    values.put("`course_name`",courseName);
+                    System.out.print("Enter department name: ");
+                    String departmentName = scan.nextLine();
+                    values.put("`department_name`", departmentName);
+                    if(!cc.courseConflictChecker(values)){
+                        cc.addCourse(courseName, departmentName);
+                    }
+                    else{
+                        System.out.println("Course conflict detected. Please enter new course details.");
+                    }
+                }
+                case 5 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }

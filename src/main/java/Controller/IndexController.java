@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -63,9 +64,43 @@ public class IndexController extends Db implements IndexRepository {
     }
 
     @Override
-    public boolean checkConflict(HashMap<String, Object> values) {
+    public boolean checkConflict(String Table, LinkedHashMap<String, Object> values) {
         connect();
-        return true;
+        try{
+            String stringQuery = String.format(CONFLICT_CHECKER_QUERY_SMALL,
+                    Table,
+                    values.keySet().toArray()[0],
+                    values.keySet().toArray()[1]
+                    );
+            prep = con.prepareStatement(stringQuery);
+            int index = 1;
+            for (Object value : values.values()) {
+                if (value instanceof String) {
+                    prep.setString(index++, (String) value);
+                }
+                else if (value instanceof Integer) {
+                    prep.setInt(index++, (Integer) value);
+                }
+                else if (value instanceof java.sql.Date) {
+                    prep.setDate(index++, (java.sql.Date) value);
+                }
+                else if (value instanceof java.sql.Time) {
+                    prep.setTime(index++, (java.sql.Time) value);
+                }
+            }
+            result = prep.executeQuery();
+            if (result.next()) {
+                return result.getInt(1) > 0;
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override
