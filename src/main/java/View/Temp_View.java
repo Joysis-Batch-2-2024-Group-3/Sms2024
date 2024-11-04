@@ -531,8 +531,65 @@ public class Temp_View {
             }
         }
     }
-   
-    public void studentSubjectMenu() {
+
+    public void studentSubjectMenu() throws SQLException {
+        StudentModel sm = new StudentModel();
+        SubjectModel subm = new SubjectModel();
+        SectionModel secm = new SectionModel();
+        Student_SubjectModel ssm = new Student_SubjectModel();
+        boolean running = true;
+        while (running) {
+            System.out.println("===Student Subject Menu===");
+            System.out.println("1. Add Student Subject");
+            System.out.println("2. Remove Student Subject");
+            System.out.println("3. Display Student Subjects");
+            System.out.println("4. Edit Student Subject");
+            System.out.println("5. Back to Main Menu");
+            System.out.print("Choose an option: ");
+            int choice = scan.nextInt();
+
+            switch (choice) {
+                case 1 -> {
+                    LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
+                    boolean isValidStudent = false;
+                    while (!isValidStudent) {
+                        System.out.print("Enter Student ID: ");
+                        int studentId = scan.nextInt();
+                        if(sc.isValidStudent("student_id", studentId)) {
+                            isValidStudent = true;
+                            values.put("student_id", studentId);
+                        } else {
+                            System.out.println("Invalid student id. Please enter a valid student id.");
+                        }
+                    }
+                    boolean isValidSubject = false;
+                    while (!isValidSubject) {
+                        System.out.print("Enter Subject ID: ");
+                        int subjectId = scan.nextInt();
+                        if(sub.isValidSubjectValue("subject_id", subjectId)) {
+                            isValidSubject = true;
+                            values.put("subject_id", subjectId);
+                        } else {
+                            System.out.println("Invalid subject id. Please enter a valid subject id.");
+                        }
+                    boolean isValidCourse = false;
+                        while (!isValidCourse) {
+                            System.out.print("Enter Course ID: ");
+                            int sectionId = scan.nextInt();
+                            if(sec.isValidSectionValue("section_id", sectionId)){
+                                isValidCourse = true;
+                                values.put("section_id", sectionId);
+                            }else {
+                                System.out.println("Invalid course id. Please enter a valid course id.");
+                            }
+                            ssc.addStudentSubject(values);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void studentSubjectDisplayMenu() {
         StudentModel sm = new StudentModel();
         SubjectModel sub = new SubjectModel();
         SectionModel secm = new SectionModel();
@@ -541,7 +598,7 @@ public class Temp_View {
         boolean running = true;
 
         while (running) {
-            System.out.println("=== Student Subject Menu ===");
+            System.out.println("=== Display Student Subject Menu ===");
             System.out.println("1. Display Student Subjects based on Student's name");
             System.out.println("2. Display Student Subjects based on Subject's name");
             System.out.println("3. Display Student Subjects based on Section name");

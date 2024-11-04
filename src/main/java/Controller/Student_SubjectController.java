@@ -9,6 +9,7 @@ import Repository.Student_SubjectRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 public class Student_SubjectController extends Db implements Student_SubjectRepository {
     public void filterStudentSubject(String Key, String Value, Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel sec) {
@@ -62,5 +63,31 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
     @Override
     public void displayStudentsSubjectBySection(String Value, Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel secm) {
         filterStudentSubject("section_name", Value, ssm, sm, subm, secm);
+    }
+
+    @Override
+    public void addStudentSubject(LinkedHashMap<String, Object> Value) {
+        try{
+            connect();
+            prep = con.prepareStatement(ADD_STUDENT_SUBJECT);
+            prep.setInt(1, (int) Value.get("student_id"));
+            prep.setInt(2, (int) Value.get("subject_id"));
+            prep.setInt(3, (int) Value.get("section_id"));
+            prep.executeUpdate();
+            System.out.println("Student Subject added successfully.");
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("Error in adding student subject: " + e.getMessage());
+        }
+        finally {
+            try {
+                if (prep!= null) prep.close();
+                if (con!= null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error in closing resources in student subject");
+            }
+        }
     }
 }

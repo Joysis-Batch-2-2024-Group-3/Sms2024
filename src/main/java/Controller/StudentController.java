@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class StudentController extends Db implements StudentRepository {
     public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
 
-
+    IndexController ic = new IndexController();
     @Override
     public void displayArchivedStudents(StudentModel student, CourseModel course, SectionModel section) {
         try {
@@ -277,6 +277,11 @@ public class StudentController extends Db implements StudentRepository {
             System.out.println("Error authenticate admin: " + e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public boolean isValidStudent(String Column, Object Value) {
+       return ic.isValidTableValue("student_tbl",Column,Value);
     }
 
 }

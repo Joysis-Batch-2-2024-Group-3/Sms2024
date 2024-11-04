@@ -21,6 +21,7 @@ public interface QueryConstant {
     //DROP QUERY(GENERIC);
     String DELETE_QUERY = "DELETE FROM %s WHERE %s LIKE ? AND %s = ?;";
 
+
     // QUERIES FOR Students API
     String DISPLAY_STUDENTS = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
             "FROM student_tbl " +
@@ -100,6 +101,7 @@ public interface QueryConstant {
     //ADMIN_LOGIN query
     String ADMIN_LOGIN = "SELECT * FROM admin_tbl WHERE username = ? AND password = ?";
 
+    //STUDENT SUBJECT QUERIES
     String SEARCH_STUDENT_SUBJECT = "SELECT student_subject_tbl.student_subject_id, student_tbl.first_name, student_tbl.last_name, subject_tbl.subject_name, section_tbl.section_name" +
             " From student_subject_tbl" +
             " INNER JOIN student_tbl ON student_subject_tbl.student_id = student_tbl.student_id" +
@@ -107,4 +109,5 @@ public interface QueryConstant {
             " INNER JOIN section_tbl ON student_subject_tbl.section_id = section_tbl.section_id" +
             " WHERE %s LIKE ?";  // Ensure to include section_name in your WHERE condition as needed
 
+    String ADD_STUDENT_SUBJECT = "INSERT INTO `student_subject_tbl`(`student_id`, `subject_id`, `section_id`) VALUES (?,?,?)";
 }
