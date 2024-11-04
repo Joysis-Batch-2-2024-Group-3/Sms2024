@@ -28,7 +28,7 @@ public interface QueryConstant {
     String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_id = ?";
 
 
-    String ADD_STUDENT = "INSERT INTO student_tbl(,first_name, last_name, birth_date, year_level, course_id, section_id, archived) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+    String ADD_STUDENT = "INSERT INTO `student_tbl`(`first_name`, `last_name`, `birth_date`,`sex` ,`year_level`, `course_id`, `section_id`) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 
     // SEARCH_STUDENT query using LIKE
     String SEARCH_STUDENT = "SELECT student_tbl.student_id, student_tbl.first_name, student_tbl.last_name, student_tbl.birth_date, student_tbl.sex, student_tbl.year_level, course_tbl.course_name, section_tbl.section_name, student_tbl.archived " +
@@ -45,7 +45,7 @@ public interface QueryConstant {
     //SEARCH SECTION
     String SEARCH_SECTION = "SELECT section_tbl.section_id, section_tbl.section_name, course_tbl.course_name FROM section_tbl" +
             " INNER JOIN course_tbl ON section_tbl.course_id = course_tbl.course_id" +
-            " WHERE section_tbl.section_name LIKE ?";
+            " WHERE %s LIKE ?";
 
     //Queries for Course
     // SEARCH COURSE

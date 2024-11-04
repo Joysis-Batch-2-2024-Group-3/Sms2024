@@ -14,5 +14,5 @@ public interface IndexRepository {
     public boolean isValidTableValue (String table, String column, Object value);
     public Object getValuebyValue(String column1, String table, String column2, Object value);
     public boolean checkConflict(HashMap<String, Object>values);
-
+    public boolean isValidDate (String date);
 }

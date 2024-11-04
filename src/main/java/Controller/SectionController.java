@@ -47,10 +47,12 @@ public class SectionController extends Db implements SectionRepository {
         }
     }
 
-    public void filterSection(String value, SectionModel section, CourseModel course) {
+    public void filterSection(String Key, Object value, SectionModel section, CourseModel course) {
         try {
             connect();
-            prep = con.prepareStatement(SEARCH_SECTION);
+            String stringQuery = String.format(SEARCH_SECTION, Key);
+            prep = con.prepareStatement(stringQuery);
+
             prep.setString(1, "%" + value + "%");
             result = prep.executeQuery();
             System.out.println("|===================|");

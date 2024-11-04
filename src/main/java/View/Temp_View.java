@@ -15,6 +15,7 @@ public class Temp_View {
     private final CourseController cc = new CourseController();
     private final ScheduleController sched = new ScheduleController();
     private final Student_SubjectController ssc = new Student_SubjectController();
+    private final IndexController ic = new IndexController();
     private final Scanner scan = new Scanner(System.in);
 
     public void loginAdmin(){
@@ -79,7 +80,8 @@ public class Temp_View {
             System.out.println("2. Search for Student/s");
             System.out.println("3. Update Students");
             System.out.println("4. Display Archived Students");
-            System.out.println("5. Back to Main Menu");
+            System.out.println("5. Add new Student");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Choose an option: ");
 
             int choice = scan.nextInt();
@@ -110,7 +112,8 @@ public class Temp_View {
                     updateStudentField(sm, cm, secm);
                 }
                 case 4 -> sc.displayArchivedStudents(sm, cm, secm);
-                case 5 -> running = false;
+                case 5 -> addStudentSubMenu();
+                case 6 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
@@ -279,7 +282,7 @@ public class Temp_View {
                 case 2 -> {
                     System.out.print("Enter the section name or substring: ");
                     String searchValue = scan.nextLine();
-                    sec.filterSection(searchValue, sm, cm);
+                    sec.filterSection("section_tbl.section_name",searchValue, sm, cm);
                 }
                 case 3 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
@@ -557,6 +560,74 @@ public class Temp_View {
     public static void main(String[] args) {
         Temp_View view = new Temp_View();
         view.mainMenu();
+    }
+
+    public void addStudentSubMenu(){
+        CourseModel cm = new CourseModel();
+        SectionModel secm = new SectionModel();
+        StudentModel sm = new StudentModel();
+        System.out.println("addStudentSubMenu");
+        System.out.println("Enter First Name: ");
+        String firstName = scan.nextLine();
+        sm.setStudentFirstname(firstName);
+        System.out.println("Enter Last Name: ");
+        String lastName = scan.nextLine();
+        sm.setStudentLastname(lastName);
+
+        boolean validDate = false;
+        while(!validDate) {
+            System.out.println("Enter Birth Date (yyyy-mm-dd): ");
+            String birthDate = scan.nextLine();
+            if(ic.isValidDate(birthDate)){
+                sm.setStudentDob(Date.valueOf(birthDate));
+                validDate = true;
+            }else {
+                System.out.println("Enter a date following the format");
+            }
+        }
+
+        boolean validSex = false;
+        while (!validSex) {
+            System.out.println("Enter Sex (F or M): ");
+            char gender = scan.nextLine().toUpperCase().charAt(0);
+            if (gender == 'F'  || gender == 'M'){
+                sm.setStudentSex(gender);
+                validSex = true;
+            }
+            else {
+                System.out.println("Enter either F or M");
+            }
+        }
+        int courseId;
+        cc.displayAllCourse(cm);
+        boolean validCourseID = false;
+        while(!validCourseID) {
+            System.out.println("Enter Course ID: ");
+            courseId = scan.nextInt();
+            if(cc.isValidCourse("course_id",courseId)){
+                sm.setStudentCourse(courseId);
+                validCourseID = true;
+            }
+            else {
+                System.out.println("Invalid Course ID. Please try again.");
+            }
+        }
+
+        sec.filterSection("course_tbl.course_id", sm.getStudentCourse(),secm, cm);
+        boolean validSectionId = false;
+        while (!validSectionId) {
+            System.out.println("Enter Section ID:");
+            int sectionId = scan.nextInt();
+            if(sec.isValidSectionValue("section_id", sectionId)){
+                sm.setStudentSection(sectionId);
+                validSectionId = true;
+            }
+            else {
+                System.out.println("Invalid Section ID. Please try again.");
+            }
+        }
+        sc.addStudent(sm, cm ,secm);
+        sc.displayStudents(sm, cm, secm);
     }
 
 }
