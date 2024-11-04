@@ -148,6 +148,25 @@ public class SubjectController extends Db implements SubjectRepository {
             }
         }
     }
+
+    @Override
+    public void updateSubject(SubjectModel subject){
+        try{
+            connect();
+            prep = con.prepareStatement(UPDATE_QUERY);
+            prep.setInt(1, subject.getSubject_id());
+            prep.setString(2, subject.getSubject_name());
+            prep.setInt(3, subject.getCourse_id());
+            prep.executeQuery();
+            System.out.println("Subject " + subject.getSubject_id() + " successfully updated.");
+            displayAllSubject(new SubjectModel(), new CourseModel());
+            //displaySubjectByCourse();
+        }catch (Exception e){
+            System.out.println("Error update subject: " + e.getMessage());
+
+        }
+
+    }
     
     @Override
     public void editSubject(LinkedHashMap<String, Object> values) {

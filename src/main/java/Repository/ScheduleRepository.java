@@ -11,4 +11,5 @@ public interface ScheduleRepository {
     public void displayScheduleByDay(String day, ScheduleModel schedule, SubjectModel subject, SectionModel section);
     public void addSchedule( ScheduleModel schedule, SubjectModel subject, SectionModel section);
     public boolean checkScheduleConflict(HashMap<String, Object> values);
+    public void updateSchedule(ScheduleModel schedule);
 }
