@@ -257,10 +257,10 @@ public class StudentController extends Db implements StudentRepository {
     }
 
     @Override
-    public void authenticateAdmin(AdminModel admin){
+    public boolean authenticateAdmin(AdminModel admin){
         if (con == null) {
             System.out.println("Connection not established.");
-            return;
+            return false;
         }
         try{
             connect();
@@ -276,12 +276,32 @@ public class StudentController extends Db implements StudentRepository {
         }catch(Exception e){
             System.out.println("Error authenticate admin: " + e.getMessage());
         }
+        return false;
     }
 
     @Override
     public boolean isValidStudent(String Column, Object Value) {
        return ic.isValidTableValue("student_tbl",Column,Value);
     }
+    @Override
+    public boolean isValidStudentName(String firstName, String lastName){
+        String query = "SELECT COUNT(*) FROM student_tbl WHERE first_name = ? AND last_name = ?";
+        try {
+            connect();
+            prep = con.prepareStatement(query);
+            prep.setString(1, firstName);
+            prep.setString(2, lastName);
+            result = prep.executeQuery();
+
+            if (result.next()) {
+                return result.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+        }
+        return false;
+    }
+
 
     public boolean isAuthenticated(){
         return authenticated;

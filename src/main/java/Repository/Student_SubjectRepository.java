@@ -12,4 +12,8 @@ public interface Student_SubjectRepository {
     public void displayStudentsSubjectBySubject(String Value, Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel sec);
     public void displayStudentsSubjectBySection(String Value, Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel sec);
     public void addStudentSubject (LinkedHashMap<String, Object> Value);
+    public void deleteStudentSubject(LinkedHashMap<String, Object> Value);
+    public void editStudentSubject(LinkedHashMap<String, Object> Value);
+    public boolean isValidStudentSubject(LinkedHashMap<String, Object> Value);
+    public int getSpecificSSID (LinkedHashMap<String, Object> Value, Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel sec);
 }

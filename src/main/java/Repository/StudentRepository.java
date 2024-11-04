@@ -19,4 +19,5 @@ public interface StudentRepository {
     public void updateStudent(StudentModel student);
     public boolean authenticateAdmin(AdminModel admin);
     public boolean isValidStudent(String Column, Object Value);
+    public boolean isValidStudentName(String firstName, String lastName);
 }

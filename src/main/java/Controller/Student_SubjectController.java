@@ -90,4 +90,98 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             }
         }
     }
+
+    @Override
+    public void deleteStudentSubject(LinkedHashMap<String, Object> values) {
+        try{
+        connect();
+        prep = con.prepareStatement(DELETE_STUDENT_SUBJECT);
+        prep.setString(1,  values.get("student_name").toString());
+        prep.setString(2, values.get("subject_name").toString());
+        prep.executeUpdate();
+        System.out.println("Student Subject deleted successfully.");
+        }catch (SQLException e){
+            System.out.println("SQL Error: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("Error in deleting student subject: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void editStudentSubject(LinkedHashMap<String, Object> Value){
+    try{
+        connect();
+        prep = con.prepareStatement(EDIT_STUDENT_SUBJECT);
+        prep.setInt(1, (int) Value.get("student_id"));
+        prep.setInt(2, (int) Value.get("subject_id"));
+        prep.setBoolean(3, (boolean) Value.get("archived"));
+        prep.setInt(4, (int) Value.get("section_id"));
+        prep.setInt(5, (int) Value.get("student_subject_id"));
+        prep.executeUpdate();
+        System.out.println("Student Subject edited successfully.");
+    } catch (SQLException e) {
+        System.out.println("SQL Error" + e.getMessage());
+    }
+    }
+
+    @Override
+    public boolean isValidStudentSubject(LinkedHashMap<String, Object> Value) {
+        try{
+            connect();
+            prep = con.prepareStatement(VALIDATE_STUDENT_SUBJECT);
+            prep.setString(1, Value.get("student_name").toString());
+            prep.setString(2, Value.get("subject_name").toString());
+            result = prep.executeQuery();
+            if(result.next()){
+                return result.getInt(1)>0;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: "+ e.getMessage() );
+        }
+        catch (Exception e){
+            System.out.println("Error in validating student subject: "+ e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public int getSpecificSSID(LinkedHashMap<String, Object> Value, Student_SubjectModel ssm, StudentModel sm, SubjectModel subm, SectionModel sec) {
+        int studentSubjectId = -1; // Initialize with an invalid ID
+        try {
+            connect();
+            prep = con.prepareStatement(DISPLAY_SPECIFIC_SS);
+            prep.setString(1, Value.get("student_name").toString());
+            prep.setString(2, Value.get("subject_name").toString());
+            result = prep.executeQuery();
+            if (result.next()) {
+                System.out.println("==== Row affected ====");
+                studentSubjectId = result.getInt("student_subject_id"); // Get the ID
+                ssm.setStudent_subject_id(studentSubjectId);
+                sm.setStudentFirstname(result.getString("first_name"));
+                sm.setStudentLastname(result.getString("last_name"));
+                subm.setSubject_name(result.getString("subject_name"));
+                sec.setSectionName(result.getString("section_name"));
+                String student_name = sm.getStudentFirstname() + " " + sm.getStudentLastname();
+                System.out.printf("%-5d | %-20s | %-20s  | %-20s |\n",
+                        studentSubjectId, student_name, subm.getSubject_name(), sec.getSectionName());
+            } else {
+                System.out.println("No matching record found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Server Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error in displaying specific student subject: " + e.getMessage());
+        } finally {
+            try {
+                if (result != null) result.close();
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return studentSubjectId; // Return the student_subject_id
+    }
 }
+

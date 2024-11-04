@@ -25,7 +25,7 @@ public class IndexController extends Db implements IndexRepository {
             String validQuery = String.format(VALIDATION_QUERY, table, column);
             prep = con.prepareStatement(validQuery);
             if (value instanceof String) {
-                prep.setString(1, "%" + value + "%");
+                prep.setString(1,  value.toString());
             } else if (value instanceof Integer) {
                 prep.setInt(1, (Integer) value);
             }
