@@ -147,7 +147,7 @@ public class ScheduleController extends Db implements ScheduleRepository {
             }
         }
     }
-
+    @Override
     public void updateSchedule(ScheduleModel schedule){
         try{
             connect();
@@ -158,6 +158,8 @@ public class ScheduleController extends Db implements ScheduleRepository {
             prep.setString(4, String.valueOf(schedule.getEnd_time()));
             prep.executeUpdate();
             System.out.println("Schedule " + schedule.getSchedule_id() + " successfully updated.");
+            //displayScheduleByDay(new ScheduleModel(), new CourseController());
+            //displayScheduleBySection(new ScheduleModel(),  new SubjectModel(), new ScheduleModel());
         }catch (Exception e){
             System.out.println("Error update schedule " + e.getMessage());
         }

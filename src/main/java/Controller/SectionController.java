@@ -46,7 +46,7 @@ public class SectionController extends Db implements SectionRepository {
             }
         }
     }
-
+     @Override
     public void filterSection(String Key, Object value, SectionModel section, CourseModel course) {
         try {
             connect();
@@ -157,6 +157,21 @@ public class SectionController extends Db implements SectionRepository {
             } catch (Exception e) {
                 System.out.println("Error in closing resources in section");
             }
+        }
+    }
+    @Override
+    public void updateSection(SectionModel section){
+        try{
+            connect();
+            prep = con.prepareStatement(UPDATE_QUERY);
+            prep.setInt(1, section.getSectionId());
+            prep.setString(2, section.getSectionName());
+            prep.setInt(3, section.getCourse_id());
+            prep.executeUpdate();
+            System.out.println("Section " + section.getSectionId() + " successfully updated.");
+            displayAllSection(new SectionModel(), new CourseModel());
+        }catch(Exception e){
+            System.out.println("Error update section: " + e.getMessage());
         }
     }
 }

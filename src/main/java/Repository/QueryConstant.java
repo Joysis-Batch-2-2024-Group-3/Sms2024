@@ -46,9 +46,8 @@ public interface QueryConstant {
     //Queries for Section
     //SEARCH SECTION
     String SEARCH_SECTION = "SELECT section_tbl.section_id, section_tbl.section_name, course_tbl.course_name FROM section_tbl" +
-            " INNER JOIN course_tbl ON section_tbl.course_id = course_tbl.course_id" +
-<<<<<<< HEAD
-            " WHERE section_tbl.section_name LIKE ?";
+            " INNER JOIN course_tbl ON section_tbl.course_id = course_tbl.course_id"
+            + " WHERE section_tbl.section_name LIKE ?";
     
     //ADD SECTION
     String ADD_SECTION_QUERY = "INSERT INTO section_tbl (section_name, course_id) VALUES (?, ?)";
@@ -58,9 +57,6 @@ public interface QueryConstant {
 
     // EDIT SECTION
     String EDIT_SECTION_QUERY = "UPDATE section_tbl SET section_name = ?, course_id = ? WHERE section_name = ?";
-=======
-            " WHERE %s LIKE ?";
->>>>>>> c0c52aaf2e4f56421ecee63deac0443cdf5f1659
 
     //Queries for Course
     // SEARCH COURSE

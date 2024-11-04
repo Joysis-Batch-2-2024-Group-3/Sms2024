@@ -10,4 +10,5 @@ public interface CourseRepository {
     public boolean isValidCourse(String column, int value);
     public void addCourse(String CourseNmae, String Department);
     public boolean courseConflictChecker(LinkedHashMap<String, Object>values);
+    public void updateCourse(CourseModel course);
 }

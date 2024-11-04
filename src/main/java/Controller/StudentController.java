@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 public class StudentController extends Db implements StudentRepository {
     public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
+    private boolean authenticated = false;
 
 
     @Override
@@ -256,10 +257,10 @@ public class StudentController extends Db implements StudentRepository {
     }
 
     @Override
-    public boolean authenticateAdmin(AdminModel admin){
+    public void authenticateAdmin(AdminModel admin){
         if (con == null) {
             System.out.println("Connection not established.");
-            return false;
+            return;
         }
         try{
             connect();
@@ -272,11 +273,12 @@ public class StudentController extends Db implements StudentRepository {
             }else{
                 System.out.println("Logged in failed");
             }
-            return result.next();
         }catch(Exception e){
             System.out.println("Error authenticate admin: " + e.getMessage());
         }
-        return false;
     }
 
+    public boolean isAuthenticated(){
+        return authenticated;
+    }
 }

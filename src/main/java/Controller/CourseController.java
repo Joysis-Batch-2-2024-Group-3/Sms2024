@@ -96,6 +96,7 @@ public class CourseController extends Db implements CourseRepository {
         return 0;
     }
 
+    @Override
     public void updateCourse(CourseModel course){
         try {
             connect();

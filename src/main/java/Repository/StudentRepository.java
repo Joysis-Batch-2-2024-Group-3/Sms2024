@@ -17,5 +17,5 @@ public interface StudentRepository {
     public void filterStudent( String key, String value, StudentModel student, CourseModel Course, SectionModel Section);
     public void dropStudent(StudentModel studentModel);
     public void updateStudent(StudentModel student);
-    public boolean authenticateAdmin(AdminModel admin);
+    public void authenticateAdmin(AdminModel admin);
 }
