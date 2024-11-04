@@ -64,8 +64,8 @@ public class StudentController extends Db implements StudentRepository {
             System.out.println("|======================|");
             System.out.println("| Display All Students |");
             System.out.println("|======================|\n");
-            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s | %-8s\n",
-                    "ID", "First Name", "Last Name", "DOB", "Sex", "Student Number", "Year Level", "Course", "Section", "Archived");
+            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-4s  | %-10s | %-25s | %-8s | %-8s \n",
+                    "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
             while (result.next()) {
                 student.setStudentId(result.getInt("student_id"));
@@ -100,11 +100,15 @@ public class StudentController extends Db implements StudentRepository {
         try{
             connect();
             prep = con.prepareStatement(ADD_STUDENT);
-            prep.setInt(3, course.getCourseID());
-            prep.setInt(4, section.getSectionId());
+            prep.setString(1, student.getStudentFirstname());
+            prep.setString(2, student.getStudentLastname());
+            prep.setDate(3, student.getStudentDob());
+            prep.setString(4, String.valueOf(student.getStudentSex()));
+            prep.setInt(5, student.getStudentYearlvl());
+            prep.setInt(6, student.getStudentCourse());
+            prep.setInt(7, student.getStudentSection());
             prep.executeUpdate();
-            System.out.println("Student " +  student.getStudentId() + " added successfully!");
-            displayStudents(new StudentModel(), new CourseModel(), new SectionModel());
+            System.out.println("Student " +  student.getStudentFirstname()+" "+student.getStudentLastname() + " added successfully!");
         }catch (Exception e) {
             System.out.println("Error adding student: " + e.getMessage());
         }
@@ -189,7 +193,7 @@ public class StudentController extends Db implements StudentRepository {
             prep.setString(5, String.valueOf(student.getStudentSex()));
             prep.setInt(6, student.getStudentYearlvl());
             prep.setInt(4,  student.getStudentCourse());
-            prep.setString(7, student.getStudentSection());
+            prep.setInt(7, student.getStudentSection());
             prep.executeUpdate();
             System.out.println("Student " + student.getStudentId() + " successfully update.");
             displayStudents(new StudentModel(), new CourseModel(), new SectionModel());
@@ -274,5 +278,5 @@ public class StudentController extends Db implements StudentRepository {
         }
         return false;
     }
-    public void add
+
 }

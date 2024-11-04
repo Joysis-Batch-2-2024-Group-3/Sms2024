@@ -10,7 +10,7 @@ public class  StudentModel {
     private char student_sex;
     private int student_yearlvl;
     private int student_course;
-    private String student_section;
+    private int student_section;
     private boolean student_archive;
 
     // Getters and Setters
@@ -72,11 +72,11 @@ public class  StudentModel {
         this.student_course = student_course;
     }
 
-    public String getStudentSection() {
+    public int getStudentSection() {
         return student_section;
     }
 
-    public void setStudentSection(String student_section) {
+    public void setStudentSection(int student_section) {
         this.student_section = student_section;
     }
 

@@ -9,6 +9,8 @@ import Repository.IndexRepository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -64,6 +66,18 @@ public class IndexController extends Db implements IndexRepository {
     public boolean checkConflict(HashMap<String, Object> values) {
         connect();
         return true;
+    }
+
+    @Override
+    public boolean isValidDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }
 
