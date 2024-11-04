@@ -100,7 +100,6 @@ public class StudentController extends Db implements StudentRepository {
         try{
             connect();
             prep = con.prepareStatement(ADD_STUDENT);
-            prep.setInt(1,  student.getStudentId());
             prep.setInt(3, course.getCourseID());
             prep.setInt(4, section.getSectionId());
             prep.executeUpdate();
@@ -224,8 +223,9 @@ public class StudentController extends Db implements StudentRepository {
     @Override
     public void displayStudentbyStudent_ID(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
         filterStudent("student_id",Value,sm,cm,secm);
-
     }
+
+
 
     // Helper method to validate the column name
     private boolean isValidColumn(String key) {
@@ -276,5 +276,5 @@ public class StudentController extends Db implements StudentRepository {
         }
         return false;
     }
-
+    public void add
 }
