@@ -296,7 +296,7 @@ public class Temp_View {
             System.out.println("6. Back to Main Menu");
             System.out.print("Choose an option: ");
 
-<<<<<<< HEAD
+
             try {
                 String choice = scan.nextLine();
 
@@ -305,23 +305,37 @@ public class Temp_View {
                     case "2" -> {
                         System.out.print("Enter the section name or substring: ");
                         String searchValue = scan.nextLine();
-                        sec.filterSection(searchValue, sm, cm);
+                        sec.filterSection("section_tbl.section_name",searchValue, sm, cm);
                     }
                     case "3" -> {
+                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
                         // Adding new section
                         System.out.print("Enter Section Name: ");
                         String sectionName = scan.nextLine();
-                        System.out.print("Enter Course ID: ");
-                        int courseId = scan.nextInt();
-                        scan.nextLine();
-
+                        values.put("`section_name`", sectionName);
+                        boolean isValidCourseId = false;
+                        cc.displayAllCourse(cm);
+                        while (!isValidCourseId) {
+                            System.out.print("Enter Course ID: ");
+                            int courseId = scan.nextInt();
+                            if(cc.isValidCourse("course_id",courseId)) {
+                                values.put("`course_id`", courseId);
+                                sm.setCourse_id(courseId);
+                                isValidCourseId = true;
+                            }
+                            else {
+                                System.out.println("Invalid Course ID. Please try again.");
+                            }
+                        }
                         sm.setSectionName(sectionName);
-                        sm.setCourse_id(courseId); 
 
-                        
-                        sec.addSection(sm);
-   
-                        sec.displayAllSection(sm, cm);
+                        if(!sec.sectionConflictChecker(values)) {
+                            sec.addSection(sm);
+                            sec.displayAllSection(sm, cm);
+                        }
+                        else {
+                            System.out.println("Section conflict detected. Please enter new section details.");
+                        }
                     }
                     case "4" -> {
                         // Deleting a section by name
@@ -333,30 +347,35 @@ public class Temp_View {
                         sec.displayAllSection(sm, cm); 
                     }
                     case "5" -> {
+                        LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Editing a section
                         System.out.print("Enter the current Section Name to edit: ");
                         String oldSectionName = scan.nextLine();
+                       boolean isSectionValid = false;
+                       while (!isSectionValid) {
+                       if (!sec.isValidSectionValue("`section_tbl.section_name`", oldSectionName)) {
+                        isSectionValid = true;
+                        values.put("old", oldSectionName);
+                       }
+                       else {
+                        System.out.println("Invalid section name. Please enter a valid section name.");
+                        }
+                       }
 
                         System.out.print("Enter the new Section Name: ");
                         String newSectionName = scan.nextLine();
+                        values.put("`section_name`", newSectionName);
 
                         System.out.print("Enter the new Course ID: ");
                         int newCourseId = scan.nextInt();
+                        values.put("`course_id`", newCourseId);
                         scan.nextLine();
 
-                        sec.editSection(oldSectionName, newSectionName, newCourseId);
+                        sec.editSection(values);
                         sec.displayAllSection(sm, cm); 
                     }
                     case "6" -> running = false;
                     default -> System.out.println("Invalid option. Please try again.");
-=======
-            switch (choice) {
-                case 1 -> sec.displayAllSection(sm, cm);
-                case 2 -> {
-                    System.out.print("Enter the section name or substring: ");
-                    String searchValue = scan.nextLine();
-                    sec.filterSection("section_tbl.section_name",searchValue, sm, cm);
->>>>>>> c0c52aaf2e4f56421ecee63deac0443cdf5f1659
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a valid option.");
@@ -394,42 +413,94 @@ public class Temp_View {
                         sub.displaySubjectByCourse("course_tbl.course_name", searchValue, subm, cm);
                     }
                     case 3 -> {
+                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
                         // Adding new subject
                         System.out.print("Enter Subject Name: ");
                         String subjectName = scan.nextLine();
-                        System.out.print("Enter Course ID: ");
-                        int courseId = scan.nextInt();
-                        scan.nextLine();
-    
+                        values.put("`subject_name`", subjectName);
+
+                        boolean validCourse = false;
+                        cc.displayAllCourse(cm);
+                        while (!validCourse) {
+                            System.out.print("Enter Course ID: ");
+                            int courseId = scan.nextInt();
+                            if(cc.isValidCourse("course_id",courseId)) {
+                                subm.setCourse_id(courseId);
+                                values.put("course_id", courseId);
+                                validCourse = true;
+                            }else {
+                                System.out.println("Invalid course id, please check all available courses");
+                            }
+                        }
                         subm.setSubject_name(subjectName);
-                        subm.setCourse_id(courseId);
-
-                        sub.addSubject(subm);
-
-                        sub.displayAllSubject(subm, cm);
+                        if(!sub.subjectConflictChecker(values)) {
+                            sub.addSubject(subm);
+                            sub.displayAllSubject(subm, cm);
+                        }
+                        else {
+                            System.out.println("Subject conflict detected. Please enter new subject details.");
+                        }
                     }
                     case 4 -> {
+                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
                         // Option to delete a subject by name
-                        System.out.print("Enter the Subject Name to delete: ");
-                        String subjectName = scan.nextLine();
-
-                        sub.deleteSubject(subjectName);
-
+                        boolean isSubjectValid = false;
+                        while (!isSubjectValid) {
+                            System.out.print("Enter Subject Name: ");
+                            String subjectName = scan.nextLine();
+                            if(sub.isValidSubjectValue("subject_name", subjectName)) {
+                                isSubjectValid = true;
+                                values.put("subject_name", subjectName);
+                            } else {
+                                System.out.println("Invalid subject name. Please enter a valid subject name.");
+                            }
+                        }
+                        cc.displayAllCourse(cm);
+                        boolean isCourseValid = false;
+                        while (!isCourseValid) {
+                            System.out.print("Enter Course ID: ");
+                            int courseId = scan.nextInt();
+                            if(cc.isValidCourse("course_id", courseId)) {
+                                isCourseValid = true;
+                                values.put("course_id", courseId);
+                            } else {
+                                System.out.println("Invalid course id. Please enter a valid course id.");
+                            }
+                        }
+                        sub.deleteSubject(values);
                         sub.displayAllSubject(subm, cm);
                     }
                     case 5 -> {
+                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
                         // edit a subject
-                        System.out.print("Enter the current Subject Name to edit: ");
-                        String oldSubjectName = scan.nextLine();
+                        boolean isSubjectValid = false;
+                        while (!isSubjectValid) {
+                            System.out.print("Enter the current Subject Name to edit: ");
+                            String oldSubjectName = scan.nextLine();
+                            if (sub.isValidSubjectValue("`subject_name`", oldSubjectName)) {
+                                isSubjectValid = true;
+                                values.put("old", oldSubjectName);
+                            } else {
+                                System.out.println("Invalid subject name. Please enter a valid subject name.");
+                            }
+                        }
 
                         System.out.print("Enter the new Subject Name: ");
                         String newSubjectName = scan.nextLine();
-
-                        System.out.print("Enter the new Course ID: ");
-                        int newCourseId = scan.nextInt();
-                        scan.nextLine();
-
-                        sub.editSubject(oldSubjectName, newSubjectName, newCourseId);
+                        values.put("subject_name", newSubjectName);
+                        cc.displayAllCourse(cm);
+                        boolean isValidCourse = false;
+                        while (!isValidCourse) {
+                            System.out.print("Enter the new Course ID: ");
+                            int newCourseId = scan.nextInt();
+                            if(cc.isValidCourse("course_id", newCourseId)){
+                                isValidCourse = true;
+                                values.put("course_id", newCourseId);
+                            }else {
+                                System.out.println("Invalid course id. Please enter a valid course id.");
+                            }
+                        }
+                        sub.editSubject(values);
 
                         sub.displayAllSubject(subm, cm);
                     }

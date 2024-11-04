@@ -111,7 +111,7 @@ public class CourseController extends Db implements CourseRepository {
             System.out.println("Error update course; " + e.getMessage());
         }
     }
-    public boolean isValidCourse(String column, int value){
+    public boolean isValidCourse(String column, Object value){
         IndexController ic = new IndexController();
         return ic.isValidTableValue("course_tbl",column,value);
 

@@ -6,6 +6,7 @@ import Model.SectionModel;
 import Repository.SectionRepository;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 public class SectionController extends Db implements SectionRepository {
     private IndexController ic = new IndexController();
@@ -81,7 +82,12 @@ public class SectionController extends Db implements SectionRepository {
             }
         }
     }
-    
+
+    @Override
+    public boolean sectionConflictChecker(LinkedHashMap<String, Object> values) {
+        return ic.checkConflict("section_tbl", values);
+    }
+
     @Override
     public void addSection(SectionModel section) {
         try {
@@ -135,13 +141,14 @@ public class SectionController extends Db implements SectionRepository {
     }
 
     @Override
-    public void editSection(String oldSectionName, String newSectionName, int courseId) {
+    public void editSection(LinkedHashMap<String, Object>values) {
         try {
             connect();
-            prep = con.prepareStatement(EDIT_SECTION_QUERY); // You'll need to define this query
-            prep.setString(1, newSectionName);
-            prep.setInt(2, courseId);
-            prep.setString(3, oldSectionName);
+            String stringQuery = String.format(EDIT_QUERY, "'section_tbl'", values.keySet().toArray()[1], values.keySet().toArray()[2],values.keySet().toArray()[1] ); // You'll need to define this query
+            prep = con.prepareStatement(stringQuery);
+            prep.setString(1, values.get("`section_name`").toString());
+            prep.setInt(2, (int)values.get("`course_id"));
+            prep.setString(3, values.get("old").toString());
             int rowsAffected = prep.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Section updated successfully.");
