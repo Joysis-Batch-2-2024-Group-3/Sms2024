@@ -19,7 +19,7 @@ public class Temp_View {
     private final IndexController ic = new IndexController();
     private final Scanner scan = new Scanner(System.in);
 
-    public void loginAdmin() {
+    private void loginAdmin() {
         System.out.println("\n=== Login Admin ===");
         AdminModel adminModel = loginInputAdmin();
         sc.authenticateAdmin(adminModel);
@@ -41,7 +41,7 @@ public class Temp_View {
         return new AdminModel(username, password);
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         loginAdmin();
         boolean running = true;
         while (running) {
@@ -77,7 +77,7 @@ public class Temp_View {
         }
     }
 
-    public void studentMenu() {
+    private void studentMenu() {
         StudentModel sm = new StudentModel();
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
@@ -129,10 +129,10 @@ public class Temp_View {
                         }
                     }
                     boolean isValidSectionName = false;
-                    while(!isValidSectionName){
+                    while (!isValidSectionName) {
                         System.out.println("Enter Section's Name:");
                         String sectionName = scan.nextLine();
-                        if(sec.isValidSectionValue("section_name",sectionName)){
+                        if (sec.isValidSectionValue("section_name", sectionName)) {
                             isValidSectionName = true;
                             values.put("section_name", sectionName);
                         } else {
@@ -150,19 +150,16 @@ public class Temp_View {
                     sm.setStudentId(studentId); // Set the student ID in the model
 
 
-
                     updateStudentField(studentId);
                 }
-                case 4 ->{}
-                case 5 -> addStudentSubMenu();
-                case 6 -> running = false;
+                case 4 -> addStudentSubMenu();
+                case 5 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
     }
 
-
-    public void updateStudentField(int StudentID) {
+    private void updateStudentField(int StudentID) {
         StudentModel student = new StudentModel();
         CourseModel course = new CourseModel();
         SectionModel section = new SectionModel();
@@ -184,106 +181,107 @@ public class Temp_View {
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine(); // Clear newline character
-    try{
-            switch (choice) {
-                case 1 -> {
-                    System.out.print("Enter new firstname: ");
-                    String newFirstname = scan.nextLine();
-                    value.put("first_name", newFirstname);
-                }
-                case 2 -> {
-                    System.out.print("Enter new lastname: ");
-                    String newLastname = scan.nextLine();
-                    value.put("last_name", newLastname);
-                }
-                case 3 -> {
-                    boolean validDate = false;
-                    while (!validDate) {
-                        System.out.print("Enter Birth Date (yyyy-mm-dd): ");
-                        String birthDate = scan.nextLine();
-                        if (ic.isValidDate(birthDate)) {
-                            value.put("birth_date", Date.valueOf(birthDate));
-                            validDate = true;
-                        } else {
-                            System.out.println("Invalid date format. Please enter in yyyy-mm-dd format.");
+            try {
+                switch (choice) {
+                    case 1 -> {
+                        System.out.print("Enter new firstname: ");
+                        String newFirstname = scan.nextLine();
+                        value.put("first_name", newFirstname);
+                    }
+                    case 2 -> {
+                        System.out.print("Enter new lastname: ");
+                        String newLastname = scan.nextLine();
+                        value.put("last_name", newLastname);
+                    }
+                    case 3 -> {
+                        boolean validDate = false;
+                        while (!validDate) {
+                            System.out.print("Enter Birth Date (yyyy-mm-dd): ");
+                            String birthDate = scan.nextLine();
+                            if (ic.isValidDate(birthDate)) {
+                                value.put("birth_date", Date.valueOf(birthDate));
+                                validDate = true;
+                            } else {
+                                System.out.println("Invalid date format. Please enter in yyyy-mm-dd format.");
+                            }
                         }
                     }
-                }
-                case 4 -> {
-                    System.out.print("Enter new sex (M/F): ");
-                    char newSex = scan.nextLine().toUpperCase().charAt(0);
-                    if (newSex == 'M' || newSex == 'F') {
-                        value.put("sex", newSex);
-                    } else {
-                        System.out.println("Invalid input. Please enter 'M' or 'F'.");
-                    }
-                }
-                case 5 -> {
-                    System.out.print("Enter new year level: ");
-                    int newYearLevel = scan.nextInt();
-                    scan.nextLine(); // Clear newline character
-                    value.put("year_level", newYearLevel);
-                }
-                case 6 -> {
-                    int courseId;
-                    cc.displayAllCourse(new CourseModel());
-                    boolean validCourseID = false;
-                    while (!validCourseID) {
-                        System.out.print("Enter Course ID: ");
-                        courseId = scan.nextInt();
-                        if (cc.isValidCourse("course_id", courseId)) {
-                            value.put("course_id", courseId);
-                            validCourseID = true;
+                    case 4 -> {
+                        System.out.print("Enter new sex (M/F): ");
+                        char newSex = scan.nextLine().toUpperCase().charAt(0);
+                        if (newSex == 'M' || newSex == 'F') {
+                            value.put("sex", newSex);
                         } else {
-                            System.out.println("Invalid Course ID. Please try again.");
+                            System.out.println("Invalid input. Please enter 'M' or 'F'.");
                         }
                     }
+                    case 5 -> {
+                        System.out.print("Enter new year level: ");
+                        int newYearLevel = scan.nextInt();
+                        scan.nextLine(); // Clear newline character
+                        value.put("year_level", newYearLevel);
+                    }
+                    case 6 -> {
+                        int courseId;
+                        cc.displayAllCourse(new CourseModel());
+                        boolean validCourseID = false;
+                        while (!validCourseID) {
+                            System.out.print("Enter Course ID: ");
+                            courseId = scan.nextInt();
+                            if (cc.isValidCourse("course_id", courseId)) {
+                                value.put("course_id", courseId);
+                                validCourseID = true;
+                            } else {
+                                System.out.println("Invalid Course ID. Please try again.");
+                            }
+                        }
+
+                    }
+                    case 7 -> {
+                        int sectionId;
+                        sec.displayAllSection(new SectionModel(), new CourseModel());
+                        boolean validSectionID = false;
+                        while (!validSectionID) {
+                            System.out.print("Enter Section ID: ");
+                            sectionId = scan.nextInt();
+                            if (sec.isValidSectionValue("section_id", sectionId)) {
+                                value.put("section_id", sectionId);
+                                validSectionID = true;
+                            } else {
+                                System.out.println("Invalid Section ID. Please try again.");
+                            }
+                        }
+                    }
+                    case 8 -> {
+                        System.out.print("Toggle Archived Status (current: " + (value.getOrDefault("archived", "No")) + "). Enter 'Y' to Archive or 'N' to Unarchive: ");
+                        char archivedChoice = scan.nextLine().toUpperCase().charAt(0);
+                        if (archivedChoice == 'Y') {
+                            value.put("archived", true);
+                        } else if (archivedChoice == 'N') {
+                            value.put("archived", false);
+                        } else {
+                            System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                        }
+                    }
+                    case 9 -> {
+                        if (!value.isEmpty()) {
+                            sc.updateStudent(value, StudentID);
+                        } else {
+                            System.out.println("No fields to update.");
+                        }
+                        updatingStudent = false; // Exit the loop after finishing updates
+                    }
+                    default -> System.out.println("Invalid option. Please try again.");
 
                 }
-                case 7 -> {
-                    int sectionId;
-                    sec.displayAllSection(new SectionModel(), new CourseModel());
-                    boolean validSectionID = false;
-                    while (!validSectionID) {
-                        System.out.print("Enter Section ID: ");
-                        sectionId = scan.nextInt();
-                        if (sec.isValidSectionValue("section_id", sectionId)) {
-                            value.put("section_id", sectionId);
-                            validSectionID = true;
-                        } else {
-                            System.out.println("Invalid Section ID. Please try again.");
-                        }
-                    }
-                }
-                case 8 -> {
-                    System.out.print("Toggle Archived Status (current: " + (value.getOrDefault("archived", "No")) + "). Enter 'Y' to Archive or 'N' to Unarchive: ");
-                    char archivedChoice = scan.nextLine().toUpperCase().charAt(0);
-                    if (archivedChoice == 'Y') {
-                        value.put("archived", true);
-                    } else if (archivedChoice == 'N') {
-                        value.put("archived", false);
-                    } else {
-                        System.out.println("Invalid input. Please enter 'Y' or 'N'.");
-                    }
-                }
-                case 9 -> {
-                    if (!value.isEmpty()) {
-                        sc.updateStudent(value, StudentID);
-                    } else {
-                        System.out.println("No fields to update.");
-                    }
-                    updatingStudent = false; // Exit the loop after finishing updates
-                }
-                default -> System.out.println("Invalid option. Please try again.");
-
-            }
-        } catch (InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a valid option.");
                 scan.nextLine(); // Clear invalid input
             }
         }
     }
-    public void courseMenu() {
+
+    private void courseMenu() {
         CourseModel cm = new CourseModel();
         boolean running = true;
 
@@ -293,7 +291,8 @@ public class Temp_View {
             System.out.println("2. Search for Course/s");
             System.out.println("3. Update for Courses");
             System.out.println("4. Add Course");
-            System.out.println("5. Back to Main Menu");
+            System.out.println("5. Delete Course");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine();
@@ -335,24 +334,55 @@ public class Temp_View {
                     System.out.println("Add a new course");
                     System.out.print("Enter course name: ");
                     String courseName = scan.nextLine();
-                    values.put("`course_name`",courseName);
+                    values.put("`course_name`", courseName);
                     System.out.print("Enter department name: ");
                     String departmentName = scan.nextLine();
                     values.put("`department_name`", departmentName);
-                    if(!cc.courseConflictChecker(values)){
+                    if (!cc.courseConflictChecker(values)) {
                         cc.addCourse(courseName, departmentName);
-                    }
-                    else{
+                    } else {
                         System.out.println("Course conflict detected. Please enter new course details.");
                     }
                 }
-                case 5 -> running = false;
+                case 5 -> {
+                    LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
+                    cc.displayAllCourse(cm);
+                    boolean isValidInput = false;
+                    while(!isValidInput){
+                        System.out.println("Enter course name: ");
+                        String courseName = scan.nextLine();
+                        values.put("course_name", courseName);
+                        System.out.println("Enter department name: ");
+                        String departmentName = scan.nextLine();
+                        values.put("department_name", departmentName);
+                        if (cc.validateBothName(values)) {
+                            isValidInput = true;
+
+                        }
+                        else {
+                            System.out.println("Course not found. Please enter valid course details.");
+                        }
+                    }
+                    System.out.println("Confirm delete: "+values.get("course_name")+" "+values.get("department_name") +" (Y/N)");
+                    char option = scan.nextLine().charAt(0);
+                    if (option == 'Y' || option == 'y') {
+                        cc.deleteCourse(values);
+                    } else if (option == 'N' || option == 'n'){
+                        System.out.println("Course deletion cancelled.");
+                    }
+                    else {
+                        System.out.println("Invalid option. Course deletion cancelled.");
+                    }
+
+
+                }
+                case 6 -> running = false;
                 default -> System.out.println("Invalid option. Please try again.");
             }
         }
     }
 
-    public void updateCourseField(int courseID) {
+    private void updateCourseField(int courseID) {
         CourseModel course = new CourseModel();
         LinkedHashMap<String, Object> values = new LinkedHashMap<>();
         boolean updatingCourse = true;
@@ -388,8 +418,7 @@ public class Temp_View {
         }
     }
 
-
-    public void sectionMenu() {
+    private void sectionMenu() {
         SectionModel sm = new SectionModel();
         CourseModel cm = new CourseModel();
         boolean running = true;
@@ -401,8 +430,7 @@ public class Temp_View {
             System.out.println("3. Add Section");
             System.out.println("4. Delete Section by Name");
             System.out.println("5. Edit Section");
-            System.out.println("6. Update Section");
-            System.out.println("7. Back to Main Menu");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
 
@@ -413,10 +441,10 @@ public class Temp_View {
                     case 2 -> {
                         System.out.print("Enter the section name or substring: ");
                         String searchValue = scan.nextLine();
-                        sec.filterSection("section_tbl.section_name",searchValue, sm, cm);
+                        sec.filterSection("section_tbl.section_name", searchValue, sm, cm);
                     }
                     case 3 -> {
-                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
+                        LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Adding new section
                         System.out.print("Enter Section Name: ");
                         String sectionName = scan.nextLine();
@@ -426,59 +454,55 @@ public class Temp_View {
                         while (!isValidCourseId) {
                             System.out.print("Enter Course ID: ");
                             int courseId = scan.nextInt();
-                            if(cc.isValidCourse("course_id",courseId)) {
+                            if (cc.isValidCourse("course_id", courseId)) {
                                 values.put("`course_id`", courseId);
                                 sm.setCourse_id(courseId);
                                 isValidCourseId = true;
-                            }
-                            else {
+                            } else {
                                 System.out.println("Invalid Course ID. Please try again.");
                             }
                         }
                         sm.setSectionName(sectionName);
 
-                        if(!sec.sectionConflictChecker(values)) {
+                        if (!sec.sectionConflictChecker(values)) {
                             sec.addSection(sm);
                             sec.displayAllSection(sm, cm);
-                        }
-                        else {
+                        } else {
                             System.out.println("Section conflict detected. Please enter new section details.");
                         }
                     }
                     case 4 -> {
                         // Deleting a section by name
                         boolean isValidSectionName = false;
-                        while(!isValidSectionName){
-                        System.out.print("Enter the Section Name to delete: ");
-                        String sectionName = scan.nextLine();
-                        if(sec.isValidSectionValue("section_name",sectionName)){
-                            sec.deleteSection(sectionName);
-                            sec.displayAllSection(sm, cm);
-                            isValidSectionName = true;
+                        while (!isValidSectionName) {
+                            System.out.print("Enter the Section Name to delete: ");
+                            String sectionName = scan.nextLine();
+                            if (sec.isValidSectionValue("section_name", sectionName)) {
+                                sec.deleteSection(sectionName);
+                                sec.displayAllSection(sm, cm);
+                                isValidSectionName = true;
+                            } else {
+                                System.out.println("Invalid section name. Please enter a valid section name.");
+                            }
                         }
-                        else {
-                            System.out.println("Invalid section name. Please enter a valid section name.");
-                        }
-                    }
                     }
                     case 5 -> {
                         LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Editing a section
                         sec.displayAllSection(sm, cm);
-                       boolean isSectionValid = false;
-                       while (!isSectionValid) {
-                           System.out.print("Enter the current Section Name to edit: ");
-                           String oldSectionName = scan.nextLine();
-                       if (sec.isValidSectionValue("section_name", oldSectionName)) {
-                        isSectionValid = true;
-                        values.put("old", oldSectionName);
-                       }
-                       else {
-                        System.out.println("Invalid section name. Please enter a valid section name.");
+                        boolean isSectionValid = false;
+                        while (!isSectionValid) {
+                            System.out.print("Enter the current Section Name to edit: ");
+                            String oldSectionName = scan.nextLine();
+                            if (sec.isValidSectionValue("section_name", oldSectionName)) {
+                                isSectionValid = true;
+                                values.put("old", oldSectionName);
+                            } else {
+                                System.out.println("Invalid section name. Please enter a valid section name.");
+                            }
                         }
-                       }
 
-                       System.out.print("Enter the new Section Name: ");
+                        System.out.print("Enter the new Section Name: ");
                         String newSectionName = scan.nextLine();
                         values.put("`section_name`", newSectionName);
 
@@ -487,28 +511,19 @@ public class Temp_View {
                         while (!isValidCourseId) {
                             System.out.print("Enter the new Course ID: ");
                             int newCourseId = scan.nextInt();
-                            if(cc.isValidCourse("course_id",newCourseId)) {
+                            if (cc.isValidCourse("course_id", newCourseId)) {
                                 isValidCourseId = true;
                                 values.put("`course_id`", newCourseId);
-                            }
-                            else {
+                            } else {
                                 System.out.println("Invalid Course ID. Please try again.");
                             }
                         }
                         sec.editSection(values);
-                        sec.displayAllSection(sm, cm); 
-                    }
-
-                    case 6 -> {
-                        System.out.println("Enter the Section ID: ");
-                        int sectionId = scan.nextInt();
-                        sm.setSectionId(sectionId);
-
                         sec.displayAllSection(sm, cm);
-                        updateSectionField();
                     }
 
-                    case 7 -> running = false;
+
+                    case 6 -> running = false;
 
                     default -> System.out.println("Invalid option. Please try again.");
                 }
@@ -522,9 +537,7 @@ public class Temp_View {
         }
     }
 
-
-
-    private void subjectMenu () {
+    private void subjectMenu() {
         SubjectModel subm = new SubjectModel();
         CourseModel cm = new CourseModel();
         boolean running = true;
@@ -551,7 +564,7 @@ public class Temp_View {
                         sub.displaySubjectByCourse("course_tbl.course_name", searchValue, subm, cm);
                     }
                     case 3 -> {
-                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
+                        LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Adding new subject
                         System.out.print("Enter Subject Name: ");
                         String subjectName = scan.nextLine();
@@ -562,31 +575,30 @@ public class Temp_View {
                         while (!validCourse) {
                             System.out.print("Enter Course ID: ");
                             int courseId = scan.nextInt();
-                            if(cc.isValidCourse("course_id",courseId)) {
+                            if (cc.isValidCourse("course_id", courseId)) {
                                 subm.setCourse_id(courseId);
                                 values.put("course_id", courseId);
                                 validCourse = true;
-                            }else {
+                            } else {
                                 System.out.println("Invalid course id, please check all available courses");
                             }
                         }
                         subm.setSubject_name(subjectName);
-                        if(!sub.subjectConflictChecker(values)) {
+                        if (!sub.subjectConflictChecker(values)) {
                             sub.addSubject(subm);
                             sub.displayAllSubject(subm, cm);
-                        }
-                        else {
+                        } else {
                             System.out.println("Subject conflict detected. Please enter new subject details.");
                         }
                     }
                     case 4 -> {
-                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
+                        LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Option to delete a subject by name
                         boolean isSubjectValid = false;
                         while (!isSubjectValid) {
                             System.out.print("Enter Subject Name: ");
                             String subjectName = scan.nextLine();
-                            if(sub.isValidSubjectValue("subject_name", subjectName)) {
+                            if (sub.isValidSubjectValue("subject_name", subjectName)) {
                                 isSubjectValid = true;
                                 values.put("subject_name", subjectName);
                             } else {
@@ -598,7 +610,7 @@ public class Temp_View {
                         while (!isCourseValid) {
                             System.out.print("Enter Course ID: ");
                             int courseId = scan.nextInt();
-                            if(cc.isValidCourse("course_id", courseId)) {
+                            if (cc.isValidCourse("course_id", courseId)) {
                                 isCourseValid = true;
                                 values.put("course_id", courseId);
                             } else {
@@ -609,7 +621,7 @@ public class Temp_View {
                         sub.displayAllSubject(subm, cm);
                     }
                     case 5 -> {
-                        LinkedHashMap<String, Object>values = new LinkedHashMap<String, Object>();
+                        LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // edit a subject
                         boolean isSubjectValid = false;
                         while (!isSubjectValid) {
@@ -631,10 +643,10 @@ public class Temp_View {
                         while (!isValidCourse) {
                             System.out.print("Enter the new Course ID: ");
                             int newCourseId = scan.nextInt();
-                            if(cc.isValidCourse("course_id", newCourseId)){
+                            if (cc.isValidCourse("course_id", newCourseId)) {
                                 isValidCourse = true;
                                 values.put("course_id", newCourseId);
-                            }else {
+                            } else {
                                 System.out.println("Invalid course id. Please enter a valid course id.");
                             }
                         }
@@ -655,7 +667,7 @@ public class Temp_View {
         }
     }
 
-    public void studentSubjectMenu() {
+    private void studentSubjectMenu() {
         StudentModel sm = new StudentModel();
         SubjectModel subm = new SubjectModel();
         CourseModel cm = new CourseModel();
@@ -680,7 +692,7 @@ public class Temp_View {
 
                         // Validate Course Name
                         boolean isValidCourseName = false;
-                        String courseName ="";
+                        String courseName = "";
                         while (!isValidCourseName) {
                             System.out.println("Enter a Course Name: ");
                             courseName = scan.nextLine();
@@ -710,7 +722,7 @@ public class Temp_View {
                                 System.out.println("Invalid student id. Please enter a valid student id.");
                             }
                         }
-                        sub.displayAllSubject(subm,cm);
+                        sub.displayAllSubject(subm, cm);
                         // Validate Subject ID
                         boolean isValidSubject = false;
                         while (!isValidSubject) {
@@ -902,7 +914,8 @@ public class Temp_View {
             }
         }
     }
-    public void studentSubjectDisplayMenu() {
+
+    private void studentSubjectDisplayMenu() {
         StudentModel sm = new StudentModel();
         SubjectModel sub = new SubjectModel();
         SectionModel secm = new SectionModel();
@@ -945,7 +958,7 @@ public class Temp_View {
         }
     }
 
-    private void scheduleMenu () {
+    private void scheduleMenu() {
         ScheduleModel sm = new ScheduleModel();
         SubjectModel subm = new SubjectModel();
         SectionModel secm = new SectionModel();
@@ -974,103 +987,8 @@ public class Temp_View {
                     String day = scan.nextLine();
                     sched.displayScheduleByDay(day, sm, subm, secm);
                 }
-                case 3 -> {
-                    LinkedHashMap<String, Object> values = new LinkedHashMap<>();
-                    boolean run = true;
-                    while (run) {
-                        try {
-                            // Loop for Section ID
-                            boolean validSection = false;
-                            while (!validSection) {
-                                sec.displayAllSection(secm, cm);
-                                System.out.print("Enter Section ID: ");
-                                int sectionId = scan.nextInt();
-
-                                if (sec.isValidSectionValue("section_id", sectionId)) {
-                                    int courseId = cc.getCourseID("section_tbl", "section_id", sectionId);
-                                    sm.setSection_id(sectionId);
-                                    values.put("section_id", sectionId);
-                                    sched.displayScheduleBySection("section_tbl.section_id", sectionId, sm, subm, secm);
-                                    sub.displaySubjectByCourse("course_tbl.course_id", courseId, subm, cm);
-                                    validSection = true; // Valid section, exit loop
-                                } else {
-                                    System.out.println("Invalid Section ID, Please try again.");
-                                }
-                            }
-
-                            // Loop for Subject ID
-                            boolean validSubject = false;
-                            while (!validSubject) {
-                                System.out.print("Enter Subject ID: ");
-                                int subjectId = scan.nextInt();
-
-                                if (sub.isValidSubjectValue("subject_id", subjectId)) {
-                                    sm.setSubject_id(subjectId);
-                                    validSubject = true; // Valid subject, exit loop
-                                } else {
-                                    System.out.println("Invalid Subject ID, Please try again.");
-                                }
-                            }
-                            run = false; // Exit outer loop if both IDs are valid
-
-                        } catch (SQLException e) {
-                            System.out.println("SQLException: " + e.getMessage());
-                        } catch (InputMismatchException e) {
-                            System.out.println("InputMismatchException: Please enter valid numeric IDs.");
-                            scan.next(); // Clear the invalid input
-                        } catch (Exception e) {
-                            System.out.println("Exception: " + e.getMessage());
-                        }
-                    }
-                    scan.nextLine(); // Clear the invalid
-                    String day = null;
-                    boolean validDay = false;
-                    while (!validDay) {
-                        System.out.print("Enter Day (Monday, Tuesday, Wednesday, etc.): ");
-                        day = scan.nextLine();
-                        if (day.matches("(?i)Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday")) {
-                            validDay = true; // Exit loop if valid
-                            sm.setDay(day);
-                            values.put("`day`", day);
-                        } else {
-                            System.out.println("Invalid day. Please enter a valid day of the week.");
-                        }
-                    }
-
-
-                    Time startTime = null;
-                    while (startTime == null) {
-                        System.out.print("Enter Start Time (HH:MM:SS Military): ");
-                        try {
-                            startTime = Time.valueOf(scan.nextLine());
-                            values.put("`start_time`", startTime);
-
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
-                        }
-                    }
-
-                    Time endTime = null;
-                    while (endTime == null) {
-                        System.out.print("Enter End Time (HH:MM:SS Military): ");
-                        try {
-                            endTime = Time.valueOf(scan.nextLine());
-                            sm.setEnd_time(endTime);
-                            values.put("`end_time`", endTime);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
-                        }
-                    }
-                    sm.setStart_time(startTime);
-
-                    if (!sched.checkScheduleConflict(values)) {
-                        System.out.println("Schedule added test lang to ");
-                        //sched.addSchedule(sm, subm, secm);
-                    } else {
-                        System.out.println("Schedule conflict detected, please try again6");
-                    }
-                }
-                case 4 ->{
+                case 3 -> addScheduleSubMenu(subm, secm, cm, sm);
+                case 4 -> {
                     System.out.print("Enter the section name or substring: ");
                     String searchValue = scan.nextLine();
                     sched.displayScheduleBySection("section_tbl.section_name", searchValue, sm, subm, secm);
@@ -1146,20 +1064,20 @@ public class Temp_View {
                         }
                     }
                     case 4 -> {
-                    sec.displayAllSection(new SectionModel(), new CourseModel());
-                    // Validate Section ID
-                    boolean isValidSection = false;
-                    while (!isValidSection) {
-                        System.out.print("Enter new Section ID: ");
-                        int sectionId = scan.nextInt();
-                        scan.nextLine(); // Clear the buffer
-                        if (sec.isValidSectionValue("section_id", sectionId)) {
-                            isValidSection = true;
-                            values.put("section_id", sectionId);
-                        } else {
-                            System.out.println("Invalid section id. Please enter a valid section id.");
+                        sec.displayAllSection(new SectionModel(), new CourseModel());
+                        // Validate Section ID
+                        boolean isValidSection = false;
+                        while (!isValidSection) {
+                            System.out.print("Enter new Section ID: ");
+                            int sectionId = scan.nextInt();
+                            scan.nextLine(); // Clear the buffer
+                            if (sec.isValidSectionValue("section_id", sectionId)) {
+                                isValidSection = true;
+                                values.put("section_id", sectionId);
+                            } else {
+                                System.out.println("Invalid section id. Please enter a valid section id.");
+                            }
                         }
-                    }
                     }
 
                     case 5 -> {
@@ -1181,7 +1099,7 @@ public class Temp_View {
         }
     }
 
-    private void studentSubMenu ( int number){
+    private void studentSubMenu(int number) {
         StudentModel sm = new StudentModel();
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
@@ -1241,8 +1159,8 @@ public class Temp_View {
                 sc.filterStudent(columnName, columnValue, sm, cm, secm);
 
             }
-            case 7 -> sc.displayStudents(sm,cm,secm);
-            case 8 -> sc.displayArchivedStudents(sm,cm,secm);
+            case 7 -> sc.displayStudents(sm, cm, secm);
+            case 8 -> sc.displayArchivedStudents(sm, cm, secm);
             case 9 -> System.out.println("Returning to Student Menu...");
             default -> System.out.println("Invalid option. Please try again.");
         }
@@ -1327,50 +1245,100 @@ public class Temp_View {
         sc.displayStudents(sm, cm, secm);
     }
 
-    private void addScheduleSubMenu(){
-        
-    }
-    private void updateSectionField() {
-        SectionModel section = new SectionModel();
-
-        boolean updating = true;
-
-        while (updating) {
-            System.out.println("\nSelect To Update Section===");
-            System.out.println("1. Update Section ID");
-            System.out.println("2. Update Section Name");
-            System.out.println("3. Finish Update");
-            System.out.print("Choose an option to update: ");
-
+    private void addScheduleSubMenu(SubjectModel subm, SectionModel secm, CourseModel cm, ScheduleModel sm) {
+        LinkedHashMap<String, Object> values = new LinkedHashMap<>();
+        boolean run = true;
+        while (run) {
             try {
-                int selectSectionToUpdate = scan.nextInt();
-                scan.nextLine(); // Clear the newline character
+                // Loop for Section ID
+                boolean validSection = false;
+                while (!validSection) {
+                    sec.displayAllSection(secm, cm);
+                    System.out.print("Enter Section ID: ");
+                    int sectionId = scan.nextInt();
 
-                switch (selectSectionToUpdate) {
-                    case 1 -> {
-                        System.out.print("Enter the new Section ID: ");
-                        int newSectionId = scan.nextInt();
-                        scan.nextLine(); // Clear the newline character
-                        section.setSectionId(newSectionId);
+                    if (sec.isValidSectionValue("section_id", sectionId)) {
+                        int courseId = cc.getCourseID("section_tbl", "section_id", sectionId);
+                        sm.setSection_id(sectionId);
+                        values.put("section_id", sectionId);
+                        sched.displayScheduleBySection("section_tbl.section_id", sectionId, sm, subm, secm);
+                        sub.displaySubjectByCourse("course_tbl.course_id", courseId, subm, cm);
+                        validSection = true; // Valid section, exit loop
+                    } else {
+                        System.out.println("Invalid Section ID, Please try again.");
                     }
-                    case 2 -> {
-                        System.out.print("Enter the new Section Name: ");
-                        String newSectionName = scan.nextLine();
-                        section.setSectionName(newSectionName);
-                    }
-                    case 3 -> {
-                        updating = false;
-                        System.out.println("Update finished.");
-                    }
-                    default -> System.out.println("Invalid option. Please select a valid option.");
                 }
+
+                // Loop for Subject ID
+                boolean validSubject = false;
+                while (!validSubject) {
+                    System.out.print("Enter Subject ID: ");
+                    int subjectId = scan.nextInt();
+
+                    if (sub.isValidSubjectValue("subject_id", subjectId)) {
+                        sm.setSubject_id(subjectId);
+                        validSubject = true; // Valid subject, exit loop
+                    } else {
+                        System.out.println("Invalid Subject ID, Please try again.");
+                    }
+                }
+                run = false; // Exit outer loop if both IDs are valid
+
+            } catch (SQLException e) {
+                System.out.println("SQLException: " + e.getMessage());
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Clear the invalid input
+                System.out.println("InputMismatchException: Please enter valid numeric IDs.");
+                scan.next(); // Clear the invalid input
+            } catch (Exception e) {
+                System.out.println("Exception: " + e.getMessage());
+            }
+        }
+        scan.nextLine(); // Clear the invalid
+        String day = null;
+        boolean validDay = false;
+        while (!validDay) {
+            System.out.print("Enter Day (Monday, Tuesday, Wednesday, etc.): ");
+            day = scan.nextLine();
+            if (day.matches("(?i)Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday")) {
+                validDay = true; // Exit loop if valid
+                sm.setDay(day);
+                values.put("`day`", day);
+            } else {
+                System.out.println("Invalid day. Please enter a valid day of the week.");
             }
         }
 
-        sec.updateSection(section);
+
+        Time startTime = null;
+        while (startTime == null) {
+            System.out.print("Enter Start Time (HH:MM:SS Military): ");
+            try {
+                startTime = Time.valueOf(scan.nextLine());
+                values.put("`start_time`", startTime);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
+            }
+        }
+
+        Time endTime = null;
+        while (endTime == null) {
+            System.out.print("Enter End Time (HH:MM:SS Military): ");
+            try {
+                endTime = Time.valueOf(scan.nextLine());
+                sm.setEnd_time(endTime);
+                values.put("`end_time`", endTime);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid time format. Please enter in HH:MM:SS format.");
+            }
+        }
+        sm.setStart_time(startTime);
+
+        if (!sched.checkScheduleConflict(values)) {
+            sched.addSchedule(sm, subm, secm);
+        } else {
+            System.out.println("Schedule conflict detected, please try again6");
+        }
     }
 
     public static void main (String[]args){

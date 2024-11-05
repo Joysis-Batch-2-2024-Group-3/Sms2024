@@ -181,4 +181,42 @@ public class CourseController extends Db implements CourseRepository {
 
         return ic.checkConflict("`course_tbl`", values);
     }
+    @Override
+    public void deleteCourse(LinkedHashMap<String, Object>values) {
+        connect();
+        try {
+            String stringQuery = String.format(DELETE_QUERY, "course_tbl",
+                    values.keySet().toArray()[0],
+                    values.keySet().toArray()[1]);
+            prep = con.prepareStatement(stringQuery);
+            prep.setString(1, values.get("course_name").toString());
+            prep.setString(2, values.get("department_name").toString());
+            prep.executeUpdate();
+            System.out.println("Course: " +values.get("course_name").toString()+" "+values.get("department_name").toString()  + " deleted successfully");
+            displayAllCourse(new CourseModel());
+            con.close();
+
+        }catch (SQLException e){
+            System.out.println("SQL error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public boolean validateBothName (LinkedHashMap<String, Object> values){
+        try{
+            connect();
+            prep = con.prepareStatement(VALIDATE_COURSE_DEPARTMENT);
+            prep.setString(1, values.get("course_name").toString());
+            prep.setString(2, values.get("department_name").toString());
+            result = prep.executeQuery();
+            if(result.next()){
+                return result.getInt(1)>0;
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: "+ e.getMessage() );
+        } catch (Exception e) {
+            System.out.println("Error: "+ e.getMessage());
+        }
+    return false;
+    }
 }

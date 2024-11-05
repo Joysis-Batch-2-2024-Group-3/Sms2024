@@ -12,6 +12,5 @@ public interface SectionRepository {
     public void editSection(LinkedHashMap<String, Object>values);
     public void filterSection(String key, Object value, SectionModel section, CourseModel course);
     public boolean sectionConflictChecker(LinkedHashMap<String, Object>values);
-    public void updateSection(SectionModel section);
 }
 

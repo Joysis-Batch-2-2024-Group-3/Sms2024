@@ -77,6 +77,8 @@ public interface QueryConstant {
     String DISPLAY_COURSE = "SELECT course_tbl.course_id, course_tbl.course_name, course_tbl.department_name FROM course_tbl";
     //ADD COURSE
     String ADD_COURSE = "INSERT INTO `course_tbl`(`course_name`, `department_name`) VALUES (?, ?)";
+    //VALIDATE COURSE AND DEPARTMENT NAME
+    String VALIDATE_COURSE_DEPARTMENT = "SELECT COUNT(1) FROM course_tbl WHERE course_name =? AND department_name =?";
 
     //Queries for Subject
     // DISPLAY SUBJECT
