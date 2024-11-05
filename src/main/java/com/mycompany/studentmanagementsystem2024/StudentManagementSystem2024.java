@@ -4,6 +4,7 @@
 
 package com.mycompany.studentmanagementsystem2024;
 import View.MainMenu;
+import View.Admin;
 import Utils.ClearConsole;
 
 /**
@@ -15,7 +16,16 @@ public class StudentManagementSystem2024 {
     public static void main(String[] args) {
         while(true)
         {
-            MainMenu.DisplayMainMenu();
+           ClearConsole.Cls();
+
+           String firstAction = MainMenu.DisplayMainMenu();
+           
+           if(firstAction.equals("1"))
+           {
+               Admin.DisplayAdminLogin();
+           }else{
+               System.out.println("hi");
+           }
         }
     }
 }
