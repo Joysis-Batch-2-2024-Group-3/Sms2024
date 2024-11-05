@@ -109,20 +109,59 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
     }
 
     @Override
-    public void editStudentSubject(LinkedHashMap<String, Object> Value){
-    try{
-        connect();
-        prep = con.prepareStatement(EDIT_STUDENT_SUBJECT);
-        prep.setInt(1, (int) Value.get("student_id"));
-        prep.setInt(2, (int) Value.get("subject_id"));
-        prep.setBoolean(3, (boolean) Value.get("archived"));
-        prep.setInt(4, (int) Value.get("section_id"));
-        prep.setInt(5, (int) Value.get("student_subject_id"));
-        prep.executeUpdate();
-        System.out.println("Student Subject edited successfully.");
-    } catch (SQLException e) {
-        System.out.println("SQL Error" + e.getMessage());
-    }
+    public void updateStudentSubject(LinkedHashMap<String, Object> values, int studentSubjectID) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE student_subject_tbl SET ");
+        boolean first = true;
+
+        // Iterate over the values map to build the query
+        for (String key : values.keySet()) {
+            if (!first) {
+                queryBuilder.append(", ");
+            }
+            queryBuilder.append(key).append(" = ?");
+            first = false;
+        }
+
+        queryBuilder.append(" WHERE student_subject_id = ?");
+
+        try {
+            connect();
+            prep = con.prepareStatement(queryBuilder.toString());
+
+            int index = 1;
+
+            // Set the parameters for the fields to be updated
+            for (Object value : values.values()) {
+                if (value instanceof String) {
+                    prep.setString(index++, (String) value);
+                } else if (value instanceof Integer) {
+                    prep.setInt(index++, (Integer) value);
+                } else if (value instanceof Boolean) {
+                    prep.setBoolean(index++, (Boolean) value);
+                }
+            }
+
+            // Set the studentSubjectID as the last parameter
+            prep.setInt(index, studentSubjectID);
+
+            int rowsUpdated = prep.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Student-Subject record " + studentSubjectID + " successfully updated.");
+            } else {
+                System.out.println("No student-subject record found with ID: " + studentSubjectID);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error updating student-subject record: " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -154,17 +193,20 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             prep.setString(1, Value.get("student_name").toString());
             prep.setString(2, Value.get("subject_name").toString());
             result = prep.executeQuery();
+            System.out.println("==== Row affected ====");
+            System.out.printf("%-5s | %-20s | %-20s  | %-20s | %-5s\n",
+            "ID", "Name", "subject", "Section", "Archived");
             if (result.next()) {
-                System.out.println("==== Row affected ====");
                 studentSubjectId = result.getInt("student_subject_id"); // Get the ID
                 ssm.setStudent_subject_id(studentSubjectId);
                 sm.setStudentFirstname(result.getString("first_name"));
                 sm.setStudentLastname(result.getString("last_name"));
                 subm.setSubject_name(result.getString("subject_name"));
                 sec.setSectionName(result.getString("section_name"));
+                ssm.setArchived((result.getBoolean("archived")));
                 String student_name = sm.getStudentFirstname() + " " + sm.getStudentLastname();
-                System.out.printf("%-5d | %-20s | %-20s  | %-20s |\n",
-                        studentSubjectId, student_name, subm.getSubject_name(), sec.getSectionName());
+                System.out.printf("%-5d | %-20s | %-20s  | %-20s | %-5s\n",
+                        studentSubjectId, student_name, subm.getSubject_name(), sec.getSectionName(), ssm.getArchived() ? "Yes" : "No");
             } else {
                 System.out.println("No matching record found.");
             }
@@ -183,5 +225,6 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
         }
         return studentSubjectId; // Return the student_subject_id
     }
+
 }
 

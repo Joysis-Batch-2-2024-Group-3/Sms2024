@@ -30,4 +30,9 @@ public class Student_SubjectModel {
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
+
+    public boolean getArchived() {
+        return archived;
+
+    }
 }

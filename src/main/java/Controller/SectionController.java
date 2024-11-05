@@ -10,9 +10,11 @@ import java.util.LinkedHashMap;
 
 public class SectionController extends Db implements SectionRepository {
     private IndexController ic = new IndexController();
-    public boolean isValidSectionValue (String key, Object value){
-        return ic.isValidTableValue("section_tbl",key,value);
+
+    public boolean isValidSectionValue(String key, Object value) {
+        return ic.isValidTableValue("section_tbl", key, value);
     }
+
     @Override
     public void displayAllSection(SectionModel section, CourseModel course) {
         try {
@@ -47,7 +49,8 @@ public class SectionController extends Db implements SectionRepository {
             }
         }
     }
-     @Override
+
+    @Override
     public void filterSection(String Key, Object value, SectionModel section, CourseModel course) {
         try {
             connect();
@@ -141,30 +144,55 @@ public class SectionController extends Db implements SectionRepository {
     }
 
     @Override
-    public void editSection(LinkedHashMap<String, Object>values) {
+    public void updateSection(LinkedHashMap<String, Object> values, int sectionID) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE section_tbl SET ");
+
+        boolean first = true;
+
+        for (String key : values.keySet()) {
+            if (!first) {
+                queryBuilder.append(", ");
+            }
+            queryBuilder.append(key).append(" = ?");
+            first = false;
+        }
+
+        queryBuilder.append(" WHERE section_id = ?");
+
         try {
             connect();
-            String stringQuery = String.format(EDIT_QUERY, "`section_tbl`", values.keySet().toArray()[1], values.keySet().toArray()[2],values.keySet().toArray()[1] ); // You'll need to define this query
-            prep = con.prepareStatement(stringQuery);
-            prep.setString(1, values.get("`section_name`").toString());
-            prep.setInt(2, (int)values.get("`course_id`"));
-            prep.setString(3, values.get("old").toString());
-            int rowsAffected = prep.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Section updated successfully.");
-            } else {
-                System.out.println("Section not found.");
+            prep = con.prepareStatement(queryBuilder.toString());
+
+            int index = 1;
+
+            for (Object value : values.values()) {
+                if (value instanceof String) {
+                    prep.setString(index++, (String) value);
+                } else if (value instanceof Integer) {
+                    prep.setInt(index++, (Integer) value);
+                }
             }
-        } catch (SQLException e) {
-            System.out.println("SQL Error in editing section: " + e.getMessage());
+
+            prep.setInt(index, sectionID);
+
+            int rowsUpdated = prep.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Section record " + sectionID + " successfully updated.");
+            } else {
+                System.out.println("No section record found with ID: " + sectionID);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error updating section record: " + e.getMessage());
         } finally {
             try {
                 if (prep != null) prep.close();
                 if (con != null) con.close();
-            } catch (Exception e) {
-                System.out.println("Error in closing resources in section");
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
             }
         }
-    }
 
+    }
 }

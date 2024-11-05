@@ -119,12 +119,13 @@ public interface QueryConstant {
             " INNER JOIN subject_tbl ON student_subject_tbl.subject_id = subject_tbl.subject_id" +
             " INNER JOIN section_tbl ON student_subject_tbl.section_id = section_tbl.section_id" +
             " WHERE %s LIKE ?";  // Ensure to include section_name in your WHERE condition as needed
-   String DISPLAY_SPECIFIC_SS = "SELECT ss.student_subject_id, st.first_name, st.last_name, sb.subject_name, sec.section_name \n" +
-           "                       FROM student_subject_tbl ss \n" +
-           "                       INNER JOIN student_tbl st ON ss.student_id = st.student_id \n" +
-           "                       INNER JOIN subject_tbl sb ON ss.subject_id = sb.subject_id \n" +
-           "                       INNER JOIN section_tbl sec ON ss.section_id = sec.section_id \n" +
-           "                       WHERE CONCAT(st.first_name, ' ', st.last_name) = ? AND sb.subject_name = ?\n";
+    String DISPLAY_SPECIFIC_SS = "SELECT ss.student_subject_id, st.first_name, st.last_name, sb.subject_name, sec.section_name, ss.archived \n" +
+            "FROM student_subject_tbl ss \n" +
+            "INNER JOIN student_tbl st ON ss.student_id = st.student_id \n" +
+            "INNER JOIN subject_tbl sb ON ss.subject_id = sb.subject_id \n" +
+            "INNER JOIN section_tbl sec ON ss.section_id = sec.section_id \n" +
+            "WHERE CONCAT(st.first_name, ' ', st.last_name) = ? AND sb.subject_name = ?\n";
+
     //DELETE STUDENT SUBJECT
     String DELETE_STUDENT_SUBJECT = "DELETE FROM student_subject_tbl \n" +
             "WHERE student_subject_id IN (\n" +

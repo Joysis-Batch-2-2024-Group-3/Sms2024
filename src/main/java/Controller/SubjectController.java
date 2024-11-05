@@ -148,44 +148,57 @@ public class SubjectController extends Db implements SubjectRepository {
         }
     }
 
-
     @Override
-    public void editSubject(LinkedHashMap<String, Object> values) {
+    public void updateSubject(LinkedHashMap<String, Object> values, int subjectID) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE subject_tbl SET ");
+        boolean first = true;
+
+        // Iterate over the values map to build the query
+        for (String key : values.keySet()) {
+            if (!first) {
+                queryBuilder.append(", ");
+            }
+            queryBuilder.append(key).append(" = ?");
+            first = false;
+        }
+
+        queryBuilder.append(" WHERE subject_id = ?");
 
         try {
             connect();
-            String stringQuery = String.format(DISPLAY_SUBJECT_COURSE, "subject_tbl.subject_name");
-            prep = con.prepareStatement(stringQuery);
-            prep.setString(1, "%"+ values.get("old").toString()+"%");
-            result = prep.executeQuery();
+            prep = con.prepareStatement(queryBuilder.toString());
 
-            if (result.next()) {
-                String currentSubjectName = result.getString("subject_name");
-                int currentCourseId = result.getInt("course_id");
+            int index = 1;
 
-                if (currentSubjectName.equals(values.get("subject_name").toString()) && currentCourseId == (int) values.get("course_id")) {
-                    System.out.println("No changes detected. The subject name and course ID are the same.");
-                    return;
+            // Set the parameters for the fields to be updated
+            for (Object value : values.values()) {
+                if (value instanceof String) {
+                    prep.setString(index++, (String) value);
+                } else if (value instanceof Integer) {
+                    prep.setInt(index++, (Integer) value);
                 }
-
-                String stringquery2 = String.format(EDIT_QUERY, "subject_tbl", "subject_name", "course_id", "subject_name");
-                prep = con.prepareStatement(stringquery2);
-                prep.setString(1, values.get("subject_name").toString());
-                prep.setInt(2, (int) values.get("course_id"));
-                prep.setString(3, values.get("old").toString());
-                int rowsAffected = prep.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Subject updated successfully.");
-                } else {
-                    System.out.println("Failed to update the subject. Subject name may not exist.");
-                }
-            } else {
-                System.out.println("Subject with name '" + values.get("old").toString() + "' not found.");
             }
-        } catch (SQLException e) {
-            System.out.println("SQL Error in updating subject: " + e.getMessage());
+
+            // Set the subjectID as the last parameter
+            prep.setInt(index, subjectID);
+
+            int rowsUpdated = prep.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Subject " + subjectID + " successfully updated.");
+            } else {
+                System.out.println("No subject found with ID: " + subjectID);
+            }
+
         } catch (Exception e) {
-            System.out.println("Unexpected error: " + e.getMessage());
+            System.out.println("Error updating subject; " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources; " + e.getMessage());
+            }
         }
     }
 
