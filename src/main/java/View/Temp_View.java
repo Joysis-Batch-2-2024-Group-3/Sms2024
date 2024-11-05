@@ -19,8 +19,39 @@ public class Temp_View {
     private final Student_SubjectController ssc = new Student_SubjectController();
     private final IndexController ic = new IndexController();
     private final Scanner scan = new Scanner(System.in);
-    private final Admin admin = new Admin();
 
+
+    
+   // a1 - done in main class
+    private void loginAdmin() {
+        System.out.println("\n=== Login Admin ===");
+        AdminModel adminModel = loginInputAdmin();
+        boolean isauthenticated = ac.authenticateAdmin(adminModel);
+
+        // Only proceed to mainMenu if login is successful
+        if (isauthenticated) {
+            mainMenu();
+        } else {
+            System.out.println("Access denied!");
+        }
+    }
+
+
+    private AdminModel loginInputAdmin() {
+        System.out.print("Enter the username: ");
+        String username = scan.nextLine();
+        System.out.print("Enter the password: ");
+        String password = scan.nextLine();
+        
+        System.out.println(username + " " + password);
+
+        return new AdminModel(username, password);
+    }
+    
+   // a1 - end   ====
+    private final Admin admin = new Admin();
+    
+//    a2 - done in main menu view
     private void mainMenu() {
         boolean running = true;
         while (running) {
@@ -55,6 +86,7 @@ public class Temp_View {
             }
         }
     }
+//    a2 end
 
     private void studentMenu() {
         StudentModel sm = new StudentModel();

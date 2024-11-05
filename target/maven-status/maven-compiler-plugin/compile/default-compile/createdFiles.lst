@@ -1,17 +1,21 @@
 com/mycompany/studentmanagementsystem2024/StudentManagementSystem2024.class
 Controller/StudentController.class
 Model/ScheduleModel.class
+View/SubjectView.class
 Controller/ScheduleController.class
 Model/Student_SubjectModel.class
 Repository/IndexRepository.class
 View/MainMenu.class
+View/ScheduleView.class
 Repository/QueryConstant.class
 Controller/Student_SubjectController.class
 Model/StudentModel.class
 Repository/CourseRepository.class
 Repository/SectionRepository.class
 Repository/Student_SubjectRepository.class
+View/StudentView.class
 View/Temp_View.class
+View/CourseView.class
 Controller/CourseController.class
 View/Index.class
 Utils/PasswordHashing.class
@@ -19,6 +23,7 @@ Repository/SubjectRepository.class
 Controller/IndexController.class
 Model/CourseModel.class
 Controller/AdminController.class
+Utils/Input.class
 Repository/AdminRepository.class
 Utils/ClearConsole.class
 Model/SubjectModel.class
@@ -27,6 +32,7 @@ Repository/ScheduleRepository.class
 Model/SectionModel.class
 Controller/SectionController.class
 Model/Index.class
+View/SectionView.class
 View/Admin.class
 Model/AdminModel.class
 Db/Db.class

@@ -25,9 +25,15 @@
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/Student_SubjectRepository.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/SubjectRepository.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Utils/ClearConsole.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/Utils/Input.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Utils/PasswordHashing.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/View/Admin.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/View/CourseView.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/View/Index.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/View/MainMenu.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/View/ScheduleView.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/View/SectionView.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/View/StudentView.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/View/SubjectView.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/View/Temp_View.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/com/mycompany/studentmanagementsystem2024/StudentManagementSystem2024.java
