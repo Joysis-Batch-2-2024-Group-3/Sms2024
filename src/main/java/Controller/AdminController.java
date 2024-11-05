@@ -24,6 +24,7 @@ public class AdminController extends Db implements AdminRepository {
             prep.setString(2, admin.getAdminPassword());
             result = prep.executeQuery();
             if(result.next()){
+                
                 return true;
             }
         }catch(Exception e){

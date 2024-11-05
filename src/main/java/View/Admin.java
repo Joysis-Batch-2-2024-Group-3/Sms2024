@@ -6,7 +6,7 @@ package View;
 
 import Controller.AdminController;
 import java.util.Scanner;
-import Utils.ClearConsole;
+import Utils.*;
 import Model.AdminModel;
 
 /**
@@ -17,13 +17,6 @@ public class Admin {
     static Scanner sc = new Scanner(System.in);
     static private final AdminController ac = new AdminController();
     
-//    run as long as the input is not valid, otherwise return it
-public static String getUserInput() { String input = sc.next(); 
-    while (input.isEmpty()) { 
-        System.out.println("\n-----Invalid Input! Please enter a valid input:\n-----"); 
-        input = sc.next(); } 
-        return input; 
-    }
 
     public static boolean LoginAdmin()
     {
@@ -33,17 +26,18 @@ public static String getUserInput() { String input = sc.next();
             ClearConsole.Cls();
             String[] account = new String[2];
             MainMenu.MainMenuHeader();
-            System.out.println("|--------------------------LOGIN--------------------------|\n");
+            System.out.println("\n|--------------------------LOGIN--------------------------|\n");
             System.out.print("Username: ");
-            String username = getUserInput();
+            String username = Input.getUserInput();
             System.out.print("Password: ");
-            String password = getUserInput();
+            String password = Input.getUserInput();
             
             authenticated = ac.authenticateAdmin(new AdminModel(username, password));
             
             if(authenticated)
             {
-                System.out.println("-----------Access Granted----------");
+                System.out.println("-------------Access Granted. Redirecting------------\n");
+                Thread.sleep(1000);
                 return true;
             }else{
                 System.out.println("\n----------Wrong Username or Password----------\n");

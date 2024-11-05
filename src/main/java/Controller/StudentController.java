@@ -237,7 +237,7 @@ public class StudentController extends Db implements StudentRepository {
             System.out.println("SQL Error : " + e.getMessage());
         }
     }
-
+    @Override
     public void displayStudentbySection(String Value, StudentModel sm, CourseModel cm, SectionModel secm){
         filterStudent("section_name",Value,sm,cm,secm);
     }
@@ -283,7 +283,7 @@ public class StudentController extends Db implements StudentRepository {
             prep =  con.prepareStatement(DELETE_STUDENT );
             prep.setString(1, values.get("student_name").toString());
             prep.setString(2, values.get("section_name").toString());
-            System.out.println(prep.toString());
+          //  System.out.println(prep.toString());
             prep.executeUpdate();
             con.close();
         }catch(Exception e){
