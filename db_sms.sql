@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 04:10 AM
+-- Generation Time: Nov 05, 2024 at 07:22 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -62,7 +62,7 @@ INSERT INTO `course_tbl` (`course_id`, `course_name`, `department_name`) VALUES
 (3, 'Computer Engineering', 'ICTE'),
 (4, 'Management Accounting', 'ACCT'),
 (5, 'Accountancy', 'ACCT'),
-(6, 'Civil Engineering', 'ENGR');
+(6, 'Mechanical Engineering', 'ENGR');
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ CREATE TABLE `student_tbl` (
 --
 
 INSERT INTO `student_tbl` (`student_id`, `first_name`, `last_name`, `birth_date`, `sex`, `year_level`, `course_id`, `section_id`, `archived`) VALUES
-(1, 'Paul Marius', 'Simms', '2003-07-18', 'M', 4, 1, 1, 0),
+(1, 'First', 'Last', '2002-02-02', 'F', 4, 6, 1, 1),
 (2, 'Crystal Kate', 'Aquino', '2002-08-06', 'F', 4, 2, 2, 1),
 (3, 'Angeles', 'Tablante III', '2003-07-26', 'M', 4, 2, 2, 0),
 (4, 'Brent Gian Dave', 'Ubias', '2004-05-23', 'M', 4, 3, 3, 0);
@@ -264,7 +264,7 @@ ALTER TABLE `admin_tbl`
 -- AUTO_INCREMENT for table `course_tbl`
 --
 ALTER TABLE `course_tbl`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `schedule_tbl`
@@ -282,7 +282,7 @@ ALTER TABLE `section_tbl`
 -- AUTO_INCREMENT for table `student_subject_tbl`
 --
 ALTER TABLE `student_subject_tbl`
-  MODIFY `student_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `student_subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `student_tbl`
@@ -305,20 +305,20 @@ ALTER TABLE `subject_tbl`
 --
 ALTER TABLE `schedule_tbl`
   ADD CONSTRAINT `fk_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject_tbl` (`subject_id`),
-  ADD CONSTRAINT `schedule_tbl_ibfk_1` FOREIGN KEY (`section_id`) REFERENCES `section_tbl` (`section_id`);
+  ADD CONSTRAINT `schedule_tbl_ibfk_1` FOREIGN KEY (`section_id`) REFERENCES `section_tbl` (`section_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `section_tbl`
 --
 ALTER TABLE `section_tbl`
-  ADD CONSTRAINT `section_tbl_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course_tbl` (`course_id`);
+  ADD CONSTRAINT `section_tbl_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course_tbl` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student_subject_tbl`
 --
 ALTER TABLE `student_subject_tbl`
   ADD CONSTRAINT `fk_section` FOREIGN KEY (`section_id`) REFERENCES `section_tbl` (`section_id`),
-  ADD CONSTRAINT `student_subject_tbl_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_tbl` (`student_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `student_subject_tbl_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_tbl` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_subject_tbl_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject_tbl` (`subject_id`);
 
 --
