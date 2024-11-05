@@ -110,7 +110,7 @@ public interface QueryConstant {
     String ADD_SCHEDULE = "INSERT INTO `schedule_tbl`(`day`, `section_id`, `subject_id`, `start_time`, `end_time`) VALUES (?, ?, ?, ?, ?)";
 
     //ADMIN_LOGIN query
-    String ADMIN_LOGIN = "SELECT * FROM admin_tbl WHERE username = ? AND password = ?";
+    String ADMIN_LOGIN = "SELECT COUNT(1) FROM admin_tbl WHERE username = ? AND password = ?";
 
     //STUDENT SUBJECT QUERIES
     String SEARCH_STUDENT_SUBJECT = "SELECT student_subject_tbl.student_subject_id, student_tbl.first_name, student_tbl.last_name, subject_tbl.subject_name, section_tbl.section_name" +

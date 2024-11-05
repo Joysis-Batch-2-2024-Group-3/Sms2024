@@ -24,11 +24,11 @@ public class AdminController extends Db implements AdminRepository {
             prep.setString(2, admin.getAdminPassword());
             result = prep.executeQuery();
             if(result.next()){
-                return true;
+                return result.getInt(1)>0;
             }
         }catch(Exception e){
             System.out.println("Error authenticate admin: " + e.getMessage());
         }
-        return false;
-    }
+            return false;
+        }
 }
