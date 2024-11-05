@@ -20,6 +20,10 @@ public class AdminModel {
         this.password = password;
     }
 
+    public AdminModel() {
+
+    }
+
     public int getAdminId()
     {
         return admin_id;

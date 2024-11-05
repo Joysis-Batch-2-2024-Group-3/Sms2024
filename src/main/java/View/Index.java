@@ -8,9 +8,9 @@ package View;
  *
  * @author mark
  */
+
  public class Index {
-    public static void SayHello()
-    {
-        System.out.println("hello");
+    public static void main(String[] args) {
+
     }
-}
+ }
