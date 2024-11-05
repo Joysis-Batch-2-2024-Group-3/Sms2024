@@ -4,6 +4,7 @@ import Model.SectionModel;
 import Model.SubjectModel;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public interface ScheduleRepository {
@@ -11,5 +12,5 @@ public interface ScheduleRepository {
     public void displayScheduleByDay(String day, ScheduleModel schedule, SubjectModel subject, SectionModel section);
     public void addSchedule( ScheduleModel schedule, SubjectModel subject, SectionModel section);
     public boolean checkScheduleConflict(HashMap<String, Object> values);
-    public void updateSchedule(ScheduleModel schedule);
+    public void updateSchedule(LinkedHashMap<String, Object> values, int SchedID);
 }

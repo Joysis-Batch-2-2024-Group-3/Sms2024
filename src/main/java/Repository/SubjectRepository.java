@@ -12,6 +12,5 @@ public interface SubjectRepository {
     public void addSubject(SubjectModel subject);
     public void deleteSubject(LinkedHashMap<String, Object>values);
     public void editSubject(LinkedHashMap<String, Object>values);
-    public void updateSubject(SubjectModel subject);
     public boolean subjectConflictChecker(LinkedHashMap<String, Object>values);
 }

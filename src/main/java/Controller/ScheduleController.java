@@ -9,6 +9,7 @@ import Db.Db;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ScheduleController extends Db implements ScheduleRepository {
 
@@ -148,20 +149,61 @@ public class ScheduleController extends Db implements ScheduleRepository {
         }
     }
     @Override
-    public void updateSchedule(ScheduleModel schedule){
-        try{
+    public void updateSchedule(LinkedHashMap<String, Object> values, int SchedID) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE schedule_tbl SET ");
+        boolean first = true;
+
+        // Build the query dynamically based on the provided values
+        for (String key : values.keySet()) {
+            if (!first) {
+                queryBuilder.append(", ");
+            }
+            queryBuilder.append(key).append(" = ?");
+            first = false;
+        }
+
+        queryBuilder.append(" WHERE schedule_id = ?");
+
+        try {
             connect();
-            prep = con.prepareStatement(UPDATE_QUERY);
-            prep.setInt(1, schedule.getSchedule_id());
-            prep.setString(2, schedule.getDay());
-            prep.setString(3, String.valueOf(schedule.getStart_time()));
-            prep.setString(4, String.valueOf(schedule.getEnd_time()));
-            prep.executeUpdate();
-            System.out.println("Schedule " + schedule.getSchedule_id() + " successfully updated.");
-            //displayScheduleByDay(new ScheduleModel(), new CourseController());
-            //displayScheduleBySection(new ScheduleModel(),  new SubjectModel(), new ScheduleModel());
-        }catch (Exception e){
-            System.out.println("Error update schedule " + e.getMessage());
+            prep = con.prepareStatement(queryBuilder.toString());
+
+            int index = 1;
+
+            // Set parameters for the fields to be updated
+            for (Object value : values.values()) {
+            if(value instanceof String) {
+                prep.setString(index++, (String) value);
+            }
+            else if(value instanceof Integer) {
+                prep.setInt(index++, (Integer) value);
+            }
+            else if(value instanceof Time) {
+                prep.setTime(index++, (Time) value);
+            }
+            }
+
+            // Set the SchedID as the last parameter
+            prep.setInt(index, SchedID);
+
+            int rowsUpdated = prep.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Schedule " + SchedID + " successfully updated.");
+            } else {
+                System.out.println("No schedule found with ID: " + SchedID);
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating schedule: " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
         }
     }
+
+
 }

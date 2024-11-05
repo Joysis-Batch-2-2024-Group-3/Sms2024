@@ -28,8 +28,16 @@ public interface QueryConstant {
             "INNER JOIN course_tbl ON student_tbl.course_id = course_tbl.course_id " +
             "INNER JOIN section_tbl ON student_tbl.section_id = section_tbl.section_id";
     //DELETE_STUDENT query
-    String DELETE_STUDENT  = "DELETE FROM students_tbl WHERE student_id = ?";
+    String DELETE_STUDENT  = " DELETE FROM student_tbl \n" +
+            "                      WHERE student_id IN ( \n" +
+            "                         SELECT st.student_id \n" +
+            "                          FROM student_tbl st \n" +
+            "                          INNER JOIN section_tbl sec ON st.section_id = sec.section_id \n" +
+            "                          WHERE CONCAT(st.first_name, ' ', st.last_name) = ? \n" +
+            "                      AND sec.section_name = ?\n" +
+            "                      );";
 
+    String UPDATE_STUDENT = "UPDATE `student_tbl` SET `first_name` = ?, `last_name` = ?, `birth_date` = ?, `sex` = ?, `year_level` = ?, `course_id` = ?, `section_id` = ?, `archived` = ? WHERE `student_id` = ?";
 
     String ADD_STUDENT = "INSERT INTO `student_tbl`(`first_name`, `last_name`, `birth_date`,`sex` ,`year_level`, `course_id`, `section_id`) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 

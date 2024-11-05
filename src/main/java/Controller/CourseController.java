@@ -97,21 +97,62 @@ public class CourseController extends Db implements CourseRepository {
     }
 
     @Override
-    public void updateCourse(CourseModel course){
+    public void updateCourse(LinkedHashMap<String, Object> values, int courseID) {
+        StringBuilder queryBuilder = new StringBuilder("UPDATE course_tbl SET ");
+        boolean first = true;
+
+        // Iterate over the values map to build the query
+        for (String key : values.keySet()) {
+            if (!first) {
+                queryBuilder.append(", ");
+            }
+            queryBuilder.append(key).append(" = ?");
+            first = false;
+        }
+
+        queryBuilder.append(" WHERE course_id= ?");
+
         try {
             connect();
-            prep = con.prepareStatement(UPDATE_QUERY);
-            prep.setInt( 1 ,course.getCourseID());
-            prep.setString(2, course.getCourseName());
-            prep.setString(3, course.getDepartmentName());
-            prep.executeQuery();
-            System.out.println("Course " + course.getCourseID() + " successfully updated.");
+            prep = con.prepareStatement(queryBuilder.toString());
+
+            int index = 1;
+
+            // Set the parameters for the fields to be updated
+            for (Object value : values.values()) {
+                if(value instanceof String) {
+                    prep.setString(index++, (String) value);
+                }
+                else if(value instanceof Integer) {
+                    prep.setInt(index++, (Integer) value);
+                }
+
+            }
+
+            // Set the courseID as the last parameter
+            prep.setInt(index, courseID);
+
+            int rowsUpdated = prep.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Course " + courseID + " successfully updated.");
+            } else {
+                System.out.println("No course found with ID: " + courseID);
+            }
+
             displayAllCourse(new CourseModel());
-            con.close();
-        }catch (Exception e){
-            System.out.println("Error update course; " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error updating course; " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources; " + e.getMessage());
+            }
         }
     }
+
     public boolean isValidCourse(String column, Object value){
         IndexController ic = new IndexController();
         return ic.isValidTableValue("course_tbl",column,value);

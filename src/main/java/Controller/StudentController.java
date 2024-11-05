@@ -3,8 +3,10 @@ import Db.Db;
 import Model.*;
 import Repository.StudentRepository;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 public class StudentController extends Db implements StudentRepository {
     public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
@@ -183,23 +185,57 @@ public class StudentController extends Db implements StudentRepository {
     }
 
     @Override
-    public void updateStudent(StudentModel student) {
-        try{
+    public void updateStudent(LinkedHashMap<String, Object> values, int studentId) {
+        if (values.isEmpty()) {
+            System.out.println("No fields to update.");
+            return;
+        }
+
+        StringBuilder queryBuilder = new StringBuilder("UPDATE student_tbl SET ");
+        int fieldCount = values.size();
+        int index = 0;
+
+        // Dynamically construct the query
+        for (String field : values.keySet()) {
+            queryBuilder.append(field).append(" = ?");
+            if (++index < fieldCount) {
+                queryBuilder.append(", ");
+            }
+        }
+        queryBuilder.append(" WHERE student_id = ?");
+
+        try {
             connect();
-            prep = con.prepareStatement(UPDATE_QUERY);
-            prep.setInt(1, student.getStudentId());
-            prep.setString(2, student.getStudentFirstname());
-            prep.setString(3, student.getStudentLastname());
-            prep.setString(4, String.valueOf(student.getStudentDob()));
-            prep.setString(5, String.valueOf(student.getStudentSex()));
-            prep.setInt(6, student.getStudentYearlvl());
-            prep.setInt(4,  student.getStudentCourse());
-            prep.setInt(7, student.getStudentSection());
-            prep.executeUpdate();
-            System.out.println("Student " + student.getStudentId() + " successfully update.");
-            displayStudents(new StudentModel(), new CourseModel(), new SectionModel());
-        }catch(Exception e){
-            System.out.println("Error update student: " + e.getMessage());
+            prep = con.prepareStatement(queryBuilder.toString());
+
+            // Set the values for the prepared statement
+            index = 1;
+            for (Object value : values.values()) {
+                if( value instanceof String){
+                    prep.setString(index++, (String) value);
+                }
+                else if( value instanceof Integer){
+                    prep.setInt(index++, (Integer) value);
+                }
+                else if( value instanceof java.sql.Date){
+                    prep.setDate(index++, (java.sql.Date) value);
+                }
+                else if( value instanceof Character){
+                    prep.setString(index++, String.valueOf(value));
+                }
+                else if( value instanceof Boolean){
+                    prep.setBoolean(index++, (Boolean) value);
+                }
+            }
+            prep.setInt(index, studentId); // Assuming studentId is passed to identify the record
+            int rowsUpdated = prep.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Student information successfully updated.");
+            } else {
+                System.out.println("Update failed. Student not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error : " + e.getMessage());
         }
     }
 
@@ -210,7 +246,6 @@ public class StudentController extends Db implements StudentRepository {
     @Override
     public void displayStudentbyCourse(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
         filterStudent("course_name",Value,sm,cm,secm);
-
     }
 
     @Override
@@ -243,13 +278,14 @@ public class StudentController extends Db implements StudentRepository {
     }
 
     @Override
-    public void dropStudent(StudentModel student){
+    public void dropStudent(LinkedHashMap<String, Object>values){
         try{
             connect();
-            prep =  con.prepareStatement(DELETE_STUDENT);
-            prep.setInt(1, student.getStudentId());
+            prep =  con.prepareStatement(DELETE_STUDENT );
+            prep.setString(1, values.get("student_name").toString());
+            prep.setString(2, values.get("section_name").toString());
+            System.out.println(prep.toString());
             prep.executeUpdate();
-            System.out.println("Student " + student.getStudentId() + " successfully deleted");
             con.close();
         }catch(Exception e){
             System.out.println("Error message " + e.getMessage());

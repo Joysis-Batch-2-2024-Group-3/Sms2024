@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2024 at 03:47 AM
+-- Generation Time: Nov 05, 2024 at 04:10 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -59,7 +59,10 @@ CREATE TABLE `course_tbl` (
 INSERT INTO `course_tbl` (`course_id`, `course_name`, `department_name`) VALUES
 (1, 'Computer Science', 'ICTE'),
 (2, 'Information Technology', 'ICTE'),
-(3, 'Computer Engineering', 'ICTE');
+(3, 'Computer Engineering', 'ICTE'),
+(4, 'Management Accounting', 'ACCT'),
+(5, 'Accountancy', 'ACCT'),
+(6, 'Civil Engineering', 'ENGR');
 
 -- --------------------------------------------------------
 
@@ -109,9 +112,10 @@ CREATE TABLE `section_tbl` (
 --
 
 INSERT INTO `section_tbl` (`section_id`, `section_name`, `course_id`) VALUES
-(1, 'CS101', 1),
+(1, 'CS102', 1),
 (2, 'IT101', 2),
-(3, 'CPE101', 3);
+(3, 'CPE101', 3),
+(4, 'BSMA101', 4);
 
 -- --------------------------------------------------------
 
@@ -132,7 +136,6 @@ CREATE TABLE `student_subject_tbl` (
 --
 
 INSERT INTO `student_subject_tbl` (`student_subject_id`, `student_id`, `subject_id`, `archived`, `section_id`) VALUES
-(1, 1, 1, 0, 1),
 (2, 2, 1, 0, 2),
 (3, 1, 3, 0, 1),
 (4, 2, 3, 0, 2),
@@ -166,7 +169,7 @@ CREATE TABLE `student_tbl` (
 INSERT INTO `student_tbl` (`student_id`, `first_name`, `last_name`, `birth_date`, `sex`, `year_level`, `course_id`, `section_id`, `archived`) VALUES
 (1, 'Paul Marius', 'Simms', '2003-07-18', 'M', 4, 1, 1, 0),
 (2, 'Crystal Kate', 'Aquino', '2002-08-06', 'F', 4, 2, 2, 1),
-(3, 'Angeles', 'Tablante III', '2003-07-26', '', 4, 2, 2, 0),
+(3, 'Angeles', 'Tablante III', '2003-07-26', 'M', 4, 2, 2, 0),
 (4, 'Brent Gian Dave', 'Ubias', '2004-05-23', 'M', 4, 3, 3, 0);
 
 -- --------------------------------------------------------
@@ -188,7 +191,9 @@ CREATE TABLE `subject_tbl` (
 INSERT INTO `subject_tbl` (`subject_id`, `subject_name`, `course_id`) VALUES
 (1, 'Network Technology', 1),
 (2, 'Software Quality Assurance', 1),
-(3, 'Data Privacy ', 2);
+(3, 'Data Privacy ', 2),
+(4, 'Algebra', 1),
+(7, 'Computer Programming 1', 1);
 
 --
 -- Indexes for dumped tables
@@ -259,7 +264,7 @@ ALTER TABLE `admin_tbl`
 -- AUTO_INCREMENT for table `course_tbl`
 --
 ALTER TABLE `course_tbl`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `schedule_tbl`
@@ -271,7 +276,7 @@ ALTER TABLE `schedule_tbl`
 -- AUTO_INCREMENT for table `section_tbl`
 --
 ALTER TABLE `section_tbl`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student_subject_tbl`
@@ -283,13 +288,13 @@ ALTER TABLE `student_subject_tbl`
 -- AUTO_INCREMENT for table `student_tbl`
 --
 ALTER TABLE `student_tbl`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `subject_tbl`
 --
 ALTER TABLE `subject_tbl`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -313,7 +318,7 @@ ALTER TABLE `section_tbl`
 --
 ALTER TABLE `student_subject_tbl`
   ADD CONSTRAINT `fk_section` FOREIGN KEY (`section_id`) REFERENCES `section_tbl` (`section_id`),
-  ADD CONSTRAINT `student_subject_tbl_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_tbl` (`student_id`),
+  ADD CONSTRAINT `student_subject_tbl_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_tbl` (`student_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `student_subject_tbl_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject_tbl` (`subject_id`);
 
 --
