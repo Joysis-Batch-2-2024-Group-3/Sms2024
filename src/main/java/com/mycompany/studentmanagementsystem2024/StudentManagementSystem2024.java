@@ -23,14 +23,9 @@ public class StudentManagementSystem2024 {
             {
                ClearConsole.Cls();
 
-               String firstAction = MainMenu.DisplayMainMenu();
 
-               if(firstAction.equals("1"))
-               {
-                   authenticated = Admin.LoginAdmin();
-               }else{
-                   System.out.println("hi");
-               }
+               authenticated = Admin.LoginAdmin();
+
 
 
                if(authenticated)

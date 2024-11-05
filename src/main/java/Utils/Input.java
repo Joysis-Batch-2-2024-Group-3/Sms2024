@@ -21,9 +21,48 @@ public class Input {
     }
     
     
+    static public void COut(String info)
+    {
+        System.out.println("\n--------------------"+info+"--------------------\n");
+    }
+    
+    
     public static String HoldState()
     {
         System.out.print("Back (any): ");
         return sc.next();
+    }
+    
+    public static void HeaderBox(String input) {
+        int n = input.length();
+        int totalWidth = 50;
+        int padding = (totalWidth - n) / 2;
+
+        System.out.println(" ________________________________________________");
+        System.out.println("|                                                |");
+
+        // Print leading spaces
+        System.out.print("|");
+        for (int i = 1; i < padding; i++) {
+            System.out.print(" ");
+        }
+
+        // Print the input string
+        System.out.print(input);
+
+        // Print trailing spaces
+        for (int i = 1; i < (totalWidth - n - padding); i++) {
+            System.out.print(" ");
+        }
+        System.out.println("|");
+
+        System.out.println("|________________________________________________|\n");
+    }
+
+    
+    public static int parseIfPossible(String input) { 
+        try { return Integer.parseInt(input);
+     }catch (NumberFormatException e) { return 0;} 
+        
     }
 }

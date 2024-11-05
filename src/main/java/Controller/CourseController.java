@@ -3,9 +3,11 @@ package Controller;
 import Db.Db;
 import Model.CourseModel;
 import Repository.CourseRepository;
+import Utils.Input;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
+import javax.print.attribute.standard.PrinterInfo;
 
 public class CourseController extends Db implements CourseRepository {
 
@@ -17,10 +19,11 @@ public class CourseController extends Db implements CourseRepository {
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_COURSE);
 
-            System.out.println("|===================|");
-            System.out.println("| Display All Course|");
-            System.out.println("|===================|");
-            System.out.printf("| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
+            System.out.println("\n __________________________________________");
+            System.out.println("|                                          |");
+            System.out.println("|           Display All Course             |");
+            System.out.println("|__________________________________________|");
+            System.out.printf("\n| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
 
             while (result.next()) {
                 course.setCourse_id(result.getInt("course_id"));
@@ -33,16 +36,16 @@ public class CourseController extends Db implements CourseRepository {
                         course.getDepartmentName());
             }
         } catch (SQLException e) {
-            System.out.println("SQL error while retrieving courses: " + e.getMessage());
+            Input.COut("SQL error while retrieving courses: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error while retrieving courses: " + e.getMessage());
+             Input.COut("Error while retrieving courses: " + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -55,10 +58,11 @@ public class CourseController extends Db implements CourseRepository {
             prep.setString(1, "%" + value + "%");
             result = prep.executeQuery();
 
-            System.out.println("|=================|");
-            System.out.println("| Filtered Course |");
-            System.out.println("|=================|");
-            System.out.printf("| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
+            System.out.println("\n __________________________________________");
+            System.out.println("|                                          |");
+            System.out.println("|               Filter Course              |");
+            System.out.println("|__________________________________________|");
+            System.out.printf("\n| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
 
             while (result.next()) {
                 course.setCourse_id(result.getInt("course_id"));
@@ -71,16 +75,17 @@ public class CourseController extends Db implements CourseRepository {
                         course.getDepartmentName());
             }
         } catch (SQLException e) {
-            System.out.println("SQL error while filtering courses: " + e.getMessage());
+                   Input.COut("SQL error while filtering courses: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error while filtering courses: " + e.getMessage());
+            Input.COut("Error while filtering courses: " + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
+                
             }
         }
     }
@@ -91,8 +96,8 @@ public class CourseController extends Db implements CourseRepository {
             courseID = (int)ic.getValuebyValue("course_id", key, column, value);
             return courseID;
         }catch (Exception e) {
-            System.out.println("Error getting course ID: " + e.getMessage());
-        };
+            Input.COut("Error getting course ID: " + e.getMessage());
+        }
         return 0;
     }
 
@@ -135,20 +140,21 @@ public class CourseController extends Db implements CourseRepository {
             int rowsUpdated = prep.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Course " + courseID + " successfully updated.");
+                Input.COut("Course " + courseID + " successfully updated.");
             } else {
-                System.out.println("No course found with ID: " + courseID);
+                Input.COut("No course found with ID: " + courseID);
             }
 
             displayAllCourse(new CourseModel());
+            Input.HoldState();
         } catch (Exception e) {
-            System.out.println("Error updating course; " + e.getMessage());
+            Input.COut("Error updating course " + e.getMessage());
         } finally {
             try {
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources; " + e.getMessage());
+                Input.COut("Error closing resources " + e.getMessage());
             }
         }
     }
@@ -170,9 +176,9 @@ public class CourseController extends Db implements CourseRepository {
             con.close();
 
         }catch (SQLException e){
-            System.out.println("SQL error: " + e.getMessage());
+            Input.COut("SQL error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            Input.COut("Error: " + e.getMessage());
         }
     }
 
@@ -197,9 +203,9 @@ public class CourseController extends Db implements CourseRepository {
             con.close();
 
         }catch (SQLException e){
-            System.out.println("SQL error: " + e.getMessage());
+             Input.COut("SQL error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+           Input.COut("Error: " + e.getMessage());
         }
     }
     public boolean validateBothName (LinkedHashMap<String, Object> values){
@@ -213,9 +219,9 @@ public class CourseController extends Db implements CourseRepository {
                 return result.getInt(1)>0;
             }
         } catch (SQLException e) {
-            System.out.println("SQL Error: "+ e.getMessage() );
+             Input.COut("SQL error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error: "+ e.getMessage());
+           Input.COut("Error: " + e.getMessage());
         }
     return false;
     }

@@ -34,11 +34,14 @@ public class StudentView {
         
          MainMenuHeader();
          System.out.println("\n----------------Student Options----------------\n");
-         System.out.println("1. Display Stundent List");
-         System.out.println("2. Add New Student");
-         System.out.println("3. Remove Student");
-         System.out.println("4. Update Student");
-         System.out.println("5. Back to main menu\n");
+         System.out.println(" _____________________________________________________");
+         System.out.println("|                                                     |");
+         System.out.println("| 1. Display Student List                             |");
+         System.out.println("| 2. Add New Student                                  |");
+         System.out.println("| 3. Remove Student                                   |");
+         System.out.println("| 4. Update Student                                   |");
+         System.out.println("| 5. Back to main menu                                |");
+         System.out.println("|_____________________________________________________|\n");
          
          System.out.print("Enter Selection: ");
          String selected = Input.getUserInput();
@@ -64,17 +67,21 @@ public class StudentView {
     public static void DisplayStudentOptions()
     {
         try{
+            ClearConsole.Cls();
             MainMenuHeader();
             System.out.println("\n----------------Student Sub Menu----------------\n\n");
-            System.out.println("1. Search by section");
-            System.out.println("2. Search by course");
-            System.out.println("3. Search by First Name");
-            System.out.println("4. Search by Last Name");
-            System.out.println("5. Search by Student ID");
-            System.out.println("6. Search by specifying a column");
-            System.out.println("7. Show all Students");
-            System.out.println("8. Show all archived students");
-            System.out.println("9. Back to Main Menu\n");
+            System.out.println(" _____________________________________________________");
+            System.out.println("|                                                     |");
+            System.out.println("| 1. Search by section                                |");
+            System.out.println("| 2. Search by course                                 |");
+            System.out.println("| 3. Search by First Name                             |");
+            System.out.println("| 4. Search by Last Name                              |");
+            System.out.println("| 5. Search by Student ID                             |");
+            System.out.println("| 6. Search by specifying a column                    |");
+            System.out.println("| 7. Show all Students                                |");
+            System.out.println("| 8. Show all archived students                       |");
+            System.out.println("| 9. Back to Main Menu                                |");
+            System.out.println("|_____________________________________________________|\n");
             System.out.print("Enter Selection: ");
 
 
@@ -82,7 +89,7 @@ public class StudentView {
             studentSubMenu(selection);
         }catch(Exception e)
         {
-                System.out.println("Something went wrong: " + e);
+            Input.COut("Something went wrong: " + e.getMessage());
         }
         
     }
@@ -142,7 +149,7 @@ public class StudentView {
                     if (Arrays.asList(StudentController.validColumns).contains(columnName)) {
                         validColumn = true; // Exit loop if valid
                     } else {
-                        System.out.println("Invalid column name. Please choose from the valid columns.");
+                        Input.COut("Invalid column name. Please choose from the valid columns.");
                     }
                 }
 
@@ -176,11 +183,11 @@ public class StudentView {
      
      
      
-     static private void addStudentSubMenu() {
+     static private void addStudentSubMenu() throws InterruptedException {
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
         StudentModel sm = new StudentModel();
-
+         ClearConsole.Cls();
         System.out.println("\n----------------Add Student----------------\n");
 
         // First Name Input
@@ -202,7 +209,7 @@ public class StudentView {
                 sm.setStudentDob(Date.valueOf(birthDate));
                 validDate = true;
             } else {
-                System.out.println("\n-----Invalid date format. Please enter in yyyy-mm-dd format.-----\n");
+                Input.COut("Invalid date format. Please enter in yyyy-mm-dd format.");
             }
         }
 
@@ -215,7 +222,7 @@ public class StudentView {
                 sm.setStudentSex(input.charAt(0)); 
                 validSex = true; 
             } else { 
-                System.out.println("\n----------Invalid input. Please enter either 'F' or 'M'.----------\n"); 
+                Input.COut("Invalid input. Please enter either 'F' or 'M'.");
             }
         }
 
@@ -230,7 +237,7 @@ public class StudentView {
                 sm.setStudentCourse(courseId);
                 validCourseID = true;
             } else {
-                System.out.println("\n----------Invalid Course ID. Please try again.---------\n");
+                Input.COut("Invalid Course ID. Please try again.");
             }
         }
 
@@ -246,13 +253,15 @@ public class StudentView {
                 sm.setStudentSection(sectionId);
                 validSectionId = true;
             } else {
-                System.out.println("\n----------Invalid Section ID. Please try again.----------\n");
+                Input.COut("Invalid Section ID. Please try again");
             }
         }
 
         // Add Student and Display All Students
         sc.addStudent(sm, cm, secm);
         sc.displayStudents(sm, cm, secm);
+         Input.HoldState();
+         MainMenu.DisplayActionsMenu();
     }
      
      private static void GoBack()
@@ -261,7 +270,7 @@ public class StudentView {
             Input.HoldState();
             DisplayStudentMenu();
         }catch(Exception e){
-            System.out.println("Something went wrong: "+ e);
+            Input.COut("Something went wrong: "+ e.getMessage());
         }
      }
      
@@ -281,7 +290,7 @@ public class StudentView {
                 String name = firstName + " " + lastName;
                 values.put("student_name", name);
             } else {
-                System.out.println("\n----------Invalid student name. Please enter a valid student name.----------\n");
+                Input.COut("Invalid student name. Please enter a valid student name.");
             }
         }
         boolean isValidSectionName = false;
@@ -292,13 +301,13 @@ public class StudentView {
                 isValidSectionName = true;
                 values.put("section_name", sectionName);
             } else {
-                System.out.println("\n----------Invalid section name. Please enter a valid section name.----------\n");
+                Input.COut("Invalid section name. Please enter a valid section name.");
             }
         }
         sc.dropStudent(values);
         DisplayStudentMenu();
         }catch(Exception e){
-            System.out.println("Something went wrong: " + e);
+            Input.COut("Something went wrong: " + e.getMessage());
         }
      }
  
@@ -316,7 +325,7 @@ public class StudentView {
         try {
             updateStudentField(studentId);
         } catch (InterruptedException e) {
-            System.out.println("Something went wrong: " + e);
+            Input.COut("Something went wrong: " + e.getMessage());
         }
      }
      
@@ -327,16 +336,19 @@ public class StudentView {
         boolean updatingStudent = true;
 
         while (updatingStudent) {
-            System.out.println("\n=== Select To Update Student===");
-            System.out.println("1. Update Firstname");
-            System.out.println("2. Update Lastname");
-            System.out.println("3. Update Date of Birth");
-            System.out.println("4. Update Sex (M/F)");
-            System.out.println("5. Update Year Level");
-            System.out.println("6. Update Course ID");
-            System.out.println("7. Update Section ID");
-            System.out.println("8. Update archived");
-            System.out.println("9. Finish Update");
+            System.out.println("\n----------------------Select To Update Student--------------------\n");
+            System.out.println(" _____________________________________________________");
+            System.out.println("|                                                     |");
+            System.out.println("| 1. Update Firstname                                 |");
+            System.out.println("| 2. Update Lastname                                  |");
+            System.out.println("| 3. Update Date of Birth                             |");
+            System.out.println("| 4. Update Sex (M/F)                                 |");
+            System.out.println("| 5. Update Year Level                                |");
+            System.out.println("| 6. Update Course ID                                 |");
+            System.out.println("| 7. Update Section ID                                |");
+            System.out.println("| 8. Update archived                                  |");
+            System.out.println("| 9. Finish Update                                    |");
+            System.out.println("|_____________________________________________________|\n");
             System.out.print("Choose an option: ");
             int choice = scan.nextInt();
             scan.nextLine(); // Clear newline character
@@ -361,7 +373,7 @@ public class StudentView {
                                 value.put("birth_date", Date.valueOf(birthDate));
                                 validDate = true;
                             } else {
-                                System.out.println("Invalid date format. Please enter in yyyy-mm-dd format.");
+                                Input.COut("Invalid date format. Please enter in yyyy-mm-dd format.");
                             }
                         }
                     }
@@ -371,7 +383,7 @@ public class StudentView {
                         if (newSex == 'M' || newSex == 'F') {
                             value.put("sex", newSex);
                         } else {
-                            System.out.println("Invalid input. Please enter 'M' or 'F'.");
+                            Input.COut("Invalid input. Please enter 'M' or 'F'.");
                         }
                     }
                     case 5 -> {
@@ -391,7 +403,7 @@ public class StudentView {
                                 value.put("course_id", courseId);
                                 validCourseID = true;
                             } else {
-                                System.out.println("Invalid Course ID. Please try again.");
+                                Input.COut("Invalid Course ID. Please try again.");
                             }
                         }
 
@@ -407,7 +419,7 @@ public class StudentView {
                                 value.put("section_id", sectionId);
                                 validSectionID = true;
                             } else {
-                                System.out.println("Invalid Section ID. Please try again.");
+                                Input.COut("Invalid Section ID. Please try again.");
                             }
                         }
                     }
@@ -419,23 +431,23 @@ public class StudentView {
                         } else if (archivedChoice == 'N') {
                             value.put("archived", false);
                         } else {
-                            System.out.println("Invalid input. Please enter 'Y' or 'N'.");
+                            Input.COut("Invalid input. Please enter 'Y' or 'N'.");
                         }
                     }
                     case 9 -> {
                         if (!value.isEmpty()) {
                             sc.updateStudent(value, StudentID);
                         } else {
-                            System.out.println("No fields to update.");
+                            Input.COut("No fields to update.");
                         }
                         updatingStudent = false; // Exit the loop after finishing updates
                         DisplayStudentMenu();
                     }
-                    default -> System.out.println("Invalid option. Please try again.");
+                    default -> Input.COut("Invalid option. Please try again.");
 
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid option.");
+                    Input.COut("Invalid input. Please enter a valid option.");
                 scan.nextLine(); // Clear invalid input
             }
         }

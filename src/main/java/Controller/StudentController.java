@@ -2,6 +2,7 @@ package Controller;
 import Db.Db;
 import Model.*;
 import Repository.StudentRepository;
+import Utils.Input;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,9 +20,10 @@ public class StudentController extends Db implements StudentRepository {
             state = con.createStatement();
             // Query to select only archived students
             result = state.executeQuery(DISPLAY_STUDENTS + " WHERE archived = true");
-            System.out.println("|===================|");
-            System.out.println("| Archived Students |");
-            System.out.println("|===================|\n");
+//            System.out.println("|===================|");
+//            System.out.println("| Archived Students |");
+//            System.out.println("|===================|\n");
+            Input.HeaderBox("Archived Students");
             // Print the header only once
             System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section");
@@ -52,7 +54,7 @@ public class StudentController extends Db implements StudentRepository {
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -63,9 +65,10 @@ public class StudentController extends Db implements StudentRepository {
             connect();
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_STUDENTS);
-            System.out.println("|======================|");
-            System.out.println("| Display All Students |");
-            System.out.println("|======================|\n");
+//            System.out.println("|======================|");
+//            System.out.println("| Display All Students |");
+//            System.out.println("|======================|\n");
+              Input.HeaderBox("Display All Students");
             System.out.printf("%-5s | %-15s | %-15s | %-10s | %-4s  | %-10s | %-25s | %-8s | %-8s \n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
@@ -93,7 +96,7 @@ public class StudentController extends Db implements StudentRepository {
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+               Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -112,7 +115,7 @@ public class StudentController extends Db implements StudentRepository {
             prep.executeUpdate();
             System.out.println("Student " +  student.getStudentFirstname()+" "+student.getStudentLastname() + " added successfully!");
         }catch (Exception e) {
-            System.out.println("Error adding student: " + e.getMessage());
+            Input.COut("Error adding student: " + e.getMessage());
         }
     }
 
@@ -141,9 +144,10 @@ public class StudentController extends Db implements StudentRepository {
             // Execute the query
             result = preparedStatement.executeQuery();
 
-            System.out.println("|================|");
-            System.out.println("| Search Results |");
-            System.out.println("|================|\n");
+//            System.out.println("|================|");
+//            System.out.println("| Search Results |");
+//            System.out.println("|================|\n");
+            Input.HeaderBox("Search Results");
             System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-25s | %-10s | %-10s | %-8s |\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
@@ -166,10 +170,10 @@ public class StudentController extends Db implements StudentRepository {
             }
 
         } catch (SQLException e){
-            System.out.println("SQL Error searching for student: " + e.getMessage());
+            Input.COut("SQL Error searching for student: " + e.getMessage());
         }
         catch (Exception e) {
-            System.out.println("Error searching for student: " + e.getMessage());
+               Input.COut("SQL Error searching for student: " + e.getMessage());
         }
         finally {
             // Close resources to prevent memory leaks
@@ -178,7 +182,7 @@ public class StudentController extends Db implements StudentRepository {
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+               Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -229,12 +233,13 @@ public class StudentController extends Db implements StudentRepository {
             prep.setInt(index, studentId); // Assuming studentId is passed to identify the record
             int rowsUpdated = prep.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Student information successfully updated.");
+                Input.COut("Student information successfully updated.");
             } else {
-                System.out.println("Update failed. Student not found.");
+                
+                Input.COut("Update failed. Student not found.");
             }
         } catch (SQLException e) {
-            System.out.println("SQL Error : " + e.getMessage());
+            Input.COut("SQL Error : " + e.getMessage());
         }
     }
     @Override
@@ -287,7 +292,7 @@ public class StudentController extends Db implements StudentRepository {
             prep.executeUpdate();
             con.close();
         }catch(Exception e){
-            System.out.println("Error message " + e.getMessage());
+            Input.COut("Error message " + e.getMessage());
         }
     }
 
@@ -311,7 +316,7 @@ public class StudentController extends Db implements StudentRepository {
                 return result.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
+            Input.COut("SQL Error: " + e.getMessage());
         }
         return false;
     }

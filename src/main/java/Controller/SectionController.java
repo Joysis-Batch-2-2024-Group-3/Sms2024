@@ -4,6 +4,8 @@ import Db.Db;
 import Model.CourseModel;
 import Model.SectionModel;
 import Repository.SectionRepository;
+import Utils.ClearConsole;
+import Utils.Input;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -21,10 +23,8 @@ public class SectionController extends Db implements SectionRepository {
             connect();
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_SECTIONS);
-            System.out.println("|======================|");
-            System.out.println("| Display All Sections |");
-            System.out.println("|======================|\n");
-            System.out.printf(" %-10s | %-25s | %-25s \n", "ID", "Section Name", "Course Name");
+            Input.HeaderBox("Display All Section");
+            System.out.printf("%-10s | %-25s | %-25s \n", "ID", "Section Name", "Course Name");
 
             while (result.next()) {
                 section.setSectionId(result.getInt("section_id"));
@@ -34,21 +34,24 @@ public class SectionController extends Db implements SectionRepository {
                 System.out.printf("%-10d | %-25s | %-25s \n",
                         section.getSectionId(), section.getSectionName(), course.getCourseName());
             }
-            System.out.println("|======================|");
+            System.out.println("\n|=================================================================|\n");
+         
         } catch (SQLException e) {
-            System.out.println("SQL error while retrieving sections: " + e.getMessage());
+            Input.COut("SQL error while retrieving sections: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error while retrieving sections: " + e.getMessage());
+            Input.COut("Error while retrieving sections: " + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
+    
+    
 
     @Override
     public void filterSection(String Key, Object value, SectionModel section, CourseModel course) {
@@ -59,9 +62,7 @@ public class SectionController extends Db implements SectionRepository {
 
             prep.setString(1, "%" + value + "%");
             result = prep.executeQuery();
-            System.out.println("|===================|");
-            System.out.println("| Filtered Sections |");
-            System.out.println("|===================|\n");
+            Input.HeaderBox("Filter Sections");
             System.out.printf(" %-10s | %-25s | %-25s | \n", "ID", "Section Name", "Course Name");
 
             while (result.next()) {
@@ -72,16 +73,16 @@ public class SectionController extends Db implements SectionRepository {
                 System.out.printf(" %-10d | %-25s | %-25s | \n", section.getSectionId(), section.getSectionName(), course.getCourseName());
             }
         } catch (SQLException e) {
-            System.out.println("SQL error while filtering sections: " + e.getMessage());
+            Input.COut("SQL error while filtering sections: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error while filtering sections: " + e.getMessage());
+             Input.COut("SQL error while filtering sections: " + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                 Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -125,20 +126,20 @@ public class SectionController extends Db implements SectionRepository {
             int rowsAffected = prep.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Section deleted successfully.");
+                Input.COut("Section deleted successfully.");
             } else {
-                System.out.println("Section not found.");
+                Input.COut("Section not found.");
             }
         } catch (SQLException e) {
-            System.out.println("SQL Error in deleting section: " + e.getMessage());
+            Input.COut("SQL Error in deleting section: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error in deleting section: " + e.getMessage());
+                Input.COut("SQL Error in deleting section: " + e.getMessage());
         } finally {
             try {
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error in closing resources in section: " + e.getMessage());
+                Input.COut("Error in closing resources in section: " + e.getMessage());
             }
         }
     }
@@ -178,19 +179,19 @@ public class SectionController extends Db implements SectionRepository {
             int rowsUpdated = prep.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Section record " + sectionID + " successfully updated.");
+                Input.COut("Section record " + sectionID + " successfully updated.");
             } else {
-                System.out.println("No section record found with ID: " + sectionID);
+                Input.COut("No section record found with ID: " + sectionID);
             }
 
         } catch (Exception e) {
-            System.out.println("Error updating section record: " + e.getMessage());
+            Input.COut("Error updating section record: " + e.getMessage());
         } finally {
             try {
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
 

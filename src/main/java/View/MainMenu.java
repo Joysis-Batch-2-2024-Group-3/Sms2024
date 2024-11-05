@@ -78,14 +78,17 @@ public class MainMenu {
     public static void DisplayActionsMenu() throws InterruptedException
     {
         MainMenuHeader();
-        System.out.println("\n|--------------------Options--------------------\n");
-        System.out.println("1. Student");
-        System.out.println("2. Course");
-        System.out.println("3. Section");
-        System.out.println("4. Subject");
-        System.out.println("5. Schedule");
-        System.out.println("6. Student Subject");
-        System.out.println("7. Logout");
+        System.out.println("\n|------------------------Options------------------------|\n");
+        System.out.println(" __________________________________________________");
+        System.out.println("|                                                  |");
+        System.out.println("| 1. Student                                       |");
+        System.out.println("| 2. Course                                        |");
+        System.out.println("| 3. Section                                       |");
+        System.out.println("| 4. Subject                                       |");
+        System.out.println("| 5. Schedule                                      |");
+        System.out.println("| 6. Student Subject                               |");
+        System.out.println("| 7. Logout                                        |");
+        System.out.println("|__________________________________________________|\n");
         System.out.print("Enter Selection: ");
         
         
