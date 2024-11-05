@@ -11,6 +11,7 @@ import java.util.*;
 
 public class Temp_View {
     private final StudentController sc = new StudentController();
+    private final AdminController ac = new AdminController();
     private final SubjectController sub = new SubjectController();
     private final SectionController sec = new SectionController();
     private final CourseController cc = new CourseController();
@@ -22,10 +23,10 @@ public class Temp_View {
     private void loginAdmin() {
         System.out.println("\n=== Login Admin ===");
         AdminModel adminModel = loginInputAdmin();
-        sc.authenticateAdmin(adminModel);
+        boolean isauthenticated = ac.authenticateAdmin(adminModel);
 
         // Only proceed to mainMenu if login is successful
-        if (sc.isAuthenticated()) {
+        if (isauthenticated) {
             mainMenu();
         } else {
             System.out.println("Access denied!");
@@ -37,6 +38,8 @@ public class Temp_View {
         String username = scan.nextLine();
         System.out.print("Enter the password: ");
         String password = scan.nextLine();
+        
+        System.out.println(username + " " + password);
 
         return new AdminModel(username, password);
     }

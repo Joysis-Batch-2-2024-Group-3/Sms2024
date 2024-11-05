@@ -10,7 +10,6 @@ import java.util.LinkedHashMap;
 
 public class StudentController extends Db implements StudentRepository {
     public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
-    private boolean authenticated = false;
 
     IndexController ic = new IndexController();
     @Override
@@ -292,28 +291,7 @@ public class StudentController extends Db implements StudentRepository {
         }
     }
 
-    @Override
-    public boolean authenticateAdmin(AdminModel admin){
-        if (con == null) {
-            System.out.println("Connection not established.");
-            return false;
-        }
-        try{
-            connect();
-            prep = con.prepareStatement(ADMIN_LOGIN);
-            prep.setString(1, admin.getAdminUsername());
-            prep.setString(2, admin.getAdminPassword());
-            result = prep.executeQuery();
-            if(result.next()){
-                System.out.println("Logged in successfully!");
-            }else{
-                System.out.println("Logged in failed");
-            }
-        }catch(Exception e){
-            System.out.println("Error authenticate admin: " + e.getMessage());
-        }
-        return false;
-    }
+
 
     @Override
     public boolean isValidStudent(String Column, Object Value) {
@@ -338,8 +316,4 @@ public class StudentController extends Db implements StudentRepository {
         return false;
     }
 
-
-    public boolean isAuthenticated(){
-        return authenticated;
-    }
 }

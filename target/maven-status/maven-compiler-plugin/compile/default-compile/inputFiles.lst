@@ -1,3 +1,4 @@
+/home/mark/NetBeansProjects/Sms2024/src/main/java/Controller/AdminController.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Controller/CourseController.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Controller/IndexController.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Controller/ScheduleController.java
@@ -14,6 +15,7 @@
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Model/StudentModel.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Model/Student_SubjectModel.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Model/SubjectModel.java
+/home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/AdminRepository.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/CourseRepository.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/IndexRepository.java
 /home/mark/NetBeansProjects/Sms2024/src/main/java/Repository/QueryConstant.java

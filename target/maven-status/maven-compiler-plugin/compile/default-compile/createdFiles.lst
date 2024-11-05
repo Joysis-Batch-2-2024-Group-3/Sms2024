@@ -18,6 +18,8 @@ Utils/PasswordHashing.class
 Repository/SubjectRepository.class
 Controller/IndexController.class
 Model/CourseModel.class
+Controller/AdminController.class
+Repository/AdminRepository.class
 Utils/ClearConsole.class
 Model/SubjectModel.class
 Repository/StudentRepository.class

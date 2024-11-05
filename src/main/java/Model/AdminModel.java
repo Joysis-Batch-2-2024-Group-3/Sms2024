@@ -16,6 +16,8 @@ public class AdminModel {
     private String password;
 
     public AdminModel(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public int getAdminId()

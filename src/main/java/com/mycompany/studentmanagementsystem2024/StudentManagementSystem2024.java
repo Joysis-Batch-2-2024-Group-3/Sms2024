@@ -22,7 +22,7 @@ public class StudentManagementSystem2024 {
            
            if(firstAction.equals("1"))
            {
-               Admin.DisplayAdminLogin();
+               Admin.LoginAdmin();
            }else{
                System.out.println("hi");
            }

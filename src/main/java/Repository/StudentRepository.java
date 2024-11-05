@@ -19,7 +19,6 @@ public interface StudentRepository {
     public void filterStudent( String key, String value, StudentModel student, CourseModel Course, SectionModel Section);
     public void dropStudent(LinkedHashMap<String, Object>values);
     public void updateStudent(LinkedHashMap<String, Object>values, int Studentid);
-    public boolean authenticateAdmin(AdminModel admin);
     public boolean isValidStudent(String Column, Object Value);
     public boolean isValidStudentName(String firstName, String lastName);
 
