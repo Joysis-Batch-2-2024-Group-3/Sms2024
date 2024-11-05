@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 07:22 AM
+-- Generation Time: Nov 05, 2024 at 05:07 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -112,10 +112,10 @@ CREATE TABLE `section_tbl` (
 --
 
 INSERT INTO `section_tbl` (`section_id`, `section_name`, `course_id`) VALUES
-(1, 'CS102', 1),
+(1, 'IT102', 2),
 (2, 'IT101', 2),
 (3, 'CPE101', 3),
-(4, 'BSMA101', 4);
+(4, 'BASMA101', 4);
 
 -- --------------------------------------------------------
 
@@ -137,10 +137,10 @@ CREATE TABLE `student_subject_tbl` (
 
 INSERT INTO `student_subject_tbl` (`student_subject_id`, `student_id`, `subject_id`, `archived`, `section_id`) VALUES
 (2, 2, 1, 0, 2),
-(3, 1, 3, 0, 1),
+(3, 2, 7, 1, 2),
 (4, 2, 3, 0, 2),
 (5, 1, 2, 0, 1),
-(6, 2, 2, 0, 2),
+(6, 1, 2, 0, 2),
 (8, 3, 1, 0, 2),
 (9, 3, 3, 0, 2);
 
@@ -191,9 +191,9 @@ CREATE TABLE `subject_tbl` (
 INSERT INTO `subject_tbl` (`subject_id`, `subject_name`, `course_id`) VALUES
 (1, 'Network Technology', 1),
 (2, 'Software Quality Assurance', 1),
-(3, 'Data Privacy ', 2),
+(3, 'Data Privacy', 2),
 (4, 'Algebra', 1),
-(7, 'Computer Programming 1', 1);
+(7, 'COMPROG 1', 1);
 
 --
 -- Indexes for dumped tables
