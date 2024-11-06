@@ -272,7 +272,7 @@ public class SectionView {
                                     sec.updateSection(values, sectionID);
                                     System.out.println(conc.greenLine);
                                     System.out.println(conc.greenSpace);
-                                    System.out.println(conc.center+conc.BB_GREEN+" "+conc.BB_BLACK+"\t\t\t\t\t\t  "+conc.BR_GREEN+"Section Updated Successfully."+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                    System.out.println(conc.center+conc.BB_GREEN+" "+conc.BB_BLACK+"\t\t\t\t\t  "+conc.BR_GREEN+"Section Updated Successfully."+conc.BB_BLACK+"\t\t\t\t" +
                                             " "+conc.BB_GREEN+" "+conc.RESET);
                                     System.out.println(conc.greenSpace);
                                     System.out.println(conc.greenLine);

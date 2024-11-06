@@ -274,7 +274,7 @@ public class ScheduleView {
         while (endTime == null) {
             System.out.println("\n"+conc.yellowLine);
             System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter End Time"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter End Time"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
                     " "+conc.BB_YELLOW+" "+conc.RESET);
             System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t\t\t\t(HH:MM:SS Military)"+conc.BB_BLACK+ "\t\t\t\t\t\t "
                     +conc.BB_YELLOW+" "+conc.RESET);
