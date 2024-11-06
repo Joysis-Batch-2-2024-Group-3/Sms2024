@@ -287,7 +287,7 @@ public class StudentSubject {
                             while (!validSubject) {
                                 System.out.println("\n"+conc.yellowLine);
                                 System.out.println(conc.yellowSpace);
-                                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter subject Name"+conc.BB_BLACK+"\t\t\t\t" +
+                                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter subject Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
                                         " "+conc.BB_YELLOW+" "+conc.RESET);
                                 System.out.println(conc.yellowSpace);
                                 System.out.println(conc.yellowLine);

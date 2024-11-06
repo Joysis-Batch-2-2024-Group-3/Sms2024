@@ -78,7 +78,7 @@ public class SubjectView {
                         // Adding new subject
                         System.out.println("\n"+conc.yellowLine);
                         System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter subject name"+conc.BB_BLACK+"\t\t\t\t" +
+                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter subject name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
                                 " "+conc.BB_YELLOW+" "+conc.RESET);
                         System.out.println(conc.yellowSpace);
                         System.out.println(conc.yellowLine);
@@ -91,7 +91,7 @@ public class SubjectView {
                         while (!validCourse) {
                             System.out.println("\n"+conc.yellowLine);
                             System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t" +
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
                                     " "+conc.BB_YELLOW+" "+conc.RESET);
                             System.out.println(conc.yellowSpace);
                             System.out.println(conc.yellowLine);
@@ -104,9 +104,9 @@ public class SubjectView {
                             } else {
                                 System.out.println(conc.redLine);
                                 System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid course id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid course id"+conc.BB_BLACK+"\t\t\t\t\t\t" +
                                         " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please check all available courses."+conc.BB_BLACK+"\t\t\t\t\t" +
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please check all available courses."+conc.BB_BLACK+"\t\t\t\t" +
                                         " "+conc.BB_RED+" "+conc.RESET);
                                 System.out.println(conc.redSpace);
                                 System.out.println(conc.redLine);
@@ -148,9 +148,9 @@ public class SubjectView {
                             } else {
                                 System.out.println(conc.redLine);
                                 System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject name"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject name"+conc.BB_BLACK+"\t\t\t\t\t" +
                                         " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid subject name."+conc.BB_BLACK+"\t\t\t\t\t" +
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_RED+"Please enter a valid subject name."+conc.BB_BLACK+"\t\t\t\t" +
                                         " "+conc.BB_RED+" "+conc.RESET);
                                 System.out.println(conc.redSpace);
                                 System.out.println(conc.redLine);
@@ -161,7 +161,7 @@ public class SubjectView {
                         while (!isCourseValid) {
                             System.out.println("\n"+conc.yellowLine);
                             System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
                                     " "+conc.BB_YELLOW+" "+conc.RESET);
                             System.out.println(conc.yellowSpace);
                             System.out.println(conc.yellowLine);
@@ -234,14 +234,16 @@ public class SubjectView {
 
         while (updatingSubject) {
             ClearConsole.Cls();
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"U P D A T E"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"S U B J E C T"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"U P D A T E"+conc.BB_BLACK+"\t\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"S U B J E C T"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
             System.out.println(conc.whiteSpace);
             System.out.println(conc.whiteLine);
             System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Update Subject Name"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Update Course ID"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Update Subject Name"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Update Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
             System.out.println(conc.whiteSpace);
             System.out.println(conc.whiteLine);
 
@@ -270,7 +272,7 @@ public class SubjectView {
                         while (!validCourseID) {
                             System.out.println("\n"+conc.yellowLine);
                             System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter new Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t"+
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter new Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t"+
                                     " "+conc.BB_YELLOW+" "+conc.RESET);
                             System.out.println(conc.yellowSpace);
                             System.out.println(conc.yellowLine);
