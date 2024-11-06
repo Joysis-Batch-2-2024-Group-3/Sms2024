@@ -4,7 +4,6 @@
  */
 package Repository;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -12,8 +11,11 @@ import java.util.LinkedHashMap;
  * @author mark
  */
 public interface IndexRepository {
-    public boolean isValidTableValue (String table, String column, Object value);
+    public boolean isValidTableValue(String table, String column, Object value);
+
     public Object getValuebyValue(String column1, String table, String column2, Object value);
-    public boolean checkConflict(String Table, LinkedHashMap<String, Object>values);
-    public boolean isValidDate (String date);
+
+    public boolean checkConflict(String Table, LinkedHashMap<String, Object> values);
+
+    public boolean isValidDate(String date);
 }

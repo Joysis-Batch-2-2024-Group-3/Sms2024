@@ -1,18 +1,20 @@
 package Controller;
+
 import Db.Db;
 import Model.*;
 import Repository.StudentRepository;
 import Utils.Input;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
 public class StudentController extends Db implements StudentRepository {
-    public static String[] validColumns = {"student_id", "first_name", "section_name", "course_name", "last_name", "birth_date", "sex", "year_level", "course_id", "section_id", "archived"};
+    public static String[] validColumns = { "student_id", "first_name", "section_name", "course_name", "last_name",
+            "birth_date", "sex", "year_level", "course_id", "section_id", "archived" };
 
     IndexController ic = new IndexController();
+
     @Override
     public void displayArchivedStudents(StudentModel student, CourseModel course, SectionModel section) {
         try {
@@ -20,12 +22,13 @@ public class StudentController extends Db implements StudentRepository {
             state = con.createStatement();
             // Query to select only archived students
             result = state.executeQuery(DISPLAY_STUDENTS + " WHERE archived = true");
-//            System.out.println("|===================|");
-//            System.out.println("| Archived Students |");
-//            System.out.println("|===================|\n");
+            // System.out.println("|===================|");
+            // System.out.println("| Archived Students |");
+            // System.out.println("|===================|\n");
             Input.HeaderBox("Archived Students");
             // Print the header only once
-            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s\u001B[0m\n",
+            System.out.printf(
+                    "\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s\u001B[0m\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section");
 
             // Loop through the result set and display each archived student
@@ -50,9 +53,12 @@ public class StudentController extends Db implements StudentRepository {
         } finally {
             // Close resources to prevent memory leaks
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (Exception e) {
                 Input.COut("Error closing resources: " + e.getMessage());
             }
@@ -65,11 +71,12 @@ public class StudentController extends Db implements StudentRepository {
             connect();
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_STUDENTS);
-//            System.out.println("|======================|");
-//            System.out.println("| Display All Students |");
-//            System.out.println("|======================|\n");
-              Input.HeaderBox("Display All Students");
-              System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-4s  | %-10s | %-25s | %-8s | %-8s\u001B[0m\n",
+            // System.out.println("|======================|");
+            // System.out.println("| Display All Students |");
+            // System.out.println("|======================|\n");
+            Input.HeaderBox("Display All Students");
+            System.out.printf(
+                    "\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-4s  | %-10s | %-25s | %-8s | %-8s\u001B[0m\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
             while (result.next()) {
@@ -92,17 +99,21 @@ public class StudentController extends Db implements StudentRepository {
             System.out.println(e.getMessage());
         } finally {
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (Exception e) {
-               Input.COut("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
+
     @Override
-    public void addStudent(StudentModel student, CourseModel  course, SectionModel section){
-        try{
+    public void addStudent(StudentModel student, CourseModel course, SectionModel section) {
+        try {
             connect();
             prep = con.prepareStatement(ADD_STUDENT);
             prep.setString(1, student.getStudentFirstname());
@@ -113,15 +124,16 @@ public class StudentController extends Db implements StudentRepository {
             prep.setInt(6, student.getStudentCourse());
             prep.setInt(7, student.getStudentSection());
             prep.executeUpdate();
-            System.out.println("Student " +  student.getStudentFirstname()+" "+student.getStudentLastname() + " added successfully!");
-        }catch (Exception e) {
+            System.out.println("Student " + student.getStudentFirstname() + " " + student.getStudentLastname()
+                    + " added successfully!");
+        } catch (Exception e) {
             Input.COut("Error adding student: " + e.getMessage());
         }
     }
 
-
     @Override
-    public void filterStudent(String key, String value, StudentModel student, CourseModel course, SectionModel section) {
+    public void filterStudent(String key, String value, StudentModel student, CourseModel course,
+            SectionModel section) {
 
         System.out.println();
         // Validate the key to ensure it corresponds to a valid column name
@@ -133,22 +145,23 @@ public class StudentController extends Db implements StudentRepository {
 
         try {
             connect();
-            //Determine the appropriate search query
+            // Determine the appropriate search query
 
-                String searchQuery = String.format(SEARCH_STUDENT, key);
+            String searchQuery = String.format(SEARCH_STUDENT, key);
 
             // Prepare the statement
             PreparedStatement preparedStatement = con.prepareStatement(searchQuery);
-            preparedStatement.setString(1, "%"+value+"%"); // Set the value for the placeholder
+            preparedStatement.setString(1, "%" + value + "%"); // Set the value for the placeholder
 
             // Execute the query
             result = preparedStatement.executeQuery();
 
-//            System.out.println("|================|");
-//            System.out.println("| Search Results |");
-//            System.out.println("|================|\n");
+            // System.out.println("|================|");
+            // System.out.println("| Search Results |");
+            // System.out.println("|================|\n");
             Input.HeaderBox("Search Results");
-            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-5s | %-25s | %-10s | %-10s | %-8s\u001B[0m\n", 
+            System.out.printf(
+                    "\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-5s | %-25s | %-10s | %-10s | %-8s\u001B[0m\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
             // Loop through the result set and display each student
@@ -169,20 +182,21 @@ public class StudentController extends Db implements StudentRepository {
                         course.getCourseName(), section.getSectionName(), student.isStudentArchive() ? "Yes" : "No");
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             Input.COut("SQL Error searching for student: " + e.getMessage());
-        }
-        catch (Exception e) {
-               Input.COut("SQL Error searching for student: " + e.getMessage());
-        }
-        finally {
+        } catch (Exception e) {
+            Input.COut("SQL Error searching for student: " + e.getMessage());
+        } finally {
             // Close resources to prevent memory leaks
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (Exception e) {
-               Input.COut("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -214,19 +228,15 @@ public class StudentController extends Db implements StudentRepository {
             // Set the values for the prepared statement
             index = 1;
             for (Object value : values.values()) {
-                if( value instanceof String){
+                if (value instanceof String) {
                     prep.setString(index++, (String) value);
-                }
-                else if( value instanceof Integer){
+                } else if (value instanceof Integer) {
                     prep.setInt(index++, (Integer) value);
-                }
-                else if( value instanceof java.sql.Date){
+                } else if (value instanceof java.sql.Date) {
                     prep.setDate(index++, (java.sql.Date) value);
-                }
-                else if( value instanceof Character){
+                } else if (value instanceof Character) {
                     prep.setString(index++, String.valueOf(value));
-                }
-                else if( value instanceof Boolean){
+                } else if (value instanceof Boolean) {
                     prep.setBoolean(index++, (Boolean) value);
                 }
             }
@@ -235,38 +245,39 @@ public class StudentController extends Db implements StudentRepository {
             if (rowsUpdated > 0) {
                 Input.COut("Student information successfully updated.");
             } else {
-                
+
                 Input.COut("Update failed. Student not found.");
             }
         } catch (SQLException e) {
             Input.COut("SQL Error : " + e.getMessage());
         }
     }
+
     @Override
-    public void displayStudentbySection(String Value, StudentModel sm, CourseModel cm, SectionModel secm){
-        filterStudent("section_name",Value,sm,cm,secm);
+    public void displayStudentbySection(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
+        filterStudent("section_name", Value, sm, cm, secm);
     }
 
     @Override
     public void displayStudentbyCourse(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
-        filterStudent("course_name",Value,sm,cm,secm);
+        filterStudent("course_name", Value, sm, cm, secm);
     }
 
     @Override
     public void displayStudentbyFName(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
-        filterStudent("first_name",Value,sm,cm,secm);
+        filterStudent("first_name", Value, sm, cm, secm);
 
     }
 
     @Override
     public void displayStudentbyLname(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
-        filterStudent("last_name",Value,sm,cm,secm);
+        filterStudent("last_name", Value, sm, cm, secm);
 
     }
 
     @Override
     public void displayStudentbyStudent_ID(String Value, StudentModel sm, CourseModel cm, SectionModel secm) {
-        filterStudent("student_id",Value,sm,cm,secm);
+        filterStudent("student_id", Value, sm, cm, secm);
     }
 
     // Helper method to validate the column name
@@ -282,28 +293,27 @@ public class StudentController extends Db implements StudentRepository {
     }
 
     @Override
-    public void dropStudent(LinkedHashMap<String, Object>values){
-        try{
+    public void dropStudent(LinkedHashMap<String, Object> values) {
+        try {
             connect();
-            prep =  con.prepareStatement(DELETE_STUDENT );
+            prep = con.prepareStatement(DELETE_STUDENT);
             prep.setString(1, values.get("student_name").toString());
             prep.setString(2, values.get("section_name").toString());
-          //  System.out.println(prep.toString());
+            // System.out.println(prep.toString());
             prep.executeUpdate();
             con.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             Input.COut("Error message " + e.getMessage());
         }
     }
 
-
-
     @Override
     public boolean isValidStudent(String Column, Object Value) {
-       return ic.isValidTableValue("student_tbl",Column,Value);
+        return ic.isValidTableValue("student_tbl", Column, Value);
     }
+
     @Override
-    public boolean isValidStudentName(String firstName, String lastName){
+    public boolean isValidStudentName(String firstName, String lastName) {
         String query = "SELECT COUNT(*) FROM student_tbl WHERE first_name = ? AND last_name = ?";
         try {
             connect();
