@@ -7,11 +7,11 @@ import Utils.Input;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
-import javax.print.attribute.standard.PrinterInfo;
 
 public class CourseController extends Db implements CourseRepository {
 
     IndexController ic = new IndexController();
+
     @Override
     public void displayAllCourse(CourseModel course) {
         try {
@@ -24,10 +24,11 @@ public class CourseController extends Db implements CourseRepository {
             System.out.println("\u001B[32m|           Display All Course             | \u001B[0m");
             System.out.println("\u001B[32m|__________________________________________| \u001B[0m");
 
-            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-30s | %-10s |\u001B[0m\n", "ID", "Name", "Department");
+            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-30s | %-10s |\u001B[0m\n", "ID", "Name",
+                    "Department");
 
             while (result.next()) {
-            	course.setCourse_id(result.getInt("course_id"));
+                course.setCourse_id(result.getInt("course_id"));
                 course.setCourseName(result.getString("course_name"));
                 course.setDepartmentName(result.getString("department_name"));
 
@@ -39,12 +40,15 @@ public class CourseController extends Db implements CourseRepository {
         } catch (SQLException e) {
             Input.COut("SQL error while retrieving courses: " + e.getMessage());
         } catch (Exception e) {
-             Input.COut("Error while retrieving courses: " + e.getMessage());
+            Input.COut("Error while retrieving courses: " + e.getMessage());
         } finally {
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException e) {
                 Input.COut("Error closing resources: " + e.getMessage());
             }
@@ -63,7 +67,8 @@ public class CourseController extends Db implements CourseRepository {
             System.out.println("\u001B[32m|                                          | \u001B[0m");
             System.out.println("\u001B[32m|               Filter Course              | \u001B[0m");
             System.out.println("\u001B[32m|__________________________________________| \u001B[0m");
-            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-30s | %-10s |\u001B[0m\n", "ID", "Name", "Department");
+            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-30s | %-10s |\u001B[0m\n", "ID", "Name",
+                    "Department");
 
             while (result.next()) {
                 course.setCourse_id(result.getInt("course_id"));
@@ -76,27 +81,31 @@ public class CourseController extends Db implements CourseRepository {
                         course.getDepartmentName());
             }
         } catch (SQLException e) {
-                   Input.COut("SQL error while filtering courses: " + e.getMessage());
+            Input.COut("SQL error while filtering courses: " + e.getMessage());
         } catch (Exception e) {
             Input.COut("Error while filtering courses: " + e.getMessage());
         } finally {
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException e) {
                 Input.COut("Error closing resources: " + e.getMessage());
-                
+
             }
         }
     }
-    public int getCourseID(String key,String column, Object value ){
+
+    public int getCourseID(String key, String column, Object value) {
         int courseID = 0;
         try {
             IndexController ic = new IndexController();
-            courseID = (int)ic.getValuebyValue("course_id", key, column, value);
+            courseID = (int) ic.getValuebyValue("course_id", key, column, value);
             return courseID;
-        }catch (Exception e) {
+        } catch (Exception e) {
             Input.COut("Error getting course ID: " + e.getMessage());
         }
         return 0;
@@ -126,10 +135,9 @@ public class CourseController extends Db implements CourseRepository {
 
             // Set the parameters for the fields to be updated
             for (Object value : values.values()) {
-                if(value instanceof String) {
+                if (value instanceof String) {
                     prep.setString(index++, (String) value);
-                }
-                else if(value instanceof Integer) {
+                } else if (value instanceof Integer) {
                     prep.setInt(index++, (Integer) value);
                 }
 
@@ -152,31 +160,34 @@ public class CourseController extends Db implements CourseRepository {
             Input.COut("Error updating course " + e.getMessage());
         } finally {
             try {
-                if (prep != null) prep.close();
-                if (con != null) con.close();
+                if (prep != null)
+                    prep.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException e) {
                 Input.COut("Error closing resources " + e.getMessage());
             }
         }
     }
 
-    public boolean isValidCourse(String column, Object value){
+    public boolean isValidCourse(String column, Object value) {
         IndexController ic = new IndexController();
-        return ic.isValidTableValue("course_tbl",column,value);
+        return ic.isValidTableValue("course_tbl", column, value);
 
     }
-    public void addCourse(String CourseNmae, String Department){
+
+    public void addCourse(String CourseNmae, String Department) {
         connect();
         try {
             prep = con.prepareStatement(ADD_COURSE);
             prep.setString(1, CourseNmae);
             prep.setString(2, Department);
             prep.executeUpdate();
-            System.out.println("Course: " + CourseNmae+" added successfully");
+            System.out.println("Course: " + CourseNmae + " added successfully");
             displayAllCourse(new CourseModel());
             con.close();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             Input.COut("SQL error: " + e.getMessage());
         } catch (Exception e) {
             Input.COut("Error: " + e.getMessage());
@@ -184,12 +195,13 @@ public class CourseController extends Db implements CourseRepository {
     }
 
     @Override
-    public boolean courseConflictChecker(LinkedHashMap<String, Object>values) {
+    public boolean courseConflictChecker(LinkedHashMap<String, Object> values) {
 
         return ic.checkConflict("`course_tbl`", values);
     }
+
     @Override
-    public void deleteCourse(LinkedHashMap<String, Object>values) {
+    public void deleteCourse(LinkedHashMap<String, Object> values) {
         connect();
         try {
             String stringQuery = String.format(DELETE_QUERY, "course_tbl",
@@ -199,31 +211,33 @@ public class CourseController extends Db implements CourseRepository {
             prep.setString(1, values.get("course_name").toString());
             prep.setString(2, values.get("department_name").toString());
             prep.executeUpdate();
-            System.out.println("Course: " +values.get("course_name").toString()+" "+values.get("department_name").toString()  + " deleted successfully");
+            System.out.println("Course: " + values.get("course_name").toString() + " "
+                    + values.get("department_name").toString() + " deleted successfully");
             displayAllCourse(new CourseModel());
             con.close();
 
-        }catch (SQLException e){
-             Input.COut("SQL error: " + e.getMessage());
+        } catch (SQLException e) {
+            Input.COut("SQL error: " + e.getMessage());
         } catch (Exception e) {
-           Input.COut("Error: " + e.getMessage());
+            Input.COut("Error: " + e.getMessage());
         }
     }
-    public boolean validateBothName (LinkedHashMap<String, Object> values){
-        try{
+
+    public boolean validateBothName(LinkedHashMap<String, Object> values) {
+        try {
             connect();
             prep = con.prepareStatement(VALIDATE_COURSE_DEPARTMENT);
             prep.setString(1, values.get("course_name").toString());
             prep.setString(2, values.get("department_name").toString());
             result = prep.executeQuery();
-            if(result.next()){
-                return result.getInt(1)>0;
+            if (result.next()) {
+                return result.getInt(1) > 0;
             }
         } catch (SQLException e) {
-             Input.COut("SQL error: " + e.getMessage());
+            Input.COut("SQL error: " + e.getMessage());
         } catch (Exception e) {
-           Input.COut("Error: " + e.getMessage());
+            Input.COut("Error: " + e.getMessage());
         }
-    return false;
+        return false;
     }
 }

@@ -18,16 +18,12 @@ import java.util.Scanner;
  * @author mark
  */
 public class SubjectView {
-    private static StudentController sc = new StudentController();
-    private static final IndexController ic = new IndexController();
     private static final CourseController cc = new CourseController();
     private static Scanner scan = new Scanner(System.in);
     private static final SubjectController sub = new SubjectController();
-    private static final SectionController sec = new SectionController();
     private static final ConsoleColors conc = new ConsoleColors();
 
-    static void DisplaySubjectMenu()
-    {
+    static void DisplaySubjectMenu() {
         SubjectModel subm = new SubjectModel();
         CourseModel cm = new CourseModel();
         boolean running = true;
@@ -35,20 +31,27 @@ public class SubjectView {
         while (running) {
             ClearConsole.Cls();
             MainMenu.MainMenuHeader();
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"S U B J E C T   M E N U"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Display All Subjects"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Search Subject by Course"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Add Subject"+conc.BB_BLACK+"\t\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Delete Subject by Name"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Edit Subject"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[6] Back to Main Menu"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_GREEN
+                    + "S U B J E C T   M E N U" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.whiteSpace);
+            Sout(conc.whiteLine);
+            Sout(conc.whiteSpace);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[1] Display All Subjects" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[2] Search Subject by Course" + conc.BB_BLACK + "\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE + "[3] Add Subject"
+                    + conc.BB_BLACK + "\t\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[4] Delete Subject by Name" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE + "[5] Edit Subject"
+                    + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[6] Back to Main Menu" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.whiteSpace);
+            Sout(conc.whiteLine);
 
-            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "Choose an option: " + conc.RESET);
 
             try {
                 int choice = scan.nextInt();
@@ -61,13 +64,14 @@ public class SubjectView {
                         Input.HoldState();
                     }
                     case 2 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the course name or substring"+conc.BB_BLACK+"\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        Sout("\n" + conc.yellowLine);
+                        Sout(conc.yellowSpace);
+                        Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t" + conc.BR_YELLOW
+                                + "Enter the course name or substring" + conc.BB_BLACK + "\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        Sout(conc.yellowSpace);
+                        Sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         String searchValue = scan.nextLine();
                         sub.displaySubjectByCourse("course_tbl.course_name", searchValue, subm, cm);
                         Input.HoldState();
@@ -76,40 +80,44 @@ public class SubjectView {
                         ClearConsole.Cls();
                         LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Adding new subject
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter subject name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        Sout("\n" + conc.yellowLine);
+                        Sout(conc.yellowSpace);
+                        Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                                + "Enter subject name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        Sout(conc.yellowSpace);
+                        Sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         String subjectName = scan.nextLine();
                         values.put("`subject_name`", subjectName);
 
                         boolean validCourse = false;
                         cc.displayAllCourse(cm);
                         while (!validCourse) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            Sout("\n" + conc.yellowLine);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                                    + "Enter Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             int courseId = scan.nextInt();
                             if (cc.isValidCourse("course_id", courseId)) {
                                 subm.setCourse_id(courseId);
                                 values.put("course_id", courseId);
                                 validCourse = true;
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid course id"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please check all available courses."+conc.BB_BLACK+"\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                Sout(conc.redLine);
+                                Sout(conc.redSpace);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Invalid course id" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                                        + "Please check all available courses." + conc.BB_BLACK + "\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.redSpace);
+                                Sout(conc.redLine);
                             }
                         }
                         subm.setSubject_name(subjectName);
@@ -118,14 +126,16 @@ public class SubjectView {
                             sub.displayAllSubject(subm, cm);
                             Input.HoldState();
                         } else {
-                            System.out.println(conc.redLine);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Subject conflict detected"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter new subject details."+conc.BB_BLACK+"\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.redLine);
+                            Sout(conc.redLine);
+                            Sout(conc.redSpace);
+                            Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t\t" + conc.BR_RED
+                                    + "Subject conflict detected" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                                    + "Please enter new subject details." + conc.BB_BLACK + "\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            Sout(conc.redSpace);
+                            Sout(conc.redLine);
                         }
                     }
                     case 4 -> {
@@ -133,52 +143,58 @@ public class SubjectView {
                         // Option to delete a subject by name
                         boolean isSubjectValid = false;
                         while (!isSubjectValid) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Subject Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            Sout("\n" + conc.yellowLine);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                                    + "Enter Subject Name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             String subjectName = scan.nextLine();
-                            System.out.println(subjectName);
+                            Sout(subjectName);
                             if (sub.isValidSubjectValue("subject_name", subjectName)) {
                                 isSubjectValid = true;
                                 values.put("subject_name", subjectName);
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_RED+"Please enter a valid subject name."+conc.BB_BLACK+"\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                Sout(conc.redLine);
+                                Sout(conc.redSpace);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Invalid subject name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t" + conc.BR_RED
+                                        + "Please enter a valid subject name." + conc.BB_BLACK + "\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.redSpace);
+                                Sout(conc.redLine);
                             }
                         }
                         cc.displayAllCourse(cm);
                         boolean isCourseValid = false;
                         while (!isCourseValid) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            Sout("\n" + conc.yellowLine);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                                    + "Enter Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             int courseId = scan.nextInt();
                             if (cc.isValidCourse("course_id", courseId)) {
                                 isCourseValid = true;
                                 values.put("course_id", courseId);
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid course id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid course id."+conc.BB_BLACK+"\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                Sout(conc.redLine);
+                                Sout(conc.redSpace);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Invalid course id" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                                        + "Please enter a valid course id." + conc.BB_BLACK + "\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.redSpace);
+                                Sout(conc.redLine);
                             }
                         }
                         sub.deleteSubject(values);
@@ -187,28 +203,31 @@ public class SubjectView {
                     }
                     case 5 -> {
                         boolean isValidSubjectID = false;
-                        int subjectId =0;
+                        int subjectId = 0;
                         sub.displayAllSubject(subm, cm);
                         while (!isValidSubjectID) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Subject ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            Sout("\n" + conc.yellowLine);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                                    + "Enter Subject ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             subjectId = scan.nextInt();
                             if (sub.isValidSubjectValue("subject_id", subjectId)) {
                                 isValidSubjectID = true;
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Subject ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please enter a valid subject id."+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                Sout(conc.redLine);
+                                Sout(conc.redSpace);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Invalid Subject ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Please enter a valid subject id." + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.redSpace);
+                                Sout(conc.redLine);
                             }
 
                         }
@@ -234,21 +253,25 @@ public class SubjectView {
 
         while (updatingSubject) {
             ClearConsole.Cls();
-            System.out.println(conc.whiteLine);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"U P D A T E"+conc.BB_BLACK+"\t\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"S U B J E C T"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Update Subject Name"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Update Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
+            Sout(conc.whiteLine);
+            Sout(conc.whiteSpace);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_GREEN + "U P D A T E"
+                    + conc.BB_BLACK + "\t\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_GREEN + "S U B J E C T"
+                    + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.whiteSpace);
+            Sout(conc.whiteLine);
+            Sout(conc.whiteSpace);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[1] Update Subject Name" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[2] Update Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE + "[3] Finish Update"
+                    + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            Sout(conc.whiteSpace);
+            Sout(conc.whiteLine);
 
-            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
-
+            System.out.print(conc.YELLOW + "\n" + conc.center + "Choose an option: " + conc.RESET);
 
             int choice = scan.nextInt();
             scan.nextLine(); // Clear newline character
@@ -256,13 +279,14 @@ public class SubjectView {
             try {
                 switch (choice) {
                     case 1 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter new subject name"+conc.BB_BLACK+"\t\t\t\t\t\t"+
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        Sout("\n" + conc.yellowLine);
+                        Sout(conc.yellowSpace);
+                        Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_YELLOW
+                                + "Enter new subject name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        Sout(conc.yellowSpace);
+                        Sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         String newSubjectName = scan.nextLine();
                         values.put("subject_name", newSubjectName);
                     }
@@ -270,27 +294,30 @@ public class SubjectView {
                         cc.displayAllCourse(new CourseModel());
                         boolean validCourseID = false;
                         while (!validCourseID) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter new Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t"+
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            Sout("\n" + conc.yellowLine);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                                    + "Enter new Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            Sout(conc.yellowSpace);
+                            Sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             int courseId = scan.nextInt();
                             if (cc.isValidCourse("course_id", courseId)) {
                                 values.put("course_id", courseId);
                                 Input.HoldState();
                                 validCourseID = true;
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                Sout(conc.redLine);
+                                Sout(conc.redSpace);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Invalid Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                        + "Please try again" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                Sout(conc.redSpace);
+                                Sout(conc.redLine);
                             }
                         }
                     }
@@ -298,12 +325,13 @@ public class SubjectView {
                         if (!values.isEmpty()) {
                             sub.updateSubject(values, subjectID);
                         } else {
-                            System.out.println(conc.redLine);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"No fields to update"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.redLine);
+                            Sout(conc.redLine);
+                            Sout(conc.redSpace);
+                            Sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                                    + "No fields to update" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            Sout(conc.redSpace);
+                            Sout(conc.redLine);
                         }
                         updatingSubject = false; // Exit loop
                     }
@@ -314,5 +342,9 @@ public class SubjectView {
                 scan.nextLine(); // Clear invalid input
             }
         }
+    }
+
+    private static void Sout(String input) {
+        System.out.println(input);
     }
 }
