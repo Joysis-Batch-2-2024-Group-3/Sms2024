@@ -25,7 +25,7 @@ public class StudentController extends Db implements StudentRepository {
 //            System.out.println("|===================|\n");
             Input.HeaderBox("Archived Students");
             // Print the header only once
-            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s\n",
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-5s | %-10s | %-25s | %-10s\u001B[0m\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section");
 
             // Loop through the result set and display each archived student
@@ -69,7 +69,7 @@ public class StudentController extends Db implements StudentRepository {
 //            System.out.println("| Display All Students |");
 //            System.out.println("|======================|\n");
               Input.HeaderBox("Display All Students");
-            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-4s  | %-10s | %-25s | %-8s | %-8s \n",
+              System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-4s  | %-10s | %-25s | %-8s | %-8s\u001B[0m\n",
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
             while (result.next()) {
@@ -148,7 +148,7 @@ public class StudentController extends Db implements StudentRepository {
 //            System.out.println("| Search Results |");
 //            System.out.println("|================|\n");
             Input.HeaderBox("Search Results");
-            System.out.printf("%-5s | %-15s | %-15s | %-10s | %-5s | %-25s | %-10s | %-10s | %-8s |\n",
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-15s | %-15s | %-10s | %-5s | %-25s | %-10s | %-10s | %-8s\u001B[0m\n", 
                     "ID", "First Name", "Last Name", "DOB", "Sex", "Year Level", "Course", "Section", "Archived");
 
             // Loop through the result set and display each student

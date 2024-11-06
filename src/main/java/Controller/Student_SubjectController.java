@@ -21,7 +21,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             prep.setString(1, "%" + Value + "%");
             result = prep.executeQuery();
             Input.HeaderBox("Search Results");
-            System.out.printf("%-5s | %-20s | %-20s | %-20s |\n",
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-20s | %-20s | %-20s\u001B[0m\n",
                     "ID", "Student Name", "Subject Name", "Section");
             while (result.next()) {
                 ssm.setStudent_subject_id(result.getInt("student_subject_id"));
@@ -194,7 +194,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             prep.setString(2, Value.get("subject_name").toString());
             result = prep.executeQuery();
             Input.COut("Row Affected");
-            System.out.printf("%-5s | %-20s | %-20s  | %-20s | %-5s\n",
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-20s | %-20s  | %-20s | %-5s\u001B[0m\n",
             "ID", "Name", "subject", "Section", "Archived");
             if (result.next()) {
                 studentSubjectId = result.getInt("student_subject_id"); // Get the ID
@@ -205,7 +205,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
                 sec.setSectionName(result.getString("section_name"));
                 ssm.setArchived((result.getBoolean("archived")));
                 String student_name = sm.getStudentFirstname() + " " + sm.getStudentLastname();
-                System.out.printf("%-5d | %-20s | %-20s  | %-20s | %-5s\n",
+                System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-5s | %-20s | %-20s  | %-20s | %-5s\u001B[0m\n",
                         studentSubjectId, student_name, subm.getSubject_name(), sec.getSectionName(), ssm.getArchived() ? "Yes" : "No");
             } else {
                 Input.COut("No matching record found.");

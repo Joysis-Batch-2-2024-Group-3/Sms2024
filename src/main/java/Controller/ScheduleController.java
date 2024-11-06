@@ -32,9 +32,10 @@ public class ScheduleController extends Db implements ScheduleRepository {
                 System.out.println("Section current schedule");
             } else {
                 Input.HeaderBox("Schedule By " + key);
-
             }
-            System.out.printf("| %-10s | %-20s | %-20s | %-20s | %-20s | %-20s |\n", "ID", "Section", "Subject", "Day", "Start", "End");
+
+            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-20s | %-30s | %-20s | %-20s | %-20s |\u001B[0m\n", 
+                    "ID", "Section", "Subject", "Day", "Start", "End");
 
             while (result.next()) {
                 schedule.setSchedule_id(result.getInt("schedule_id"));
@@ -44,9 +45,15 @@ public class ScheduleController extends Db implements ScheduleRepository {
                 schedule.setStart_time(Time.valueOf(result.getString("start_time")));
                 schedule.setEnd_time(Time.valueOf(result.getString("end_time")));
 
-                System.out.printf("| %-10d | %-20s | %-20s | %-20s | %-20s | %-20s |\n",
-                        schedule.getSchedule_id(), section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
+                System.out.printf("| %-10d | %-20s | %-30s | %-20s | %-20s | %-20s |\n",
+                        schedule.getSchedule_id(), 
+                        section.getSectionName(), 
+                        subject.getSubject_name(), 
+                        schedule.getDay(), 
+                        schedule.getStart_time(), 
+                        schedule.getEnd_time());
             }
+
         } catch (SQLException e) {
             System.out.println("\nSQL Error in trying to retrieve: " + key + "\n" + e.getMessage());
         } catch (Exception e) {
@@ -121,7 +128,7 @@ public class ScheduleController extends Db implements ScheduleRepository {
     @Override
     public void addSchedule(ScheduleModel schedule, SubjectModel subject, SectionModel section) {
         try {
-            connect();
+        	connect();
             prep = con.prepareStatement(ADD_SCHEDULE);
             prep.setString(1, schedule.getDay());
             prep.setInt(2, schedule.getSection_id());
@@ -129,10 +136,10 @@ public class ScheduleController extends Db implements ScheduleRepository {
             prep.setTime(4, schedule.getStart_time());
             prep.setTime(5, schedule.getEnd_time());
             prep.executeUpdate();
-            System.out.println("\n-------------------------Schedule added successfully!-------------------------\n");
-            System.out.printf("| %-20s | %-20s | %-20s | %-20s | %-20s |\n", "Section", "Subject", "Day", "Start", "End");
+            System.out.println("\n\u001B[32m-------------------------Schedule added successfully!-------------------------\u001B[0m\n");
+            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-20s | %-20s | %-20s | %-20s | %-20s |\u001B[0m\n", "Section", "Subject", "Day", "Start", "End");
             System.out.printf("| %-20s | %-20s | %-20s | %-20s | %-20s |\n",
-                    section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
+                 section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
         } catch (SQLException e) {
             Input.COut("SQL Error while adding schedule: " + e.getMessage());
         } catch (Exception e) {

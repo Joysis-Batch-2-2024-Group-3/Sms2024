@@ -19,14 +19,15 @@ public class CourseController extends Db implements CourseRepository {
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_COURSE);
 
-            System.out.println("\n __________________________________________");
-            System.out.println("|                                          |");
-            System.out.println("|           Display All Course             |");
-            System.out.println("|__________________________________________|");
-            System.out.printf("\n| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
+            System.out.println("\n\u001B[32m __________________________________________ \u001B[0m");
+            System.out.println("\u001B[32m|                                          | \u001B[0m");
+            System.out.println("\u001B[32m|           Display All Course             | \u001B[0m");
+            System.out.println("\u001B[32m|__________________________________________| \u001B[0m");
+
+            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-30s | %-10s |\u001B[0m\n", "ID", "Name", "Department");
 
             while (result.next()) {
-                course.setCourse_id(result.getInt("course_id"));
+            	course.setCourse_id(result.getInt("course_id"));
                 course.setCourseName(result.getString("course_name"));
                 course.setDepartmentName(result.getString("department_name"));
 
@@ -58,11 +59,11 @@ public class CourseController extends Db implements CourseRepository {
             prep.setString(1, "%" + value + "%");
             result = prep.executeQuery();
 
-            System.out.println("\n __________________________________________");
-            System.out.println("|                                          |");
-            System.out.println("|               Filter Course              |");
-            System.out.println("|__________________________________________|");
-            System.out.printf("\n| %-10s | %-30s | %-10s |\n", "ID", "Name", "Department");
+            System.out.println("\n\u001B[32m __________________________________________ \u001B[0m");
+            System.out.println("\u001B[32m|                                          | \u001B[0m");
+            System.out.println("\u001B[32m|               Filter Course              | \u001B[0m");
+            System.out.println("\u001B[32m|__________________________________________| \u001B[0m");
+            System.out.printf("\n\u001B[1m\u001B[97m\u001B[42m| %-10s | %-30s | %-10s |\u001B[0m\n", "ID", "Name", "Department");
 
             while (result.next()) {
                 course.setCourse_id(result.getInt("course_id"));
