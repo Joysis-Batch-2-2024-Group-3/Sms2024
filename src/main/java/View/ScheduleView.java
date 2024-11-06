@@ -6,8 +6,7 @@ package View;
 
 import Model.*;
 import Controller.*;
-import Utils.ClearConsole;
-import Utils.Input;
+import Utils.*;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.InputMismatchException;
@@ -26,6 +25,8 @@ public class ScheduleView {
     private static final ScheduleController sched = new ScheduleController();
     private static final SectionController sec = new SectionController();
     static private final SubjectController sub = new SubjectController();
+    private static final ConsoleColors conc = new ConsoleColors();
+
     static void DisplayScheduleView() throws InterruptedException
     {
         ScheduleModel sm = new ScheduleModel();
@@ -36,30 +37,47 @@ public class ScheduleView {
 
         while (running) {
             ClearConsole.Cls();
-            Input.COut("Schedule Menu");
-            System.out.println(" _____________________________________________ ");
-            System.out.println("|                                             |");
-            System.out.println("| 1. Search Schedule by Section               |");
-            System.out.println("| 2. Search Schedule by Day                   |");
-            System.out.println("| 3. Add Schedule                             |");
-            System.out.println("| 4. Update Schedule                          |");
-            System.out.println("| 5. Back to Main Menu                        |");
-            System.out.println("|_____________________________________________|\n");
-            System.out.print("Choose an option: ");
-            
+            MainMenu.MainMenuHeader();
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_GREEN+"S C H E D U L E   M E N U"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Search Schedule by Section"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Search Schedule by Day "+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Add Schedule"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Update Schedule"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Back to Main Menu"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
             String choiceStr = Input.getUserInput();
             int choice = Input.parseIfPossible(choiceStr);
             
             while(choice == 0)
             {
-                System.out.print("Invalid Choice. Try Again: ");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Choice"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
+                System.out.print(conc.RED+"\n"+conc.center+"Choose an option: "+conc.RESET);
                 choiceStr = Input.getUserInput();
                 choice = Input.parseIfPossible(choiceStr);
             }
 
             switch (choice) {
                 case 1 -> {
-                    System.out.print("Enter the section name or substring: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the section name or substring"+conc.BB_BLACK+"\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     String searchValue = scan.nextLine();
                     ClearConsole.Cls();
                     Input.COut("Result");
@@ -67,7 +85,13 @@ public class ScheduleView {
                     Input.HoldState();
                 }
                 case 2 -> {
-                    System.out.print("Enter the day: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter the day"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     String day = scan.nextLine();
                     ClearConsole.Cls();
                     Input.COut("Result");
@@ -76,17 +100,38 @@ public class ScheduleView {
                 }
                 case 3 -> addScheduleSubMenu(subm, secm, cm, sm);
                 case 4 -> {
-                    System.out.print("Enter the section name or substring: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the section name or substring"+conc.BB_BLACK+"\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     String searchValue = scan.nextLine();
                     sched.displayScheduleBySection("section_tbl.section_name", searchValue, sm, subm, secm);
 
-                    System.out.println("Enter Schedule ID: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Schedule ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     int scheduleId = scan.nextInt();
                     updateScheduleField(scheduleId);
 
                 }
                 case 5 -> MainMenu.DisplayActionsMenu();
-                default -> Input.COut("Invalid option. Please try again.");
+                default -> {
+                    System.out.println(conc.redLine);
+                    System.out.println(conc.redSpace);
+                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Option"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                            " "+conc.BB_RED+" "+conc.RESET);
+                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+conc.BB_RED+" "+conc.RESET);
+                    System.out.println(conc.redSpace);
+                    System.out.println(conc.redLine);
+                }
             }
         }
     }
@@ -100,7 +145,13 @@ public class ScheduleView {
                 boolean validSection = false;
                 while (!validSection) {
                     sec.displayAllSection(secm, cm);
-                    System.out.print("Enter Section ID: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     int sectionId = scan.nextInt();
 
                     if (sec.isValidSectionValue("section_id", sectionId)) {
@@ -111,21 +162,41 @@ public class ScheduleView {
                         sub.displaySubjectByCourse("course_tbl.course_id", courseId, subm, cm);
                         validSection = true; // Valid section, exit loop
                     } else {
-                        Input.COut("Invalid Section ID, Please try again.");
+                        System.out.println(conc.redLine);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.redLine);
                     }
                 }
 
                 // Loop for Subject ID
                 boolean validSubject = false;
                 while (!validSubject) {
-                    System.out.print("Enter Subject ID: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Subject ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     int subjectId = scan.nextInt();
 
                     if (sub.isValidSubjectValue("subject_id", subjectId)) {
                         sm.setSubject_id(subjectId);
                         validSubject = true; // Valid subject, exit loop
                     } else {
-                        Input.COut("Invalid Subject ID, Please try again.");
+                        System.out.println(conc.redLine);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Subject ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.redLine);
                     }
                 }
                 run = false; // Exit outer loop if both IDs are valid
@@ -143,39 +214,86 @@ public class ScheduleView {
         String day = null;
         boolean validDay = false;
         while (!validDay) {
-            System.out.print("Enter Day (Monday, Tuesday, Wednesday, etc.): ");
+            System.out.println("\n"+conc.yellowLine);
+            System.out.println(conc.yellowSpace);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Day"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                    " "+conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t(Monday, Tuesday, Wednesday, Thursday, Friday,"+conc.BB_BLACK+ "\t\t "
+                    +conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_YELLOW+"Saturday, Sunday)"+conc.BB_BLACK+"\t\t\t\t\t" +
+                    " "+conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.yellowSpace);
+            System.out.println(conc.yellowLine);
+            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
             day = scan.nextLine();
             if (day.matches("(?i)Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday")) {
                 validDay = true; // Exit loop if valid
                 sm.setDay(day);
                 values.put("`day`", day);
             } else {
-                Input.COut("Invalid day. Please enter a valid day of the week.");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid Day"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid day of the week"+conc.BB_BLACK+"\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
             }
         }
 
 
         Time startTime = null;
         while (startTime == null) {
-            System.out.print("Enter Start Time (HH:MM:SS Military): ");
+            System.out.println("\n"+conc.yellowLine);
+            System.out.println(conc.yellowSpace);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Start Time"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                    " "+conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t\t\t\t(HH:MM:SS Military)"+conc.BB_BLACK+ "\t\t\t\t\t\t "
+                    +conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.yellowSpace);
+            System.out.println(conc.yellowLine);
+            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
             try {
                 startTime = Time.valueOf(scan.nextLine());
                 values.put("`start_time`", startTime);
 
             } catch (IllegalArgumentException e) {
-                Input.COut("Invalid time format. Please enter in HH:MM:SS format.");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid time format"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter in HH:MM:SS format"+conc.BB_BLACK+"\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
             }
         }
 
         Time endTime = null;
         while (endTime == null) {
-            System.out.print("Enter End Time (HH:MM:SS Military): ");
+            System.out.println("\n"+conc.yellowLine);
+            System.out.println(conc.yellowSpace);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter End Time"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                    " "+conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t\t\t\t(HH:MM:SS Military)"+conc.BB_BLACK+ "\t\t\t\t\t\t "
+                    +conc.BB_YELLOW+" "+conc.RESET);
+            System.out.println(conc.yellowSpace);
+            System.out.println(conc.yellowLine);
+            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
             try {
                 endTime = Time.valueOf(scan.nextLine());
                 sm.setEnd_time(endTime);
                 values.put("`end_time`", endTime);
             } catch (IllegalArgumentException e) {
-                Input.COut("Invalid time format. Please enter in HH:MM:SS format.");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid time format"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter in HH:MM:SS format"+conc.BB_BLACK+"\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
             }
         }
         sm.setStart_time(startTime);
@@ -192,17 +310,21 @@ public class ScheduleView {
         boolean updatingSched = true;
 
         while (updatingSched) {
-            Input.COut("Select to Update Schedule");
-            System.out.println(" ________________________________________________ ");
-            System.out.println("|                                                |");
-            System.out.println("| 1. Update Day Schedule                         |");
-            System.out.println("| 2. Update Start Time Schedule                  |");
-            System.out.println("| 3. Update End Time Schedule                    |");
-            System.out.println("| 4. Update Section ID                           |");
-            System.out.println("| 5. Finish Update                               |");
-            System.out.println("|________________________________________________\n");
-            System.out.print("Enter to choose to update schedule: ");
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"Select to Update Schedule"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[1] Update Day Schedule"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[2] Update Start Time Schedule"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[3] Update End Time Schedule"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[4] Update Section ID"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[5] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
 
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Enter to choose to update schedule: "+conc.RESET);
             try {
                 int chooseToUpdateSched = scan.nextInt();
                 scan.nextLine(); // Clear the newline character
@@ -212,26 +334,58 @@ public class ScheduleView {
                         String day = null;
                         boolean validDay = false;
                         while (!validDay) {
-                            System.out.print("Enter Day (Monday, Tuesday, Wednesday, etc.): ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Day"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t(Monday, Tuesday, Wednesday, Thursday, Friday,"+conc.BB_BLACK+ "\t\t "
+                                    +conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_YELLOW+"Saturday, Sunday)"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             day = scan.nextLine();
                             if (day.matches("(?i)Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday")) {
                                 validDay = true; // Exit loop if valid
                                 values.put("day", day);
                             } else {
-                                Input.COut("Invalid day. Please enter a valid day of the week.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid Day"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid day of the week"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
                     case 2 -> {
                         Time startTime = null;
                         while (startTime == null) {
-                            System.out.print("Enter to update new Start Time (HH:MM:SS): ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter to Update New Start Time"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t\t\t\t(HH:MM:SS Military)"+conc.BB_BLACK+ "\t\t\t\t\t\t "
+                                    +conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             try {
                                 startTime = Time.valueOf(scan.nextLine());
                                 values.put("start_time", startTime);
 
                             } catch (IllegalArgumentException e) {
-                                Input.COut("Invalid time format. Please enter in HH:MM:SS format.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid time format"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter in HH:MM:SS format"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
@@ -239,13 +393,28 @@ public class ScheduleView {
                     case 3 -> {
                         Time endTime = null;
                         while (endTime == null) {
-                            System.out.print("Enter to update new End Time (HH:MM:SS): ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter to Update New End Time"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+conc.BR_YELLOW+"\t\t\t\t\t\t(HH:MM:SS Military)"+conc.BB_BLACK+ "\t\t\t\t\t\t "
+                                    +conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             try {
                                 endTime = Time.valueOf(scan.nextLine());
                                 values.put("end_time", endTime);
 
                             } catch (IllegalArgumentException e) {
-                                Input.COut("Invalid time format. Please enter in HH:MM:SS format.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid time format"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter in HH:MM:SS format"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
@@ -254,14 +423,27 @@ public class ScheduleView {
                         // Validate Section ID
                         boolean isValidSection = false;
                         while (!isValidSection) {
-                            System.out.print("Enter new Section ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter new Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int sectionId = scan.nextInt();
                             scan.nextLine(); // Clear the buffer
                             if (sec.isValidSectionValue("section_id", sectionId)) {
                                 isValidSection = true;
                                 values.put("section_id", sectionId);
                             } else {
-                                Input.COut("Invalid section id. Please enter a valid section id.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_RED+"Please enter a valid Section ID"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
@@ -274,13 +456,23 @@ public class ScheduleView {
                         }
                         updatingSched = false;
                     }
-                    default -> Input.COut("Invalid option. Please try again!");
+                    default -> {
+                        System.out.println(conc.redLine);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Option"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.redLine);
+                    }
                 }
             } catch (InputMismatchException e) {
                 Input.COut("Invalid input. Please enter a valid option.");
                 scan.nextLine(); // Clear the invalid input
             } catch (IllegalArgumentException e) {
                 Input.COut("Invalid time format. Please use HH:MM:SS.");
+
             }
         }
     }
