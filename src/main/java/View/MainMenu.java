@@ -93,7 +93,7 @@ public class MainMenu {
         
         
         String selected = sc.nextLine();
-        
+      
         switch(selected)
         {
                 case "1" -> StudentView.DisplayStudentMenu();

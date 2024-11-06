@@ -5,6 +5,7 @@ import Model.SectionModel;
 import Model.SubjectModel;
 import Repository.ScheduleRepository;
 import Db.Db;
+import Utils.Input;
 
 import java.sql.SQLException;
 import java.sql.Time;
@@ -30,9 +31,7 @@ public class ScheduleController extends Db implements ScheduleRepository {
             if (key.equals("section_tbl.section_id")) {
                 System.out.println("Section current schedule");
             } else {
-                System.out.println("|=====================|");
-                System.out.println("| Schedule By " + key + " |");
-                System.out.println("|=====================|");
+                Input.HeaderBox("Schedule By " + key);
 
             }
             System.out.printf("| %-10s | %-20s | %-20s | %-20s | %-20s | %-20s |\n", "ID", "Section", "Subject", "Day", "Start", "End");
@@ -49,16 +48,16 @@ public class ScheduleController extends Db implements ScheduleRepository {
                         schedule.getSchedule_id(), section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
             }
         } catch (SQLException e) {
-            System.out.println("SQL Error in trying to retrieve: " + key + "\n" + e.getMessage());
+            System.out.println("\nSQL Error in trying to retrieve: " + key + "\n" + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error in trying to retrieve: " + key + "\n" + e.getMessage());
+            System.out.println("\nError in trying to retrieve: " + key + "\n" + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -113,7 +112,7 @@ public class ScheduleController extends Db implements ScheduleRepository {
                 if (prep != null) prep.close(); // Close PreparedStatement
                 if (con != null) con.close(); // Close connection
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
         return false;
@@ -130,21 +129,21 @@ public class ScheduleController extends Db implements ScheduleRepository {
             prep.setTime(4, schedule.getStart_time());
             prep.setTime(5, schedule.getEnd_time());
             prep.executeUpdate();
-            System.out.println("Schedule added successfully!");
+            System.out.println("\n-------------------------Schedule added successfully!-------------------------\n");
             System.out.printf("| %-20s | %-20s | %-20s | %-20s | %-20s |\n", "Section", "Subject", "Day", "Start", "End");
             System.out.printf("| %-20s | %-20s | %-20s | %-20s | %-20s |\n",
                     section.getSectionName(), subject.getSubject_name(), schedule.getDay(), schedule.getStart_time(), schedule.getEnd_time());
         } catch (SQLException e) {
-            System.out.println("SQL Error while adding schedule: " + e.getMessage());
+            Input.COut("SQL Error while adding schedule: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error adding schedule: " + e.getMessage());
+            Input.COut("Error adding schedule: " + e.getMessage());
         } finally {
             // Close resources to prevent memory leaks
             try {
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -189,18 +188,19 @@ public class ScheduleController extends Db implements ScheduleRepository {
             int rowsUpdated = prep.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Schedule " + SchedID + " successfully updated.");
+                Input.COut("Schedule " + SchedID + " successfully updated.");
+                System.out.println();
             } else {
-                System.out.println("No schedule found with ID: " + SchedID);
+                Input.COut("No schedule found with ID: " + SchedID);
             }
         } catch (Exception e) {
-            System.out.println("Error updating schedule: " + e.getMessage());
+            Input.COut("Error updating schedule: " + e.getMessage());
         } finally {
             try {
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }

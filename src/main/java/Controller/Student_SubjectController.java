@@ -6,6 +6,7 @@ import Model.StudentModel;
 import Model.Student_SubjectModel;
 import Model.SubjectModel;
 import Repository.Student_SubjectRepository;
+import Utils.Input;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,9 +20,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             PreparedStatement prep = con.prepareStatement(searchQuery);
             prep.setString(1, "%" + Value + "%");
             result = prep.executeQuery();
-            System.out.println("|================|");
-            System.out.println("| Search Results |");
-            System.out.println("|================|\n");
+            Input.HeaderBox("Search Results");
             System.out.printf("%-5s | %-20s | %-20s | %-20s |\n",
                     "ID", "Student Name", "Subject Name", "Section");
             while (result.next()) {
@@ -35,9 +34,9 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
                         ssm.getStudent_subject_id(), student_name, subm.getSubject_name(), sec.getSectionName());
             }
         } catch (SQLException e) {
-            System.out.println("SQL error while getting student subject: " + e.getMessage());
+            Input.COut("SQL error while getting student subject: " + e.getMessage());
         }catch (Exception e){
-            System.out.println("Error in student subject: " + e.getMessage());
+            Input.COut("Error in student subject: " + e.getMessage());
         }
         finally {
             try {
@@ -45,7 +44,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
                 if (state != null) state.close();
                 if (con != null) con.close();
             } catch (Exception e) {
-                System.out.println("Error while closing resources in student subject: " + e.getMessage());
+                Input.COut("Error while closing resources in student subject: " + e.getMessage());
             }
         }
     }
@@ -74,19 +73,19 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             prep.setInt(2, (int) Value.get("subject_id"));
             prep.setInt(3, (int) Value.get("section_id"));
             prep.executeUpdate();
-            System.out.println("Student Subject added successfully.");
+            Input.COut("Student Subject added successfully.");
         } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
+            Input.COut("SQL Error: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("Error in adding student subject: " + e.getMessage());
+            Input.COut("Error in adding student subject: " + e.getMessage());
         }
         finally {
             try {
                 if (prep!= null) prep.close();
                 if (con!= null) con.close();
             } catch (Exception e) {
-                System.out.println("Error in closing resources in student subject");
+                Input.COut("Error in closing resources in student subject");
             }
         }
     }
@@ -101,10 +100,10 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
         prep.executeUpdate();
         System.out.println("Student Subject deleted successfully.");
         }catch (SQLException e){
-            System.out.println("SQL Error: " + e.getMessage());
+            Input.COut("SQL Error: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("Error in deleting student subject: " + e.getMessage());
+            Input.COut("Error in deleting student subject: " + e.getMessage());
         }
     }
 
@@ -147,19 +146,20 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             int rowsUpdated = prep.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Student-Subject record " + studentSubjectID + " successfully updated.");
+                Input.COut("Student-Subject record " + studentSubjectID + " successfully updated.");
             } else {
-                System.out.println("No student-subject record found with ID: " + studentSubjectID);
+                Input.COut("No student-subject record found with ID: " + studentSubjectID);
+
             }
 
         } catch (Exception e) {
-            System.out.println("Error updating student-subject record: " + e.getMessage());
+            Input.COut("Error updating student-subject record: " + e.getMessage());
         } finally {
             try {
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -176,10 +176,10 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
                 return result.getInt(1)>0;
             }
         } catch (SQLException e) {
-            System.out.println("SQL Error: "+ e.getMessage() );
+            Input.COut("SQL Error: "+ e.getMessage());
         }
         catch (Exception e){
-            System.out.println("Error in validating student subject: "+ e.getMessage());
+            Input.COut("Error in validating student subject: "+ e.getMessage());
         }
         return false;
     }
@@ -193,7 +193,7 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
             prep.setString(1, Value.get("student_name").toString());
             prep.setString(2, Value.get("subject_name").toString());
             result = prep.executeQuery();
-            System.out.println("==== Row affected ====");
+            Input.COut("Row Affected");
             System.out.printf("%-5s | %-20s | %-20s  | %-20s | %-5s\n",
             "ID", "Name", "subject", "Section", "Archived");
             if (result.next()) {
@@ -208,19 +208,19 @@ public class Student_SubjectController extends Db implements Student_SubjectRepo
                 System.out.printf("%-5d | %-20s | %-20s  | %-20s | %-5s\n",
                         studentSubjectId, student_name, subm.getSubject_name(), sec.getSectionName(), ssm.getArchived() ? "Yes" : "No");
             } else {
-                System.out.println("No matching record found.");
+                Input.COut("No matching record found.");
             }
         } catch (SQLException e) {
-            System.out.println("SQL Server Error: " + e.getMessage());
+            Input.COut("SQL Server Error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Error in displaying specific student subject: " + e.getMessage());
+            Input.COut("Error in displaying specific student subject: " + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (prep != null) prep.close();
                 if (con != null) con.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
         return studentSubjectId; // Return the student_subject_id
