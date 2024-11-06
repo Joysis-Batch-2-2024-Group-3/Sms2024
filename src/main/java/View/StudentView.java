@@ -5,8 +5,7 @@
 package View;
 import Controller.*;
 import Model.*;
-import Utils.ClearConsole;
-import Utils.Input;
+import Utils.*;
 import static View.MainMenu.MainMenuHeader;
 import java.sql.Date;
 import java.util.Arrays;
@@ -27,12 +26,19 @@ public class StudentView {
     private static final CourseController cc = new CourseController();
     private static Scanner scan = new Scanner(System.in);
     private static final SectionController sec = new SectionController();
-    
+    private static final ConsoleColors conc = new ConsoleColors();
+
     
     public static void DisplayStudentMenu() throws InterruptedException
     {
         
          MainMenuHeader();
+        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t  "+conc.BR_GREEN+"S T U D E N T"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t  "+conc.BR_GREEN+"O P T I O N S"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+        System.out.println(conc.whiteSpace);
+        System.out.println(conc.whiteLine);
+        System.out.println(conc.whiteSpace);
+        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t  "+conc.BR_BLUE+"[1] Display Student List"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
          System.out.println("\n----------------Student Options----------------\n");
          System.out.println(" _____________________________________________________");
          System.out.println("|                                                     |");
