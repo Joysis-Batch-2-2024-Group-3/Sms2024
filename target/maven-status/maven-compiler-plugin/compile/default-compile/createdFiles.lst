@@ -1,6 +1,7 @@
 com/mycompany/studentmanagementsystem2024/StudentManagementSystem2024.class
 Controller/StudentController.class
 Model/ScheduleModel.class
+View/StudentSubject.class
 View/SubjectView.class
 Controller/ScheduleController.class
 Model/Student_SubjectModel.class
