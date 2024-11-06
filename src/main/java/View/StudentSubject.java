@@ -3,15 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package View;
+
 import Model.*;
 import Controller.*;
-import Utils.ClearConsole;
-import Utils.Input;
+import Utils.*;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
+
 
 /**
  *
@@ -26,8 +27,9 @@ public class StudentSubject {
     private static final SectionController sec = new SectionController();
     static private final SubjectController sub = new SubjectController();
     private static final Student_SubjectController ssc = new Student_SubjectController();
-    
-    
+    private static final ConsoleColors conc = new ConsoleColors();
+
+
     static void DisplaySubjectView() throws InterruptedException
     {
         StudentModel sm = new StudentModel();
@@ -36,24 +38,39 @@ public class StudentSubject {
         SectionModel secm = new SectionModel();
         Student_SubjectModel ssm = new Student_SubjectModel();
         boolean running = true;
+
         while (running) {
-            Input.COut("Student Subject Menu");
-            System.out.println(" _____________________________________ ");
-            System.out.println("|                                     |");
-            System.out.println("| 1. Add Student Subject              |");
-            System.out.println("| 2. Remove Student Subject           |");
-            System.out.println("| 3. Display Student Subjects         |");
-            System.out.println("| 4. Edit Student Subject             |");
-            System.out.println("| 5. Back to Main Menu                |");
-            System.out.println("|_____________________________________|\n");
-            System.out.print("Choose an option: ");
+            ClearConsole.Cls();
+            MainMenu.MainMenuHeader();
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_GREEN+"S T U D E N T  S U B J E C T"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_GREEN+"MENU"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Add Student Subject"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Remove Student Subject"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Display Student Subjects"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Update Student Subject"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Back to Main Menu"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
             String choiceStr = Input.getUserInput();
             int choice = Input.parseIfPossible(choiceStr);
-            
-            
+
+
             while(choice == 0)
             {
-                System.out.print("Invalid Input. Try Again: ");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Choice"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
+                System.out.print(conc.RED+"\n"+conc.center+"Choose an option: "+conc.RESET);
                 choiceStr = Input.getUserInput();
                 choice = Input.parseIfPossible(choiceStr);
             }
@@ -67,7 +84,13 @@ public class StudentSubject {
                         boolean isValidCourseName = false;
                         String courseName = "";
                         while (!isValidCourseName) {
-                            System.out.print("Enter a Course Name: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter a Course Name"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             courseName = scan.nextLine();
                             if (courseName.isEmpty()) {
                                 Input.COut("Course Name cannot be empty.");
@@ -85,28 +108,54 @@ public class StudentSubject {
                         // Validate Student ID
                         boolean isValidStudent = false;
                         while (!isValidStudent) {
-                            System.out.print("Enter Student ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Student ID"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int studentId = scan.nextInt();
                             scan.nextLine(); // Clear the buffer
                             if (sc.isValidStudent("student_id", studentId)) {
                                 isValidStudent = true;
                                 values.put("student_id", studentId);
                             } else {
-                                Input.COut("Invalid student id. Please enter a valid student id.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid student ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                         sub.displayAllSubject(subm, cm);
                         // Validate Subject ID
                         boolean isValidSubject = false;
                         while (!isValidSubject) {
-                            System.out.print("Enter Subject ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Subject ID"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int subjectId = scan.nextInt();
                             scan.nextLine(); // Clear the buffer
                             if (sub.isValidSubjectValue("subject_id", subjectId)) {
                                 isValidSubject = true;
                                 values.put("subject_id", subjectId);
                             } else {
-                                Input.COut("Invalid subject id. Please enter a valid subject id.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
 
@@ -114,14 +163,27 @@ public class StudentSubject {
                         // Validate Section ID
                         boolean isValidSection = false;
                         while (!isValidSection) {
-                            System.out.print("Enter Section ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Section ID"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int sectionId = scan.nextInt();
                             scan.nextLine(); // Clear the buffer
                             if (sec.isValidSectionValue("section_id", sectionId)) {
                                 isValidSection = true;
                                 values.put("section_id", sectionId);
                             } else {
-                                Input.COut("Invalid section id. Please enter a valid section id.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid section id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
 
@@ -131,7 +193,7 @@ public class StudentSubject {
                     } catch (SQLException e) {
                         Input.COut("SQLError: " + e.getMessage());
                     } catch (Exception e) {
-                       Input.COut("Error: " + e.getMessage());
+                        Input.COut("Error: " + e.getMessage());
                     }
                 }
 
@@ -140,27 +202,59 @@ public class StudentSubject {
                         LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         boolean isValidStudent = false;
                         while (!isValidStudent) {
-                            System.out.println("Enter Student's First Name:");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Student's First Name"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             String firstName = scan.nextLine();
-                            System.out.println("Enter Student's Last Name:");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Student's Last Name"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             String lastName = scan.nextLine();
                             if (sc.isValidStudentName(firstName, lastName)) {
                                 isValidStudent = true;
                                 String name = firstName + " " + lastName;
                                 values.put("student_name", name);
                             } else {
-                                Input.COut("Invalid student name. Please enter a valid student name.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid student name"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please enter a valid student name."+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                         boolean isValidSubject = false;
                         while (!isValidSubject) {
-                            System.out.println("Enter Subject's Name:");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter Subject's Name"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             String subjectName = scan.nextLine();
                             if (sub.isValidSubjectValue("subject_name", subjectName)) {
                                 isValidSubject = true;
                                 values.put("subject_name", subjectName);
                             } else {
-                                Input.COut("Invalid subject name. Please enter a valid subject name.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject name"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please enter a valid subject name."+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                         ssc.deleteStudentSubject(values);
@@ -170,7 +264,7 @@ public class StudentSubject {
                 }
                 case 3 -> studentSubjectDisplayMenu(false);
                 case 4 -> {
-                   studentSubjectDisplayMenu(true); // Display the menu
+                    studentSubjectDisplayMenu(true); // Display the menu
                     // After returning from the menu, check if the user chose to go back
                     System.out.print("Would you like to continue editing a student subject? (y/n): ");
                     String continueEdit = Input.getUserInput();
@@ -180,23 +274,42 @@ public class StudentSubject {
                         boolean isStudentSubject = false;
 
                         while (!isStudentSubject) {
-                            System.out.print("Enter student name: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter student name"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             String studentName = Input.getUserInput();
                             values.put("student_name", studentName);
                             boolean validSubject = false;
                             while (!validSubject) {
-                                System.out.print("Enter subject name: ");
+                                System.out.println("\n"+conc.yellowLine);
+                                System.out.println(conc.yellowSpace);
+                                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter subject Name"+conc.BB_BLACK+"\t\t\t\t" +
+                                        " "+conc.BB_YELLOW+" "+conc.RESET);
+                                System.out.println(conc.yellowSpace);
+                                System.out.println(conc.yellowLine);
+                                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                                 String subjectName = Input.getUserInput();
-                               try{
-                                if (sub.isValidSubjectValue("subject_name", "%"+subjectName+"%")) {
-                                    validSubject = true;
-                                    values.put("subject_name", subjectName);
-                                } else {
-                                    Input.COut("Invalid subject name. Please enter a valid subject name.");
+                                try{
+                                    if (sub.isValidSubjectValue("subject_name", "%"+subjectName+"%")) {
+                                        validSubject = true;
+                                        values.put("subject_name", subjectName);
+                                    } else {
+                                        System.out.println(conc.redLine);
+                                        System.out.println(conc.redSpace);
+                                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject name"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                                " "+conc.BB_RED+" "+conc.RESET);
+                                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please enter a valid subject name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                                " "+conc.BB_RED+" "+conc.RESET);
+                                        System.out.println(conc.redSpace);
+                                        System.out.println(conc.redLine);
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Error: "+ e.getMessage());
                                 }
-                            } catch (Exception e) {
-                                   System.out.println("Error: "+ e.getMessage());
-                               }
                             }
                             if (ssc.isValidStudentSubject(values)) {
                                 isStudentSubject = true;
@@ -213,10 +326,19 @@ public class StudentSubject {
 
 
                 case 5 -> MainMenu.DisplayActionsMenu();
-                default -> Input.COut("Invalid option. Please try again.");
+                default -> {
+                    System.out.println(conc.redLine);
+                    System.out.println(conc.redSpace);
+                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Subject ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                            " "+conc.BB_RED+" "+conc.RESET);
+                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+conc.BB_RED+" "+conc.RESET);
+                    System.out.println(conc.redSpace);
+                    System.out.println(conc.redLine);
+                }
             }
         }
-        
+
     }
     static private void studentSubjectDisplayMenu(boolean flag) throws InterruptedException {
         StudentModel sm = new StudentModel();
@@ -227,29 +349,48 @@ public class StudentSubject {
         boolean running = true;
 
         while (running) {
-            Input.COut("Display Student Subject Menu");
-            System.out.println(" __________________________________________________________ ");
-            System.out.println("|                                                          |");
-            System.out.println("| 1. Display Student Subjects based on Student's name      |");
-            System.out.println("| 2. Display Student Subjects based on Subject's name      |");
-            System.out.println("| 3. Display Student Subjects based on Section name        |");
-            System.out.println("| 4. Go Back                                               |");
-            System.out.println("|__________________________________________________________|\n");
-            System.out.print("Choose an option: ");
-            
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"Display Student Subject Menu"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[1] Display Student Subjects based on Student's name"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[2] Display Student Subjects based on Subject's name"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[3] Display Student Subjects based on Section name"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[4] Go Back"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
+
             String choiceStr = Input.getUserInput();
             int choice = Input.parseIfPossible(choiceStr);
-            
+
             while(choice == 0)
             {
-                System.out.print("Invalid Choice. Try Again: ");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Choice"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
+                System.out.print(conc.RED+"\n"+conc.center+"Choose an option: "+conc.RESET);
                 choiceStr = Input.getUserInput();
-                choice = Input.parseIfPossible(choiceStr);    
+                choice = Input.parseIfPossible(choiceStr);
             }
 
             switch (choice) {
                 case 1 -> {
-                    System.out.print("Enter the student's name or substring: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the student's name or substring"+conc.BB_BLACK+"\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     String searchValue = scan.nextLine();
                     ssc.displayStudentsSubjectByStudent(searchValue, ssm, sm, sub, secm);
                     if(!flag)
@@ -258,7 +399,13 @@ public class StudentSubject {
                     }
                 }
                 case 2 -> {
-                    System.out.print("Enter the subject's name or substring: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the subject's name or substring"+conc.BB_BLACK+"\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     String searchValue = scan.nextLine();
                     ssc.displayStudentsSubjectBySubject(searchValue, ssm, sm, sub, secm);
                     if(!flag)
@@ -267,7 +414,13 @@ public class StudentSubject {
                     }
                 }
                 case 3 -> {
-                    System.out.print("Enter the section name or substring: ");
+                    System.out.println("\n"+conc.yellowLine);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the section's name or substring"+conc.BB_BLACK+"\t\t\t\t" +
+                            " "+conc.BB_YELLOW+" "+conc.RESET);
+                    System.out.println(conc.yellowSpace);
+                    System.out.println(conc.yellowLine);
+                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                     String searchValue = scan.nextLine();
                     ssc.displayStudentsSubjectBySection(searchValue, ssm, sm, sub, secm);
                     if(!flag)
@@ -278,37 +431,57 @@ public class StudentSubject {
                 case 4 -> {
                     MainMenu.DisplayActionsMenu();
                 }
-                default -> Input.COut("Invalid option. Please try again.");
+                default -> {
+                    System.out.println(conc.redLine);
+                    System.out.println(conc.redSpace);
+                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid option"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                            " "+conc.BB_RED+" "+conc.RESET);
+                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t" +
+                            " "+conc.BB_RED+" "+conc.RESET);
+                    System.out.println(conc.redSpace);
+                    System.out.println(conc.redLine);
+                }
             }
-            
+
             return;
         }
     }
-    
+
     static private void updateStudentSubjectField(int studentSubjectID) {
         LinkedHashMap<String, Object> values = new LinkedHashMap<>();
         boolean updatingStudentSubject = true;
 
         while (updatingStudentSubject) {
-            Input.COut("Select To Update Student-Subject");
-            System.out.println(" __________________________________________________________ ");
-            System.out.println("|                                                          |");
-            System.out.println("| 1. Update Student ID                                     |");
-            System.out.println("| 2. Update Subject ID                                     |");
-            System.out.println("| 3. Update Section ID                                     |");
-            System.out.println("| 4. Archive Student-Subject                               |");
-            System.out.println("| 5. Finish Update                                         |");
-            System.out.println("|__________________________________________________________|\n");
-            System.out.print("Choose an option: ");
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"Select To Update Student-Subject"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[1] Update Student ID"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[2] Update Subject ID"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[3] Update Section ID"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[3] Archive Student-Subject"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[4] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
 
-            
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
             String choiceStr = Input.getUserInput();
             int choice = Input.parseIfPossible(choiceStr);
-            
-            
+
+
             while(choice == 0)
             {
-                System.out.print("Invalid Input. Try Again: ");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Choice"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
+                System.out.print(conc.RED+"\n"+conc.center+"Choose an option: "+conc.RESET);
                 choiceStr = Input.getUserInput();
                 choice = Input.parseIfPossible(choiceStr);
             }
@@ -319,13 +492,26 @@ public class StudentSubject {
                         sc.displayStudents(new StudentModel(),new CourseModel(), new SectionModel());
                         boolean validStudentID = false;
                         while (!validStudentID) {
-                            System.out.print("Enter new Student ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter new Student ID"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int studentId = scan.nextInt();
                             if (sc.isValidStudent("student_id", studentId)) {
                                 values.put("student_id", studentId);
                                 validStudentID = true;
                             } else {
-                                Input.COut("Invalid Student ID. Please try again.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid student id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                             scan.nextLine(); // Clear newline character
                         }
@@ -333,19 +519,32 @@ public class StudentSubject {
                     case 2 -> {
                         sub.displayAllSubject(new SubjectModel(), new CourseModel());
                         try {
-                        boolean validSubjectID = false;
-                        while (!validSubjectID) {
-                            System.out.print("Enter new Subject ID: ");
-                            int subjectId = scan.nextInt();
-                            if (sub.isValidSubjectValue("subject_id", subjectId)) {
-                                values.put("subject_id", subjectId);
-                                validSubjectID = true;
-                            } else {
-                                Input.COut("Invalid Subject ID. Please try again.");
+                            boolean validSubjectID = false;
+                            while (!validSubjectID) {
+                                System.out.println("\n"+conc.yellowLine);
+                                System.out.println(conc.yellowSpace);
+                                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter new Subject ID"+conc.BB_BLACK+"\t\t\t\t" +
+                                        " "+conc.BB_YELLOW+" "+conc.RESET);
+                                System.out.println(conc.yellowSpace);
+                                System.out.println(conc.yellowLine);
+                                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                                int subjectId = scan.nextInt();
+                                if (sub.isValidSubjectValue("subject_id", subjectId)) {
+                                    values.put("subject_id", subjectId);
+                                    validSubjectID = true;
+                                } else {
+                                    System.out.println(conc.redLine);
+                                    System.out.println(conc.redSpace);
+                                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid subject id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                            " "+conc.BB_RED+" "+conc.RESET);
+                                    System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                            " "+conc.BB_RED+" "+conc.RESET);
+                                    System.out.println(conc.redSpace);
+                                    System.out.println(conc.redLine);
+                                }
+                                scan.nextLine(); // Clear newline character
                             }
-                            scan.nextLine(); // Clear newline character
-                        }
-                    } catch (Exception e) {
+                        } catch (Exception e) {
                             Input.COut("Error :" + e.getMessage());
                         }
                     }
@@ -353,13 +552,26 @@ public class StudentSubject {
                         sec.displayAllSection(new SectionModel(),new CourseModel());
                         boolean validSectionID = false;
                         while (!validSectionID) {
-                            System.out.print("Enter new Section ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter new Section ID"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int sectionId = scan.nextInt();
                             if (sec.isValidSectionValue("section_id", sectionId)) {
                                 values.put("section_id", sectionId);
                                 validSectionID = true;
                             } else {
-                                Input.COut("Invalid Section ID. Please try again.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid section id"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                             scan.nextLine(); // Clear newline character
                         }
@@ -367,7 +579,13 @@ public class StudentSubject {
                     case 4 -> {
                         boolean validInput = false;
                         while (!validInput) {
-                            System.out.print("Archive Student-Subject? (y/n): ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Archive Student-Subject? (y/n)"+conc.BB_BLACK+"\t\t\t\t" +
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             String input = scan.nextLine();
                             if (input.equalsIgnoreCase("y")) {
                                 values.put("archived", true);
@@ -376,7 +594,14 @@ public class StudentSubject {
                                 values.put("archived", false);
                                 validInput = true;
                             } else {
-                                Input.COut("Invalid input. Please enter 'y' or 'n'.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid input"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter 'y' or 'n'."+conc.BB_BLACK+"\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
@@ -388,10 +613,26 @@ public class StudentSubject {
                         }
                         updatingStudentSubject = false; // Exit loop
                     }
-                    default -> Input.COut("Invalid option. Please try again.");
+                    default -> {
+                        System.out.println(conc.redLine);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid option"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please try again."+conc.BB_BLACK+"\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.redLine);
+                    }
                 }
             } catch (InputMismatchException e) {
-                Input.COut("Invalid input. Please enter a valid option.");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t\t"+conc.BR_RED+"Invalid input"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid option"+conc.BB_BLACK+"\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
                 scan.nextLine(); // Clear invalid input
             }
         }
