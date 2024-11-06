@@ -11,6 +11,9 @@ package View;
 
  public class Index {
     public static void main(String[] args) {
-        System.out.println("hi");
+    boolean auth = Admin.LoginAdmin();
+    if (auth){
+        MainMenu.DisplayMainMenu();
+    }
     }
  }

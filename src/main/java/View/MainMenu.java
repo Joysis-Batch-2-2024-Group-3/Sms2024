@@ -3,7 +3,7 @@ package View;
 import Utils.ClearConsole;
 import java.util.Scanner;
 
-public class MainMenu {
+public class MainMenu  {
     private static Scanner sc = new Scanner(System.in);
     final private static String[] s1 = {
         "|                    ",
@@ -59,20 +59,14 @@ public class MainMenu {
 
     
 //    this function will return the user response, it should only accept 1 as valid response
-    public static String DisplayMainMenu() {
-       MainMenuHeader();
+    public static void DisplayMainMenu() {
+       try{
+           MainMenuHeader();
+           DisplayActionsMenu();
+       } catch (InterruptedException e) {
+           System.out.println("");
+       }
 
-       System.out.println("\n[1]. Admin Login");
-        String response = sc.next();
-        
-        while(!response.equals("1"))
-        {
-            System.out.println("\n----------Invalid Input, Try Again--------- \n");
-            System.out.println("\n[1]. Admin Login \n");
-            response = sc.next();
-        }
-       
-       return response;
     }
     
     public static void DisplayActionsMenu() throws InterruptedException

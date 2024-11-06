@@ -261,7 +261,12 @@ public class StudentView {
         sc.addStudent(sm, cm, secm);
         sc.displayStudents(sm, cm, secm);
          Input.HoldState();
-         MainMenu.DisplayActionsMenu();
+
+         try{
+             MainMenu.DisplayActionsMenu();
+         } catch (InterruptedException e) {
+             System.out.println("Error: "+ e.getMessage());
+         }
     }
      
      private static void GoBack()
