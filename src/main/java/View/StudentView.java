@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package View;
+
 import Controller.*;
 import Model.*;
 import Utils.*;
@@ -25,156 +26,178 @@ public class StudentView {
     private static final SectionController sec = new SectionController();
     private static final ConsoleColors conc = new ConsoleColors();
 
-
-    public static void DisplayStudentMenu() throws InterruptedException
-    {
+    public static void DisplayStudentMenu() throws InterruptedException {
         MainMenuHeader();
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t  "+conc.BR_GREEN+"S T U D E N T"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t  "+conc.BR_GREEN+"O P T I O N S"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.whiteSpace);
-        System.out.println(conc.whiteLine);
-        System.out.println(conc.whiteSpace);
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Display Student List"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Add New Student"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Remove Student"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Update Student"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Back to Main Menu"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-        System.out.println(conc.whiteSpace);
-        System.out.println(conc.whiteLine);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t\t  " + conc.BR_GREEN
+                + "S T U D E N T" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t\t  " + conc.BR_GREEN
+                + "O P T I O N S" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.whiteSpace);
+        sout(conc.whiteLine);
+        sout(conc.whiteSpace);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                + "[1] Display Student List" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                + "[2] Add New Student" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                + "[3] Remove Student" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                + "[4] Update Student" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                + "[5] Back to Main Menu" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.whiteSpace);
+        sout(conc.whiteLine);
 
-        System.out.print(conc.YELLOW+"\n"+conc.center+"Enter Selection: "+conc.RESET);
+        System.out.print(conc.YELLOW + "\n" + conc.center + "Enter Selection: " + conc.RESET);
         String selected = Input.getUserInput();
 
-        switch(selected)
-        {
-                case "1" -> StudentView.DisplayStudentOptions();
-                case "2" -> addStudentSubMenu();
-                case "3" -> removeStudent();
-                case "4" -> updateStudent();
-                case "5" -> {
-                    MainMenu.DisplayActionsMenu();
-                }
-                default -> {
-                    System.out.println("Invalid Selection. Try Again: ");
-                    Thread.sleep(500);
-                    DisplayStudentMenu();
-                }
+        switch (selected) {
+            case "1" -> StudentView.DisplayStudentOptions();
+            case "2" -> addStudentSubMenu();
+            case "3" -> removeStudent();
+            case "4" -> updateStudent();
+            case "5" -> {
+                MainMenu.DisplayActionsMenu();
+            }
+            default -> {
+                sout("Invalid Selection. Try Again: ");
+                Thread.sleep(500);
+                DisplayStudentMenu();
+            }
 
         }
     }
 
-    public static void DisplayStudentOptions()
-    {
-        try{
+    public static void DisplayStudentOptions() {
+        try {
             ClearConsole.Cls();
             MainMenuHeader();
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t  "+conc.BR_GREEN+"S T U D E N T   S U B   M E N U"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Search by Section"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Search by Course"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Search by First Name"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Search by Last Name"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Search by Student ID"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[6] Search by specifying a column"+conc.BB_BLACK+"\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[7] Show all Students"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[8] Show all archived students"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[9] Back to Main Menu"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t  " + conc.BR_GREEN
+                    + "S T U D E N T   S U B   M E N U" + conc.BB_BLACK + "\t\t\t\t " + conc.BB_WHITE + " "
+                    + conc.RESET);
+            sout(conc.whiteSpace);
+            sout(conc.whiteLine);
+            sout(conc.whiteSpace);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[1] Search by Section" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[2] Search by Course" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[3] Search by First Name" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[4] Search by Last Name" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[5] Search by Student ID" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[6] Search by specifying a column" + conc.BB_BLACK + "\t\t\t " + conc.BB_WHITE + " "
+                    + conc.RESET);
+            sout(conc.whiteSpace);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[7] Show all Students" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[8] Show all archived students" + conc.BB_BLACK + "\t\t\t\t " + conc.BB_WHITE + " "
+                    + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[9] Back to Main Menu" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.whiteSpace);
+            sout(conc.whiteLine);
 
-            System.out.print(conc.YELLOW+"\n"+conc.center+"Enter Selection: "+conc.RESET);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "Enter Selection: " + conc.RESET);
             String selection = Input.getUserInput();
             studentSubMenu(selection);
-        }catch(Exception e)
-        {
-            System.out.println(conc.redLine);
-            System.out.println(conc.redSpace);
-            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Something went wrong"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                    " "+conc.BB_RED+" "+conc.RESET);
-            System.out.println(conc.redSpace);
-            System.out.println(conc.redLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+e.getMessage()+conc.RESET);
+        } catch (Exception e) {
+            sout(conc.redLine);
+            sout(conc.redSpace);
+            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                    + "Something went wrong" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                    " " + conc.BB_RED + " " + conc.RESET);
+            sout(conc.redSpace);
+            sout(conc.redLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + e.getMessage() + conc.RESET);
         }
-        
+
     }
-    
-     private static void studentSubMenu(String selection) throws InterruptedException  {
+
+    private static void studentSubMenu(String selection) throws InterruptedException {
         StudentModel sm = new StudentModel();
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
 
         switch (selection) {
             case "1" -> {
-                System.out.println(conc.yellowLine);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_YELLOW+" "+conc.RESET);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.yellowLine);
-                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                sout(conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Section Name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                 String value = Input.getUserInput();
                 sc.displayStudentbySection(value, sm, cm, secm);
                 GoBack();
             }
             case "2" -> {
-                System.out.println(conc.yellowLine);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_YELLOW+" "+conc.RESET);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.yellowLine);
-                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                sout(conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Course Name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                 String value = Input.getUserInput();
                 sc.displayStudentbyCourse(value, sm, cm, secm);
                 GoBack();
             }
             case "3" -> {
-                System.out.println(conc.yellowLine);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter First Name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                        " "+conc.BB_YELLOW+" "+conc.RESET);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.yellowLine);
-                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                sout(conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter First Name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                 String value = Input.getUserInput();
                 sc.displayStudentbyFName(value, sm, cm, secm);
                 GoBack();
             }
             case "4" -> {
-                System.out.println(conc.yellowLine);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Last Name"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                        " "+conc.BB_YELLOW+" "+conc.RESET);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.yellowLine);
-                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                sout(conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Last Name" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                 String value = Input.getUserInput();
                 sc.displayStudentbyLname(value, sm, cm, secm);
                 GoBack();
             }
             case "5" -> {
-                System.out.println(conc.yellowLine);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Student ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_YELLOW+" "+conc.RESET);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.yellowLine);
-                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                sout(conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Student ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                 String value = Input.getUserInput();
                 sc.displayStudentbyStudent_ID(value, sm, cm, secm);
                 GoBack();
             }
             case "6" -> {
-                System.out.println(conc.whiteLine);
-                System.out.println(conc.whiteSpace);
-                System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_WHITE+"Choose from this specific column"+conc.BB_BLACK+"\t\t\t" +
-                        " "+conc.BB_WHITE+" "+conc.RESET);
-                System.out.println(conc.whiteSpace);
-                System.out.println(conc.whiteLine);
-                System.out.println("Choose from this specific column: ");
+                sout(conc.whiteLine);
+                sout(conc.whiteSpace);
+                sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_WHITE
+                        + "Choose from this specific column" + conc.BB_BLACK + "\t\t\t" +
+                        " " + conc.BB_WHITE + " " + conc.RESET);
+                sout(conc.whiteSpace);
+                sout(conc.whiteLine);
+                sout("Choose from this specific column: ");
                 for (String column : StudentController.validColumns) {
                     System.out.print("| " + column + " | ");
                 }
@@ -182,13 +205,14 @@ public class StudentView {
                 String columnName = null;
                 boolean validColumn = false;
                 while (!validColumn) {
-                    System.out.println("\n"+conc.yellowLine);
-                    System.out.println(conc.yellowSpace);
-                    System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Column Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                            " "+conc.BB_YELLOW+" "+conc.RESET);
-                    System.out.println(conc.yellowSpace);
-                    System.out.println(conc.yellowLine);
-                    System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                    sout("\n" + conc.yellowLine);
+                    sout(conc.yellowSpace);
+                    sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                            + conc.BR_YELLOW + "Enter Column Name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                            " " + conc.BB_YELLOW + " " + conc.RESET);
+                    sout(conc.yellowSpace);
+                    sout(conc.yellowLine);
+                    System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                     columnName = Input.getUserInput();
                     // Check if the input columnName is valid
                     if (Arrays.asList(StudentController.validColumns).contains(columnName)) {
@@ -197,29 +221,30 @@ public class StudentView {
                         Input.COut("Invalid column name. Please choose from the valid columns.");
                     }
                 }
-                System.out.println("\n"+conc.yellowLine);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Value"+conc.BB_BLACK+"\t\t\t\t\t\t\t\t" +
-                        " "+conc.BB_YELLOW+" "+conc.RESET);
-                System.out.println(conc.yellowSpace);
-                System.out.println(conc.yellowLine);
-                System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                sout("\n" + conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Value" + conc.BB_BLACK + "\t\t\t\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                 String columnValue = Input.getUserInput();
-                System.out.println("Searching for " + columnValue + " in " + columnName);
+                sout("Searching for " + columnValue + " in " + columnName);
                 sc.filterStudent(columnName, columnValue, sm, cm, secm);
                 GoBack();
 
             }
             case "7" -> {
                 sc.displayStudents(sm, cm, secm);
-                 GoBack();
+                GoBack();
             }
             case "8" -> {
                 sc.displayArchivedStudents(sm, cm, secm);
                 GoBack();
             }
             case "9" -> {
-                System.out.println("Returning to Student Menu...");
+                sout("Returning to Student Menu...");
                 Thread.sleep(700);
                 DisplayStudentMenu();
             }
@@ -228,93 +253,100 @@ public class StudentView {
                 DisplayStudentOptions();
             }
         }
-        
+
     }
-     
-     
-     
-     static private void addStudentSubMenu() throws InterruptedException {
+
+    static private void addStudentSubMenu() throws InterruptedException {
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
         StudentModel sm = new StudentModel();
-         ClearConsole.Cls();
+        ClearConsole.Cls();
 
-         MainMenuHeader();
-         System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t  "+conc.BR_GREEN+"A D D   S T U D E N T"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-         System.out.println(conc.whiteSpace);
-         System.out.println(conc.whiteLine);
+        MainMenuHeader();
+        sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t  " + conc.BR_GREEN
+                + "A D D   S T U D E N T" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+        sout(conc.whiteSpace);
+        sout(conc.whiteLine);
 
         // First Name Input
-         System.out.println("\n"+conc.yellowLine);
-         System.out.println(conc.yellowSpace);
-         System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter First Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                 " "+conc.BB_YELLOW+" "+conc.RESET);
-         System.out.println(conc.yellowSpace);
-         System.out.println(conc.yellowLine);
-         System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+        sout("\n" + conc.yellowLine);
+        sout(conc.yellowSpace);
+        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                + "Enter First Name" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                " " + conc.BB_YELLOW + " " + conc.RESET);
+        sout(conc.yellowSpace);
+        sout(conc.yellowLine);
+        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
         String firstName = Input.getUserInput();
         sm.setStudentFirstname(firstName);
 
         // Last Name Input
-         System.out.println("\n"+conc.yellowLine);
-         System.out.println(conc.yellowSpace);
-         System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t    "+conc.BR_YELLOW+"Enter Last Name"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                 " "+conc.BB_YELLOW+" "+conc.RESET);
-         System.out.println(conc.yellowSpace);
-         System.out.println(conc.yellowLine);
-         System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+        sout("\n" + conc.yellowLine);
+        sout(conc.yellowSpace);
+        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t    " + conc.BR_YELLOW
+                + "Enter Last Name" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                " " + conc.BB_YELLOW + " " + conc.RESET);
+        sout(conc.yellowSpace);
+        sout(conc.yellowLine);
+        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
         String lastName = Input.getUserInput();
         sm.setStudentLastname(lastName);
 
         // Birth Date Input with Validation
         boolean validDate = false;
         while (!validDate) {
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter Birth Date (yyyy-mm-dd)"+conc.BB_BLACK+"\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+            sout("\n" + conc.yellowLine);
+            sout(conc.yellowSpace);
+            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_YELLOW
+                    + "Enter Birth Date (yyyy-mm-dd)" + conc.BB_BLACK + "\t\t\t\t" +
+                    " " + conc.BB_YELLOW + " " + conc.RESET);
+            sout(conc.yellowSpace);
+            sout(conc.yellowLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
             String birthDate = Input.getUserInput();
             if (ic.isValidDate(birthDate)) {
                 sm.setStudentDob(Date.valueOf(birthDate));
                 validDate = true;
             } else {
-                System.out.println(conc.redLine);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid date format"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Enter in yyyy-mm-dd format"+conc.BB_BLACK+"\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.redLine);
+                sout(conc.redLine);
+                sout(conc.redSpace);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Invalid date format" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                        + "Enter in yyyy-mm-dd format" + conc.BB_BLACK + "\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.redSpace);
+                sout(conc.redLine);
             }
         }
 
         // Sex Input with Validation
         boolean validSex = false;
         while (!validSex) {
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Sex (F or M)"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+            sout("\n" + conc.yellowLine);
+            sout(conc.yellowSpace);
+            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                    + "Enter Sex (F or M)" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                    " " + conc.BB_YELLOW + " " + conc.RESET);
+            sout(conc.yellowSpace);
+            sout(conc.yellowLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
             String input = Input.getUserInput().trim().toUpperCase();
-            if (input.length() == 1 && (input.charAt(0) == 'M' || input.charAt(0) == 'F')) { 
-                sm.setStudentSex(input.charAt(0)); 
-                validSex = true; 
+            if (input.length() == 1 && (input.charAt(0) == 'M' || input.charAt(0) == 'F')) {
+                sm.setStudentSex(input.charAt(0));
+                validSex = true;
             } else {
-                System.out.println(conc.redLine);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid input"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Enter F or M only"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.redLine);
+                sout(conc.redLine);
+                sout(conc.redSpace);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Invalid input" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Enter F or M only" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.redSpace);
+                sout(conc.redLine);
             }
         }
 
@@ -323,26 +355,29 @@ public class StudentView {
         cc.displayAllCourse(cm);
         boolean validCourseID = false;
         while (!validCourseID) {
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+            sout("\n" + conc.yellowLine);
+            sout(conc.yellowSpace);
+            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                    + "Enter Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                    " " + conc.BB_YELLOW + " " + conc.RESET);
+            sout(conc.yellowSpace);
+            sout(conc.yellowLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
             courseId = scan.nextInt();
             if (cc.isValidCourse("course_id", courseId)) {
                 sm.setStudentCourse(courseId);
                 validCourseID = true;
             } else {
-                System.out.println(conc.redLine);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.redLine);
+                sout(conc.redLine);
+                sout(conc.redSpace);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Invalid Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Please try again" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.redSpace);
+                sout(conc.redLine);
             }
         }
 
@@ -352,261 +387,288 @@ public class StudentView {
         // Section ID Input with Validation
         boolean validSectionId = false;
         while (!validSectionId) {
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+            sout("\n" + conc.yellowLine);
+            sout(conc.yellowSpace);
+            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                    + "Enter Section ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                    " " + conc.BB_YELLOW + " " + conc.RESET);
+            sout(conc.yellowSpace);
+            sout(conc.yellowLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
             int sectionId = scan.nextInt();
             if (sec.isValidSectionValue("section_id", sectionId)) {
                 sm.setStudentSection(sectionId);
                 validSectionId = true;
             } else {
-                System.out.println(conc.redLine);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.redLine);
+                sout(conc.redLine);
+                sout(conc.redSpace);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Invalid Section ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                        + "Please try again" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_RED + " " + conc.RESET);
+                sout(conc.redSpace);
+                sout(conc.redLine);
             }
         }
 
         // Add Student and Display All Students
         sc.addStudent(sm, cm, secm);
         sc.displayStudents(sm, cm, secm);
-         Input.HoldState();
-         MainMenu.DisplayActionsMenu();
+        Input.HoldState();
+        MainMenu.DisplayActionsMenu();
     }
-     
-     private static void GoBack()
-     {
-        try{
+
+    private static void GoBack() {
+        try {
             Input.HoldState();
             DisplayStudentMenu();
-        }catch(Exception e){
-            Input.COut("Something went wrong: "+ e.getMessage());
-        }
-     }
-     
-     
-     public static void removeStudent()
-     {
-        try{
-            LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
-        boolean isValidStudent = false;
-        while (!isValidStudent) {
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter Student's First Name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
-            String firstName = scan.nextLine();
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter Student's Last Name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
-            String lastName = scan.nextLine();
-            if (sc.isValidStudentName(firstName, lastName)) {
-                isValidStudent = true;
-                String name = firstName + " " + lastName;
-                values.put("student_name", name);
-            } else {
-                System.out.println(conc.redLine);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid student name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid student name."+conc.BB_BLACK+"\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.redLine);
-            }
-        }
-        boolean isValidSectionName = false;
-        while (!isValidSectionName) {
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter Student's Section"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
-            String sectionName = scan.nextLine();
-            if (sec.isValidSectionValue("section_name", sectionName)) {
-                isValidSectionName = true;
-                values.put("section_name", sectionName);
-            } else {
-                System.out.println(conc.redLine);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid section name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid section name."+conc.BB_BLACK+"\t\t\t" +
-                        " "+conc.BB_RED+" "+conc.RESET);
-                System.out.println(conc.redSpace);
-                System.out.println(conc.redLine);
-            }
-        }
-        sc.dropStudent(values);
-        DisplayStudentMenu();
-        }catch(Exception e){
+        } catch (Exception e) {
             Input.COut("Something went wrong: " + e.getMessage());
         }
-     }
- 
-     
-     static private void updateStudent()
-     {
+    }
+
+    public static void removeStudent() {
+        try {
+            LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
+            boolean isValidStudent = false;
+            while (!isValidStudent) {
+                sout("\n" + conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Student's First Name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
+                String firstName = scan.nextLine();
+                sout("\n" + conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Student's Last Name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
+                String lastName = scan.nextLine();
+                if (sc.isValidStudentName(firstName, lastName)) {
+                    isValidStudent = true;
+                    String name = firstName + " " + lastName;
+                    values.put("student_name", name);
+                } else {
+                    sout(conc.redLine);
+                    sout(conc.redSpace);
+                    sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                            + "Invalid student name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                            " " + conc.BB_RED + " " + conc.RESET);
+                    sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                            + "Please enter a valid student name." + conc.BB_BLACK + "\t\t\t" +
+                            " " + conc.BB_RED + " " + conc.RESET);
+                    sout(conc.redSpace);
+                    sout(conc.redLine);
+                }
+            }
+            boolean isValidSectionName = false;
+            while (!isValidSectionName) {
+                sout("\n" + conc.yellowLine);
+                sout(conc.yellowSpace);
+                sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_YELLOW
+                        + "Enter Student's Section" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                        " " + conc.BB_YELLOW + " " + conc.RESET);
+                sout(conc.yellowSpace);
+                sout(conc.yellowLine);
+                System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
+                String sectionName = scan.nextLine();
+                if (sec.isValidSectionValue("section_name", sectionName)) {
+                    isValidSectionName = true;
+                    values.put("section_name", sectionName);
+                } else {
+                    sout(conc.redLine);
+                    sout(conc.redSpace);
+                    sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                            + "Invalid section name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                            " " + conc.BB_RED + " " + conc.RESET);
+                    sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                            + "Please enter a valid section name." + conc.BB_BLACK + "\t\t\t" +
+                            " " + conc.BB_RED + " " + conc.RESET);
+                    sout(conc.redSpace);
+                    sout(conc.redLine);
+                }
+            }
+            sc.dropStudent(values);
+            DisplayStudentMenu();
+        } catch (Exception e) {
+            Input.COut("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    static private void updateStudent() {
         CourseModel cm = new CourseModel();
         SectionModel secm = new SectionModel();
         StudentModel sm = new StudentModel();
         sc.displayStudents(sm, cm, secm);
 
-         System.out.println("\n"+conc.yellowLine);
-         System.out.println(conc.yellowSpace);
-         System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Student ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                 " "+conc.BB_YELLOW+" "+conc.RESET);
-         System.out.println(conc.yellowSpace);
-         System.out.println(conc.yellowLine);
-         System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+        sout("\n" + conc.yellowLine);
+        sout(conc.yellowSpace);
+        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                + "Enter Student ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                " " + conc.BB_YELLOW + " " + conc.RESET);
+        sout(conc.yellowSpace);
+        sout(conc.yellowLine);
+        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
         int studentId = scan.nextInt();
         sm.setStudentId(studentId); // Set the student ID in the model
         try {
             updateStudentField(studentId);
         } catch (InterruptedException e) {
-            System.out.println(conc.redLine);
-            System.out.println(conc.redSpace);
-            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid section name"+conc.BB_BLACK+"\t\t\t\t\t" +
-                    " "+conc.BB_RED+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter a valid section name."+conc.BB_BLACK+"\t\t\t" +
-                    " "+conc.BB_RED+" "+conc.RESET);
-            System.out.println(conc.redSpace);
-            System.out.println(conc.redLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
-            Input.COut( e.getMessage());
+            sout(conc.redLine);
+            sout(conc.redSpace);
+            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_RED
+                    + "Invalid section name" + conc.BB_BLACK + "\t\t\t\t\t" +
+                    " " + conc.BB_RED + " " + conc.RESET);
+            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_RED
+                    + "Please enter a valid section name." + conc.BB_BLACK + "\t\t\t" +
+                    " " + conc.BB_RED + " " + conc.RESET);
+            sout(conc.redSpace);
+            sout(conc.redLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
+            Input.COut(e.getMessage());
         }
-     }
-     
-     
-     static private void updateStudentField(int StudentID) throws InterruptedException {
+    }
+
+    static private void updateStudentField(int StudentID) throws InterruptedException {
 
         LinkedHashMap<String, Object> value = new LinkedHashMap<>();
         boolean updatingStudent = true;
 
         while (updatingStudent) {
-            System.out.println(conc.whiteLine);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"Select to Update Student"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Update Firstname"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Update Lastname "+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Update Date of Birth"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Update Sex (F/M)"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Update Year Level"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[6] Update Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[7] Update Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[8] Update archived"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[9] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
-            System.out.println(conc.whiteSpace);
-            System.out.println(conc.whiteLine);
-            System.out.println("\n"+conc.yellowLine);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Choose an option"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                    " "+conc.BB_YELLOW+" "+conc.RESET);
-            System.out.println(conc.yellowSpace);
-            System.out.println(conc.yellowLine);
-            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+            sout(conc.whiteLine);
+            sout(conc.whiteSpace);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "Select to Update Student" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.whiteSpace);
+            sout(conc.whiteLine);
+            sout(conc.whiteSpace);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[1] Update Firstname" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[2] Update Lastname " + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[3] Update Date of Birth" + conc.BB_BLACK + "\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[4] Update Sex (F/M)" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[5] Update Year Level" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[6] Update Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[7] Update Section ID" + conc.BB_BLACK + "\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[8] Update archived" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.center + conc.BB_WHITE + " " + conc.BB_BLACK + "\t\t\t\t\t" + conc.BR_BLUE
+                    + "[9] Finish Update" + conc.BB_BLACK + "\t\t\t\t\t\t\t " + conc.BB_WHITE + " " + conc.RESET);
+            sout(conc.whiteSpace);
+            sout(conc.whiteLine);
+            sout("\n" + conc.yellowLine);
+            sout(conc.yellowSpace);
+            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t" + conc.BR_YELLOW
+                    + "Choose an option" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                    " " + conc.BB_YELLOW + " " + conc.RESET);
+            sout(conc.yellowSpace);
+            sout(conc.yellowLine);
+            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
             int choice = scan.nextInt();
             scan.nextLine(); // Clear newline character
             try {
                 switch (choice) {
                     case 1 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter new firstname"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        sout("\n" + conc.yellowLine);
+                        sout(conc.yellowSpace);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                + conc.BR_YELLOW + "Enter new firstname" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.yellowSpace);
+                        sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         String newFirstname = scan.nextLine();
                         value.put("first_name", newFirstname);
                     }
                     case 2 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter new lastname"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        sout("\n" + conc.yellowLine);
+                        sout(conc.yellowSpace);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                + conc.BR_YELLOW + "Enter new lastname" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.yellowSpace);
+                        sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         String newLastname = scan.nextLine();
                         value.put("last_name", newLastname);
                     }
                     case 3 -> {
                         boolean validDate = false;
                         while (!validDate) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter Birth Date (yyyy-mm-dd)"+conc.BB_BLACK+"\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            sout("\n" + conc.yellowLine);
+                            sout(conc.yellowSpace);
+                            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t"
+                                    + conc.BR_YELLOW + "Enter Birth Date (yyyy-mm-dd)" + conc.BB_BLACK + "\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            sout(conc.yellowSpace);
+                            sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             String birthDate = scan.nextLine();
                             if (ic.isValidDate(birthDate)) {
                                 value.put("birth_date", Date.valueOf(birthDate));
                                 validDate = true;
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid date format"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Enter in yyyy-mm-dd format"+conc.BB_BLACK+"\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                sout(conc.redLine);
+                                sout(conc.redSpace);
+                                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                        + conc.BR_RED + "Invalid date format" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t"
+                                        + conc.BR_RED + "Enter in yyyy-mm-dd format" + conc.BB_BLACK + "\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                sout(conc.redSpace);
+                                sout(conc.redLine);
                             }
                         }
                     }
                     case 4 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter new Sex (F or M)"+conc.BB_BLACK+"\t\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        sout("\n" + conc.yellowLine);
+                        sout(conc.yellowSpace);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                + conc.BR_YELLOW + "Enter new Sex (F or M)" + conc.BB_BLACK + "\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.yellowSpace);
+                        sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         char newSex = scan.nextLine().toUpperCase().charAt(0);
                         if (newSex == 'M' || newSex == 'F') {
                             value.put("sex", newSex);
                         } else {
-                            System.out.println(conc.redLine);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid input"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Enter F or M only"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.redLine);
+                            sout(conc.redLine);
+                            sout(conc.redSpace);
+                            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                    + conc.BR_RED + "Invalid input" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                    + conc.BR_RED + "Enter F or M only" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            sout(conc.redSpace);
+                            sout(conc.redLine);
                         }
                     }
                     case 5 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter new year level"+conc.BB_BLACK+"\t\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        sout("\n" + conc.yellowLine);
+                        sout(conc.yellowSpace);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                + conc.BR_YELLOW + "Enter new year level" + conc.BB_BLACK + "\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.yellowSpace);
+                        sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         int newYearLevel = scan.nextInt();
                         scan.nextLine(); // Clear newline character
                         value.put("year_level", newYearLevel);
@@ -616,26 +678,29 @@ public class StudentView {
                         cc.displayAllCourse(new CourseModel());
                         boolean validCourseID = false;
                         while (!validCourseID) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            sout("\n" + conc.yellowLine);
+                            sout(conc.yellowSpace);
+                            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                    + conc.BR_YELLOW + "Enter Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            sout(conc.yellowSpace);
+                            sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             courseId = scan.nextInt();
                             if (cc.isValidCourse("course_id", courseId)) {
                                 value.put("course_id", courseId);
                                 validCourseID = true;
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                sout(conc.redLine);
+                                sout(conc.redSpace);
+                                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                        + conc.BR_RED + "Invalid Course ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                        + conc.BR_RED + "Please try again" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                sout(conc.redSpace);
+                                sout(conc.redLine);
                             }
                         }
 
@@ -645,58 +710,66 @@ public class StudentView {
                         sec.displayAllSection(new SectionModel(), new CourseModel());
                         boolean validSectionID = false;
                         while (!validSectionID) {
-                            System.out.println("\n"+conc.yellowLine);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_YELLOW+" "+conc.RESET);
-                            System.out.println(conc.yellowSpace);
-                            System.out.println(conc.yellowLine);
-                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                            sout("\n" + conc.yellowLine);
+                            sout(conc.yellowSpace);
+                            sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                    + conc.BR_YELLOW + "Enter Section ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_YELLOW + " " + conc.RESET);
+                            sout(conc.yellowSpace);
+                            sout(conc.yellowLine);
+                            System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                             sectionId = scan.nextInt();
                             if (sec.isValidSectionValue("section_id", sectionId)) {
                                 value.put("section_id", sectionId);
                                 validSectionID = true;
                             } else {
-                                System.out.println(conc.redLine);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                        " "+conc.BB_RED+" "+conc.RESET);
-                                System.out.println(conc.redSpace);
-                                System.out.println(conc.redLine);
+                                sout(conc.redLine);
+                                sout(conc.redSpace);
+                                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                        + conc.BR_RED + "Invalid Section ID" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                        + conc.BR_RED + "Please try again" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                        " " + conc.BB_RED + " " + conc.RESET);
+                                sout(conc.redSpace);
+                                sout(conc.redLine);
                             }
                         }
                     }
                     case 8 -> {
-                        System.out.println("\n"+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Toggle Archived Status"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"\tCurrently ("+ value.getOrDefault("archived", "No")
-                                +")."+conc.BB_BLACK+"\t\t\t\t\t\t\t" + " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(""+conc.yellowLine);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter 'Y' to Archive or 'N' to Unarchive"+conc.BB_BLACK+"\t\t" +
-                                " "+conc.BB_YELLOW+" "+conc.RESET);
-                        System.out.println(conc.yellowSpace);
-                        System.out.println(conc.yellowLine);
-                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
+                        sout("\n" + conc.yellowLine);
+                        sout(conc.yellowSpace);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t"
+                                + conc.BR_YELLOW + "Toggle Archived Status" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t\t"
+                                + conc.BR_YELLOW + "\tCurrently (" + value.getOrDefault("archived", "No")
+                                + ")." + conc.BB_BLACK + "\t\t\t\t\t\t\t" + " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.yellowSpace);
+                        sout("" + conc.yellowLine);
+                        sout(conc.yellowSpace);
+                        sout(conc.center + conc.BB_YELLOW + " " + conc.BB_BLACK + "\t\t\t\t"
+                                + conc.BR_YELLOW + "Enter 'Y' to Archive or 'N' to Unarchive" + conc.BB_BLACK + "\t\t" +
+                                " " + conc.BB_YELLOW + " " + conc.RESET);
+                        sout(conc.yellowSpace);
+                        sout(conc.yellowLine);
+                        System.out.print(conc.YELLOW + "\n" + conc.center + "\t\t\t\t\t\t\t" + conc.RESET);
                         char archivedChoice = scan.nextLine().toUpperCase().charAt(0);
                         if (archivedChoice == 'Y') {
                             value.put("archived", true);
                         } else if (archivedChoice == 'N') {
                             value.put("archived", false);
                         } else {
-                            System.out.println(conc.redLine);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid input"+conc.BB_BLACK+"\t\t\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_RED+"Please enter 'Y' or 'N'"+conc.BB_BLACK+"\t\t\t\t\t\t" +
-                                    " "+conc.BB_RED+" "+conc.RESET);
-                            System.out.println(conc.redSpace);
-                            System.out.println(conc.redLine+"\n");
+                            sout(conc.redLine);
+                            sout(conc.redSpace);
+                            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t\t"
+                                    + conc.BR_RED + "Invalid input" + conc.BB_BLACK + "\t\t\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            sout(conc.center + conc.BB_RED + " " + conc.BB_BLACK + "\t\t\t\t\t"
+                                    + conc.BR_RED + "Please enter 'Y' or 'N'" + conc.BB_BLACK + "\t\t\t\t\t\t" +
+                                    " " + conc.BB_RED + " " + conc.RESET);
+                            sout(conc.redSpace);
+                            sout(conc.redLine + "\n");
                         }
                     }
                     case 9 -> {
@@ -712,10 +785,13 @@ public class StudentView {
 
                 }
             } catch (InputMismatchException e) {
-                    Input.COut("Invalid input. Please enter a valid option.");
+                Input.COut("Invalid input. Please enter a valid option.");
                 scan.nextLine(); // Clear invalid input
             }
         }
     }
-    
+
+    private static void sout(String input) {
+        System.out.println(input);
+    }
 }
