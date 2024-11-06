@@ -54,9 +54,13 @@ public class ConsoleColors {
             "                             "+ConsoleColors.BB_GREEN+" "+ConsoleColors.RESET;
     public static final String redSpace = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+ConsoleColors.BB_RED+" "+ConsoleColors.BG_BLACK+"                                   " +
             "                             "+ConsoleColors.BB_RED+" "+ConsoleColors.RESET;
+    public static final String yellowSpace = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"+ConsoleColors.BB_YELLOW+" "+ConsoleColors.BG_BLACK+"                                   " +
+            "                             "+ConsoleColors.BB_YELLOW+" "+ConsoleColors.RESET;
+
 
     public static final String whiteLine = ConsoleColors.center+ConsoleColors.BB_WHITE+"                                                                  "+ConsoleColors.RESET;
     public static final String greenLine = ConsoleColors.center+ConsoleColors.BB_GREEN+"                                                                  "+ConsoleColors.RESET;
     public static final String redLine = ConsoleColors.center+ConsoleColors.BB_RED+"                                                                  "+ConsoleColors.RESET;
+    public static final String yellowLine = ConsoleColors.center+ConsoleColors.BB_YELLOW+"                                                                  "+ConsoleColors.RESET;
 }
 
