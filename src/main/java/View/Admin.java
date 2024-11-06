@@ -6,6 +6,7 @@ import Utils.*;
 import Model.AdminModel;
 
 public class Admin {
+    private static ConsoleColors cc = new ConsoleColors();
     static Scanner sc = new Scanner(System.in);
     static private final AdminController ac = new AdminController();
 
@@ -15,21 +16,38 @@ public class Admin {
             while (!authenticated) {
                 ClearConsole.Cls();
                 MainMenu.MainMenuHeader();
-                System.out.println("\n|--------------------------LOGIN--------------------------|\n");
-                System.out.print("Username: ");
+                System.out.println(cc.center+cc.BB_WHITE+" "+cc.BB_BLACK+"\t\t\t\t\t\t  "+cc.BR_GREEN+"L  O  G  I  N"+cc.BB_BLACK+"\t\t\t\t\t\t\t "+cc.BB_WHITE+" "+cc.RESET);
+                System.out.println(cc.whiteSpace);
+                System.out.println(cc.whiteLine);
+                System.out.print(cc.YELLOW+"\n"+cc.center+"Enter Username: "+cc.RESET);
                 String username = Input.getUserInput();
-                System.out.print("Password: ");
+                System.out.print(cc.YELLOW+"\n"+cc.center+"Enter Password: "+cc.RESET);
                 String password = Input.getUserInput();
 
                 authenticated = ac.authenticateAdmin(new AdminModel(username, password));
 
                 if (authenticated) {
-                    System.out.println("-------------Access Granted. Redirecting------------\n");
+                    System.out.println(cc.greenLine);
+                    System.out.println(cc.greenSpace);
+                    System.out.println(cc.center+cc.BB_GREEN+" "+cc.BB_BLACK+"\t\t\t\t\t\t  "+cc.BR_GREEN+"Access Granted"+cc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+cc.BB_GREEN+" "+cc.RESET);
+                    System.out.println(cc.center+cc.BB_GREEN+" "+cc.BB_BLACK+"\t\t\t\t\t  "+cc.BR_GREEN+"R E D I R E C T I N G"+cc.BB_BLACK+"\t\t\t\t\t\t" +
+                            " "+cc.BB_GREEN+" "+cc.RESET);
+                    System.out.println(cc.greenSpace);
+                    System.out.println(cc.greenLine);
                     Thread.sleep(600);
                     return true;
                 } else {
-                    System.out.println("\n----------Wrong Username or Password----------\n");
-                    System.out.print("Press [1] to Retry or any other key to Exit: ");
+                    System.out.println(cc.redLine);
+                    System.out.println(cc.redSpace);
+                    System.out.println(cc.center+cc.BB_RED+" "+cc.BB_BLACK+"\t\t\t\t\t"+cc.BR_RED+"Wrong Username or Password"+cc.BB_BLACK+"\t\t\t\t\t" +
+                            " "+cc.BB_RED+" "+cc.RESET);
+                    System.out.println(cc.center+cc.BB_RED+" "+cc.BB_BLACK+"\t\t\t  "+cc.BR_RED+"Press [1] to Retry or any other key to Exit"+cc.BB_BLACK+"\t\t" +
+                            " "+cc.BB_RED+" "+cc.RESET);
+                    System.out.println(cc.redSpace);
+                    System.out.println(cc.redLine);
+
+                    System.out.print(cc.YELLOW+"\n"+cc.center+"Enter response: "+cc.RESET);
                     String retry = sc.next();
                     if (!retry.equals("1")) {
                         return false;
@@ -37,7 +55,13 @@ public class Admin {
                 }
             }
         } catch (Exception e) {
-            System.out.println("---------- Error Logging in: " + e + " ----------");
+            System.out.println(cc.redLine);
+            System.out.println(cc.redSpace);
+            System.out.println(cc.center+cc.BB_RED+" "+cc.BB_BLACK+"\t\t\t\t\t\t"+cc.BR_RED+"Error Logging in"+cc.BB_BLACK+"\t\t\t\t\t\t" +
+                    " "+cc.BB_RED+" "+cc.RESET);
+            System.out.println(cc.redSpace);
+            System.out.println(cc.redLine);
+            System.out.print(cc.YELLOW+"\n"+cc.center+e+cc.RESET);
         }
         return authenticated;
     }

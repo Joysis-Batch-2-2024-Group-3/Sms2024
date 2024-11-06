@@ -24,7 +24,7 @@ public class SectionController extends Db implements SectionRepository {
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_SECTIONS);
             Input.HeaderBox("Display All Section");
-            System.out.printf("%-10s | %-25s | %-25s \n", "ID", "Section Name", "Course Name");
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-10s | %-25s | %-25s \u001B[0m\n", "ID", "Section Name", "Course Name"); 
 
             while (result.next()) {
                 section.setSectionId(result.getInt("section_id"));
@@ -63,7 +63,7 @@ public class SectionController extends Db implements SectionRepository {
             prep.setString(1, "%" + value + "%");
             result = prep.executeQuery();
             Input.HeaderBox("Filter Sections");
-            System.out.printf(" %-10s | %-25s | %-25s | \n", "ID", "Section Name", "Course Name");
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-10s | %-25s | %-25s \u001B[0m\n", "ID", "Section Name", "Course Name");
 
             while (result.next()) {
                 section.setSectionId(result.getInt("section_id"));

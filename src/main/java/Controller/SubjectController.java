@@ -21,7 +21,7 @@ public class SubjectController extends Db implements SubjectRepository {
             result = state.executeQuery(DISPLAY_SUBJECT);
 
             Input.HeaderBox("All Subjects");
-            System.out.printf("| %-10s | %-30s | %-30s |\n", "ID", "Subject Name", "Course Name");
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m| %-10s | %-30s | %-30s |\u001B[0m\n", "ID", "Subject Name", "Course Name");
 
             while (result.next()) {
 
@@ -58,7 +58,7 @@ public class SubjectController extends Db implements SubjectRepository {
             result = prep.executeQuery();
 
             Input.HeaderBox("Subjects By Course");
-            System.out.printf("| %-10s | %-40s | %-30s |\n", "ID", "Subject Name", "Course Name");
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m| %-10s | %-40s | %-30s |\u001B[0m\n", "ID", "Subject Name", "Course Name");
 
             while (result.next()) {
                 subject.setSubject_id(result.getInt("subject_id"));

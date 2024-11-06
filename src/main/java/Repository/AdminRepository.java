@@ -12,3 +12,4 @@ public interface AdminRepository {
         public boolean authenticateAdmin(AdminModel admin);
 
 }
+

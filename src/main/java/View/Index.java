@@ -12,8 +12,9 @@ package View;
  public class Index {
     public static void main(String[] args) {
     boolean auth = Admin.LoginAdmin();
-    if (auth){
-        MainMenu.DisplayMainMenu();
+    if(auth) {
+    MainMenu.DisplayMainMenu();
     }
+
     }
  }

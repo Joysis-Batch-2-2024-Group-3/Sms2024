@@ -7,8 +7,7 @@ package View;
 import Controller.*;
 import Model.*;
 import Model.*;
-import Utils.ClearConsole;
-import Utils.Input;
+import Utils.*;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -23,7 +22,8 @@ public class SectionView {
     private static final CourseController cc = new CourseController();
     private static Scanner scan = new Scanner(System.in);
     private static final SectionController sec = new SectionController();
-    
+    private static final ConsoleColors conc = new ConsoleColors();
+
     static void DisplaySectionMenu()
     {
          SectionModel sm = new SectionModel();
@@ -32,17 +32,21 @@ public class SectionView {
 
         while (running) {
             ClearConsole.Cls();
-            System.out.println("----------------------Section Menu------------------\n");
-            System.out.println(" ___________________________________________________");
-            System.out.println("|                                                   |");
-            System.out.println("| 1. Display All Sections                           |");
-            System.out.println("| 2. Search for Section/s                           |");
-            System.out.println("| 3. Add Section                                    |");
-            System.out.println("| 4. Delete Section by Name                         |");
-            System.out.println("| 5. Edit Section                                   |");
-            System.out.println("| 6. Back to Main Menu                              |");
-            System.out.println("|___________________________________________________|\n");
-            System.out.print("Choose an option: ");
+            MainMenu.MainMenuHeader();
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_GREEN+"S E C T I O N   M E N U"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[1] Display All Sections"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[2] Search for Section/s"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[3] Add Section"+conc.BB_BLACK+"\t\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[4] Delete Section by Name"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[5] Edit Section"+conc.BB_BLACK+"\t\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_BLUE+"[6] Back to Main Menu"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
             String choicestr = Input.getUserInput();
             int choice = Input.parseIfPossible(choicestr);
             
@@ -62,7 +66,13 @@ public class SectionView {
                     }
 
                     case 2 -> {
-                        System.out.print("\nEnter the section name or substring: ");
+                        System.out.println("\n"+conc.yellowLine);
+                        System.out.println(conc.yellowSpace);
+                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_YELLOW+"Enter the section name or substring"+conc.BB_BLACK+"\t\t\t\t" +
+                                " "+conc.BB_YELLOW+" "+conc.RESET);
+                        System.out.println(conc.yellowSpace);
+                        System.out.println(conc.yellowLine);
+                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                         String searchValue = scan.nextLine();
                         sec.filterSection("section_tbl.section_name", searchValue, sm, cm);
                         Input.HoldState();
@@ -71,20 +81,40 @@ public class SectionView {
                         ClearConsole.Cls();
                         LinkedHashMap<String, Object> values = new LinkedHashMap<String, Object>();
                         // Adding new section
-                        System.out.print("\nEnter Section Name: ");
+                        System.out.println("\n"+conc.yellowLine);
+                        System.out.println(conc.yellowSpace);
+                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section Name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                " "+conc.BB_YELLOW+" "+conc.RESET);
+                        System.out.println(conc.yellowSpace);
+                        System.out.println(conc.yellowLine);
+                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                         String sectionName = scan.nextLine();
                         values.put("`section_name`", sectionName);
                         boolean isValidCourseId = false;
                         cc.displayAllCourse(cm);
                         while (!isValidCourseId) {
-                            System.out.print("Enter Course ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t\t"+
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int courseId = scan.nextInt();
+
                             if (cc.isValidCourse("course_id", courseId)) {
                                 values.put("`course_id`", courseId);
                                 sm.setCourse_id(courseId);
                                 isValidCourseId = true;
                             } else {
-                                Input.COut("Invalid Course ID. Please try again.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                         sm.setSectionName(sectionName);
@@ -101,7 +131,13 @@ public class SectionView {
                         ClearConsole.Cls();
                         boolean isValidSectionName = false;
                         while (!isValidSectionName) {
-                            System.out.print("\nEnter the Section Name to delete: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section Name to Delete"+conc.BB_BLACK+"\t\t\t\t"+
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             String sectionName = Input.getUserInput();
                             if (sec.isValidSectionValue("section_name", sectionName)) {
                                 sec.deleteSection(sectionName);
@@ -109,7 +145,14 @@ public class SectionView {
                                 Input.HoldState();
                                 isValidSectionName = true;
                             } else {
-                                Input.COut("Invalid section name. Please enter a valid section name.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid section name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t"+conc.BR_RED+"Please enter a valid section name"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
@@ -120,7 +163,13 @@ public class SectionView {
                         sec.displayAllSection(sm, cm);
                         boolean isSectionValid = false;
                         while (!isSectionValid) {
-                            System.out.print("Enter a section ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_YELLOW+"Enter Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t"+
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int sectionId = scan.nextInt();
                             if (sec.isValidSectionValue("section_id", sectionId)) {
                                 values.put("`section_id`", sectionId);
@@ -128,6 +177,14 @@ public class SectionView {
                                 isSectionValid = true;
 
                             }else{
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please enter a valid section ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                                 Input.COut("Invalid section ID. Please enter a valid section ID.");
                             }
                         }
@@ -151,19 +208,32 @@ public class SectionView {
         boolean updatingSection = true;
 
         while (updatingSection) {
-            Input.HeaderBox("Select To Update Section");
-            System.out.println("1. Edit Section Name");
-            System.out.println("2. Edit Course ID");
-            System.out.println("3. Finish Update");
-            System.out.print("Choose an option: ");
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"Select to Update Section"+conc.BB_BLACK+"\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[1] Edit Section Name"+conc.BB_BLACK+"\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[2] Edit Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.center+conc.BB_WHITE+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_BLUE+"[3] Finish Update"+conc.BB_BLACK+"\t\t\t\t\t\t "+conc.BB_WHITE+" "+conc.RESET);
+            System.out.println(conc.whiteSpace);
+            System.out.println(conc.whiteLine);
 
+            System.out.print(conc.YELLOW+"\n"+conc.center+"Choose an option: "+conc.RESET);
             int choice = scan.nextInt();
             scan.nextLine(); // Clear newline character
 
             try {
                 switch (choice) {
                     case 1 -> {
-                        System.out.print("Enter the new Section Name: ");
+                        System.out.println("\n"+conc.yellowLine);
+                        System.out.println(conc.yellowSpace);
+                        System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter the new Section Name"+conc.BB_BLACK+"\t\t\t\t\t"+
+                                " "+conc.BB_YELLOW+" "+conc.RESET);
+                        System.out.println(conc.yellowSpace);
+                        System.out.println(conc.yellowLine);
+                        System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                         String newSectionName = scan.nextLine();
                         values.put("section_name", newSectionName);
                     }
@@ -172,27 +242,63 @@ public class SectionView {
                         cc.displayAllCourse(new CourseModel());
                         boolean isValidCourseId = false;
                         while (!isValidCourseId) {
-                            System.out.print("Enter the new Course ID: ");
+                            System.out.println("\n"+conc.yellowLine);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.center+conc.BB_YELLOW+" "+conc.BB_BLACK+"\t\t\t\t\t"+conc.BR_YELLOW+"Enter the new Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t"+
+                                    " "+conc.BB_YELLOW+" "+conc.RESET);
+                            System.out.println(conc.yellowSpace);
+                            System.out.println(conc.yellowLine);
+                            System.out.print(conc.YELLOW+"\n"+conc.center+"\t\t\t\t\t\t\t"+conc.RESET);
                             int newCourseId = scan.nextInt();
                             if (cc.isValidCourse("course_id", newCourseId)) {
                                 isValidCourseId = true;
                                 values.put("course_id", newCourseId);
                             } else {
-                                Input.COut("Invalid Course ID. Please try again.");
+                                System.out.println(conc.redLine);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Course ID"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                        " "+conc.BB_RED+" "+conc.RESET);
+                                System.out.println(conc.redSpace);
+                                System.out.println(conc.redLine);
                             }
                         }
                     }
                     case 3 -> {
                                 if(!values.isEmpty()){
-                                    sec.updateSection(values, sectionID);
                                     Input.COut("Section updated successfully.");
+
+                                    sec.updateSection(values, sectionID);
+                                    System.out.println(conc.greenLine);
+                                    System.out.println(conc.greenSpace);
+                                    System.out.println(conc.center+conc.BB_GREEN+" "+conc.BB_BLACK+"\t\t\t\t\t  "+conc.BR_GREEN+"Section Updated Successfully."+conc.BB_BLACK+"\t\t\t\t" +
+                                            " "+conc.BB_GREEN+" "+conc.RESET);
+                                    System.out.println(conc.greenSpace);
+                                    System.out.println(conc.greenLine);
                                 }
                         updatingSection = false;
                     }
-                    default -> Input.COut("Invalid option. Please try again.");
+                    default ->{
+                        System.out.println(conc.redLine);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Option"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                                " "+conc.BB_RED+" "+conc.RESET);
+                        System.out.println(conc.redSpace);
+                        System.out.println(conc.redLine);
+                    }
                 }
             } catch (InputMismatchException e) {
-                Input.COut("Invalid input. Please enter a valid option.");
+                System.out.println(conc.redLine);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Invalid Input"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.center+conc.BB_RED+" "+conc.BB_BLACK+"\t\t\t\t\t\t"+conc.BR_RED+"Please try again"+conc.BB_BLACK+"\t\t\t\t\t\t" +
+                        " "+conc.BB_RED+" "+conc.RESET);
+                System.out.println(conc.redSpace);
+                System.out.println(conc.redLine);
                 scan.nextLine(); // Clear invalid input
             }
         }
