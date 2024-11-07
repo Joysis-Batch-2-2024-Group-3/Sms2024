@@ -530,6 +530,7 @@ public class ScheduleView {
         }
     }
 
+
     private static void Sout(String input) {
         System.out.println(input);
     }

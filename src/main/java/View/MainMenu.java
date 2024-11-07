@@ -122,8 +122,7 @@ public class MainMenu {
             case "3" -> SectionView.DisplaySectionMenu();
             case "4" -> SubjectView.DisplaySubjectMenu();
             case "5" -> ScheduleView.DisplayScheduleView();
-            case "6" -> SubjectView.DisplaySubjectMenu();
-
+            case "6" -> StudentSubject.DisplaySubjectView();
             case "7" -> {
                 Sout(cc.redLine);
                 Sout(cc.redSpace);
