@@ -4,7 +4,6 @@ import Db.Db;
 import Model.CourseModel;
 import Model.SectionModel;
 import Repository.SectionRepository;
-import Utils.ClearConsole;
 import Utils.Input;
 
 import java.sql.SQLException;
@@ -24,7 +23,8 @@ public class SectionController extends Db implements SectionRepository {
             state = con.createStatement();
             result = state.executeQuery(DISPLAY_SECTIONS);
             Input.HeaderBox("Display All Section");
-            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-10s | %-25s | %-25s \u001B[0m\n", "ID", "Section Name", "Course Name"); 
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-10s | %-25s | %-25s \u001B[0m\n", "ID", "Section Name",
+                    "Course Name");
 
             while (result.next()) {
                 section.setSectionId(result.getInt("section_id"));
@@ -35,23 +35,24 @@ public class SectionController extends Db implements SectionRepository {
                         section.getSectionId(), section.getSectionName(), course.getCourseName());
             }
             System.out.println("\n|=================================================================|\n");
-         
+
         } catch (SQLException e) {
             Input.COut("SQL error while retrieving sections: " + e.getMessage());
         } catch (Exception e) {
             Input.COut("Error while retrieving sections: " + e.getMessage());
         } finally {
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException e) {
                 Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
-    
-    
 
     @Override
     public void filterSection(String Key, Object value, SectionModel section, CourseModel course) {
@@ -63,26 +64,31 @@ public class SectionController extends Db implements SectionRepository {
             prep.setString(1, "%" + value + "%");
             result = prep.executeQuery();
             Input.HeaderBox("Filter Sections");
-            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-10s | %-25s | %-25s \u001B[0m\n", "ID", "Section Name", "Course Name");
+            System.out.printf("\u001B[42m\u001B[1m\u001B[97m%-10s | %-25s | %-25s \u001B[0m\n", "ID", "Section Name",
+                    "Course Name");
 
             while (result.next()) {
                 section.setSectionId(result.getInt("section_id"));
                 section.setSectionName(result.getString("section_name"));
                 course.setCourseName(result.getString("course_name"));
 
-                System.out.printf(" %-10d | %-25s | %-25s | \n", section.getSectionId(), section.getSectionName(), course.getCourseName());
+                System.out.printf(" %-10d | %-25s | %-25s | \n", section.getSectionId(), section.getSectionName(),
+                        course.getCourseName());
             }
         } catch (SQLException e) {
             Input.COut("SQL error while filtering sections: " + e.getMessage());
         } catch (Exception e) {
-             Input.COut("SQL error while filtering sections: " + e.getMessage());
+            Input.COut("SQL error while filtering sections: " + e.getMessage());
         } finally {
             try {
-                if (result != null) result.close();
-                if (state != null) state.close();
-                if (con != null) con.close();
+                if (result != null)
+                    result.close();
+                if (state != null)
+                    state.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException e) {
-                 Input.COut("Error closing resources: " + e.getMessage());
+                Input.COut("Error closing resources: " + e.getMessage());
             }
         }
     }
@@ -109,8 +115,10 @@ public class SectionController extends Db implements SectionRepository {
             System.out.println("SQL Error in adding section: " + e.getMessage());
         } finally {
             try {
-                if (prep != null) prep.close();
-                if (con != null) con.close();
+                if (prep != null)
+                    prep.close();
+                if (con != null)
+                    con.close();
             } catch (Exception e) {
                 System.out.println("Error in closing resources in section");
             }
@@ -133,11 +141,13 @@ public class SectionController extends Db implements SectionRepository {
         } catch (SQLException e) {
             Input.COut("SQL Error in deleting section: " + e.getMessage());
         } catch (Exception e) {
-                Input.COut("SQL Error in deleting section: " + e.getMessage());
+            Input.COut("SQL Error in deleting section: " + e.getMessage());
         } finally {
             try {
-                if (prep != null) prep.close();
-                if (con != null) con.close();
+                if (prep != null)
+                    prep.close();
+                if (con != null)
+                    con.close();
             } catch (Exception e) {
                 Input.COut("Error in closing resources in section: " + e.getMessage());
             }
@@ -188,8 +198,10 @@ public class SectionController extends Db implements SectionRepository {
             Input.COut("Error updating section record: " + e.getMessage());
         } finally {
             try {
-                if (prep != null) prep.close();
-                if (con != null) con.close();
+                if (prep != null)
+                    prep.close();
+                if (con != null)
+                    con.close();
             } catch (SQLException e) {
                 Input.COut("Error closing resources: " + e.getMessage());
             }
